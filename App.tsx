@@ -4,7 +4,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { BookmarkForm } from './components/BookmarkForm';
-import { BookmarkList } from './components/BookmarkList';
+import { AdvancedVirtualizedList } from './components/AdvancedVirtualizedList';
 import { SearchBar } from './components/SearchBar';
 import { SyncStatus } from './components/SyncStatus';
 import { Settings } from './components/Settings';
@@ -134,10 +134,12 @@ const App: React.FC = () => {
                     </div>
                     <SortDropdown sortOrder={sortOrder} onSortChange={setSortOrder} />
                 </div>
-                <BookmarkList
+                <AdvancedVirtualizedList
                     bookmarks={sortedAndFilteredBookmarks}
                     onDelete={deleteBookmark}
                     onEdit={handleStartEditing}
+                    containerHeight={400}
+                    estimatedItemHeight={120}
                 />
                 <button
                     onClick={() => {

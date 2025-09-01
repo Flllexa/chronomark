@@ -31,6 +31,19 @@ interface BookmarkItemProps {
 }
 
 export const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onDelete, onEdit }) => {
+    // Verificação de segurança para bookmark undefined
+    if (!bookmark || !bookmark.url || !bookmark.title) {
+        return (
+            <div className="bookmark-item">
+                <div className="bookmark-item-content">
+                    <p style={{ color: '#ef4444', fontStyle: 'italic' }}>
+                        Invalid bookmark data
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     const { safeUrl, isSafe } = sanitizeUrl(bookmark.url);
     
     return (

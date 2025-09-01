@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Icons</title>
+</head>
+<body>
+    <h1>Generate ChronoMark Icons</h1>
+    <button onclick="generateIcon(16)">Generate 16x16</button>
+    <button onclick="generateIcon(48)">Generate 48x48</button>
+    <button onclick="generateIcon(128)">Generate 128x128</button>
+    <br><br>
+    <canvas id="canvas" style="border: 1px solid black;"></canvas>
+    <br><br>
+    <a id="download" style="display: none;">Download Icon</a>
+
+    <script>
+        function generateIcon(size) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Background
+            ctx.fillStyle = '#06b6d4';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Bookmark lines
+            ctx.fillStyle = 'white';
+            const lineHeight = Math.max(1, size * 0.0625);
+            const lineSpacing = size * 0.125;
+            const startY = size * 0.375;
+            
+            // Line 1
+            ctx.fillRect(size * 0.25, startY, size * 0.5, lineHeight);
+            // Line 2
+            ctx.fillRect(size * 0.25, startY + lineSpacing, size * 0.375, lineHeight);
+            // Line 3
+            ctx.fillRect(size * 0.25, startY + lineSpacing * 2, size * 0.5, lineHeight);
+            
+            // Download link
+            const link = document.getElementById('download');
+            link.href = canvas.toDataURL('image/png');
+            link.download = `icon${size}.png`;
+            link.style.display = 'inline';
+            link.textContent = `Download icon${size}.png`;
+        }
+    </script>
+</body>
+</html>

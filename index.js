@@ -1084,7 +1084,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState6(initialState) {
+          function useState8(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1092,11 +1092,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef3(initialValue) {
+          function useRef4(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect6(create, deps) {
+          function useEffect7(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1108,11 +1108,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useLayoutEffect(create, deps);
           }
-          function useCallback2(callback, deps) {
+          function useCallback4(callback, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo4(create, deps) {
+          function useMemo5(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1875,19 +1875,19 @@
           exports.memo = memo;
           exports.startTransition = startTransition;
           exports.unstable_act = act;
-          exports.useCallback = useCallback2;
+          exports.useCallback = useCallback4;
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect6;
+          exports.useEffect = useEffect7;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
           exports.useLayoutEffect = useLayoutEffect;
-          exports.useMemo = useMemo4;
+          exports.useMemo = useMemo5;
           exports.useReducer = useReducer;
-          exports.useRef = useRef3;
-          exports.useState = useState6;
+          exports.useRef = useRef4;
+          exports.useState = useState8;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2383,9 +2383,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React6 = require_react();
+          var React7 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React6.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React7.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3992,7 +3992,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React6.Children.forEach(props.children, function(child) {
+                  React7.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -23588,7 +23588,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React6 = require_react();
+          var React7 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -23614,7 +23614,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React6.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React7.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -24464,11 +24464,11 @@
               return jsxWithValidation(type, props, key, false);
             }
           }
-          var jsx15 = jsxWithValidationDynamic;
-          var jsxs12 = jsxWithValidationStatic;
+          var jsx16 = jsxWithValidationDynamic;
+          var jsxs14 = jsxWithValidationStatic;
           exports.Fragment = REACT_FRAGMENT_TYPE;
-          exports.jsx = jsx15;
-          exports.jsxs = jsxs12;
+          exports.jsx = jsx16;
+          exports.jsxs = jsxs14;
         })();
       }
     }
@@ -24487,11 +24487,11 @@
   });
 
   // index.tsx
-  var import_react6 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // App.tsx
-  var import_react5 = __toESM(require_react());
+  var import_react7 = __toESM(require_react());
 
   // components/BookmarkForm.tsx
   var import_react = __toESM(require_react());
@@ -24687,6 +24687,9 @@
     ] }) });
   };
 
+  // components/AdvancedVirtualizedList.tsx
+  var import_react2 = __toESM(require_react());
+
   // components/BookmarkItem.tsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime());
   var sanitizeUrl = (url) => {
@@ -24705,6 +24708,9 @@
     }
   };
   var BookmarkItem = ({ bookmark, onDelete, onEdit }) => {
+    if (!bookmark || !bookmark.url || !bookmark.title) {
+      return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "bookmark-item", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "bookmark-item-content", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { style: { color: "#ef4444", fontStyle: "italic" }, children: "Invalid bookmark data" }) }) });
+    }
     const { safeUrl, isSafe } = sanitizeUrl(bookmark.url);
     return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item", children: [
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item-header", children: [
@@ -24735,21 +24741,123 @@
     ] });
   };
 
-  // components/BookmarkList.tsx
+  // components/AdvancedVirtualizedList.tsx
   var import_jsx_runtime5 = __toESM(require_jsx_runtime());
-  var BookmarkList = ({ bookmarks, onDelete, onEdit }) => {
+  var AdvancedVirtualizedList = ({
+    bookmarks,
+    onDelete,
+    onEdit,
+    containerHeight = 400,
+    estimatedItemHeight = 120
+  }) => {
+    const [scrollTop, setScrollTop] = (0, import_react2.useState)(0);
+    const [itemPositions, setItemPositions] = (0, import_react2.useState)([]);
+    const [measuredItems, setMeasuredItems] = (0, import_react2.useState)(/* @__PURE__ */ new Set());
+    const containerRef = (0, import_react2.useRef)(null);
+    const itemRefs = (0, import_react2.useRef)(/* @__PURE__ */ new Map());
+    const calculateItemPositions = (0, import_react2.useCallback)(() => {
+      const positions = [];
+      let currentTop = 0;
+      bookmarks.forEach((bookmark) => {
+        const measuredItem = measuredItems.has(bookmark.id);
+        const height = measuredItem ? itemRefs.current.get(bookmark.id)?.offsetHeight || estimatedItemHeight : estimatedItemHeight;
+        positions.push({
+          id: bookmark.id,
+          top: currentTop,
+          height
+        });
+        currentTop += height;
+      });
+      setItemPositions(positions);
+    }, [bookmarks, measuredItems, estimatedItemHeight]);
+    const visibleItems = (0, import_react2.useMemo)(() => {
+      if (itemPositions.length === 0) return [];
+      const startIndex = itemPositions.findIndex((pos) => pos.top + pos.height > scrollTop);
+      const endIndex = itemPositions.findIndex((pos) => pos.top > scrollTop + containerHeight);
+      const start = Math.max(0, startIndex === -1 ? 0 : startIndex);
+      const end = endIndex === -1 ? itemPositions.length : endIndex + 1;
+      return itemPositions.slice(start, end).map((pos) => {
+        const bookmark = bookmarks.find((b) => b.id === pos.id);
+        return bookmark ? { ...pos, bookmark } : null;
+      }).filter(Boolean);
+    }, [itemPositions, scrollTop, containerHeight, bookmarks]);
+    const measureItem = (0, import_react2.useCallback)((id, element) => {
+      const height = element.offsetHeight;
+      if (height > 0 && !measuredItems.has(id)) {
+        setMeasuredItems((prev) => new Set(prev).add(id));
+        itemRefs.current.set(id, element);
+      }
+    }, [measuredItems]);
+    const handleScroll = (0, import_react2.useCallback)((e) => {
+      setScrollTop(e.currentTarget.scrollTop);
+    }, []);
+    const handleItemRef = (0, import_react2.useCallback)((id) => (element) => {
+      if (element) {
+        measureItem(id, element);
+      }
+    }, [measureItem]);
+    (0, import_react2.useEffect)(() => {
+      calculateItemPositions();
+    }, [calculateItemPositions]);
+    (0, import_react2.useEffect)(() => {
+      if (containerRef.current) {
+        setScrollTop(containerRef.current.scrollTop);
+      }
+    }, [bookmarks]);
     if (bookmarks.length === 0) {
       return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "bookmark-list-empty", children: "No bookmarks found." });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "bookmark-list", children: bookmarks.map((bookmark) => /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-      BookmarkItem,
+    const totalHeight = itemPositions.length > 0 ? itemPositions[itemPositions.length - 1].top + itemPositions[itemPositions.length - 1].height : bookmarks.length * estimatedItemHeight;
+    return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+      "div",
       {
-        bookmark,
-        onDelete,
-        onEdit
-      },
-      bookmark.id
-    )) });
+        ref: containerRef,
+        className: "advanced-virtualized-list",
+        style: {
+          height: containerHeight,
+          overflowY: "auto",
+          position: "relative"
+        },
+        onScroll: handleScroll,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { style: { height: totalHeight } }),
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+            "div",
+            {
+              className: "virtualized-items-container",
+              style: {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0
+              },
+              children: visibleItems.map(({ id, top, height, bookmark }) => /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                "div",
+                {
+                  ref: handleItemRef(id),
+                  style: {
+                    position: "absolute",
+                    top,
+                    left: 0,
+                    right: 0,
+                    height
+                  },
+                  children: bookmark && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                    BookmarkItem,
+                    {
+                      bookmark,
+                      onDelete,
+                      onEdit
+                    }
+                  )
+                },
+                id
+              ))
+            }
+          )
+        ]
+      }
+    );
   };
 
   // components/SearchBar.tsx
@@ -24844,7 +24952,7 @@
   };
 
   // components/Settings.tsx
-  var import_react3 = __toESM(require_react());
+  var import_react5 = __toESM(require_react());
 
   // components/ToggleSwitch.tsx
   var import_jsx_runtime8 = __toESM(require_jsx_runtime());
@@ -24872,15 +24980,259 @@
   };
 
   // components/TagManagementItem.tsx
-  var import_react2 = __toESM(require_react());
+  var import_react4 = __toESM(require_react());
+
+  // hooks/useModal.ts
+  var import_react3 = __toESM(require_react());
+  var useModal = () => {
+    const [modalState, setModalState] = (0, import_react3.useState)({
+      isOpen: false,
+      title: "",
+      message: "",
+      type: "info",
+      confirmText: "OK",
+      cancelText: "Cancel",
+      showCancel: true
+    });
+    const closeModal = (0, import_react3.useCallback)(() => {
+      setModalState((prev) => ({ ...prev, isOpen: false }));
+    }, []);
+    const showAlert = (0, import_react3.useCallback)((message, title = "Information", type = "info") => {
+      return new Promise((resolve) => {
+        setModalState({
+          isOpen: true,
+          title,
+          message,
+          type,
+          confirmText: "OK",
+          cancelText: "Cancel",
+          showCancel: false,
+          onConfirm: () => resolve(),
+          onCancel: () => resolve()
+        });
+      });
+    }, []);
+    const showConfirm = (0, import_react3.useCallback)((message, title = "Confirmation", type = "warning") => {
+      return new Promise((resolve) => {
+        setModalState({
+          isOpen: true,
+          title,
+          message,
+          type,
+          confirmText: "Yes",
+          cancelText: "No",
+          showCancel: true,
+          onConfirm: () => resolve(true),
+          onCancel: () => resolve(false)
+        });
+      });
+    }, []);
+    const showCustomModal = (0, import_react3.useCallback)((title, message, options = {}) => {
+      setModalState({
+        isOpen: true,
+        title,
+        message,
+        type: options.type || "info",
+        confirmText: options.confirmText || "OK",
+        cancelText: options.cancelText || "Cancel",
+        showCancel: options.showCancel !== false,
+        onConfirm: options.onConfirm,
+        onCancel: options.onCancel
+      });
+    }, []);
+    return {
+      modalState,
+      closeModal,
+      showAlert,
+      showConfirm,
+      showCustomModal
+    };
+  };
+
+  // components/Modal.tsx
   var import_jsx_runtime9 = __toESM(require_jsx_runtime());
+  var Modal = ({
+    isOpen,
+    onClose,
+    title,
+    message,
+    type = "info",
+    confirmText = "OK",
+    cancelText = "Cancel",
+    onConfirm,
+    onCancel,
+    showCancel = true
+  }) => {
+    if (!isOpen) return null;
+    const handleConfirm = () => {
+      if (onConfirm) {
+        onConfirm();
+      }
+      onClose();
+    };
+    const handleCancel = () => {
+      if (onCancel) {
+        onCancel();
+      }
+      onClose();
+    };
+    const getIcon = () => {
+      const iconStyle = { width: "1.5rem", height: "1.5rem" };
+      switch (type) {
+        case "warning":
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("svg", { style: { ...iconStyle, color: "#eab308" }, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" }) });
+        case "error":
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("svg", { style: { ...iconStyle, color: "#ef4444" }, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }) });
+        case "success":
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("svg", { style: { ...iconStyle, color: "#22c55e" }, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" }) });
+        default:
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("svg", { style: { ...iconStyle, color: "#3b82f6" }, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }) });
+      }
+    };
+    return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { style: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 50,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+        "div",
+        {
+          style: {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(4px)",
+            animation: "modalFadeIn 0.2s ease-out"
+          },
+          onClick: onClose
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { style: {
+        position: "relative",
+        backgroundColor: "#1e293b",
+        borderRadius: "8px",
+        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        maxWidth: "28rem",
+        width: "100%",
+        margin: "0 1rem",
+        border: "1px solid #334155",
+        animation: "modalSlideIn 0.3s ease-out"
+      }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { style: {
+          display: "flex",
+          alignItems: "center",
+          padding: "1rem",
+          borderBottom: "1px solid #334155"
+        }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { style: { flexShrink: 0, marginRight: "0.75rem" }, children: getIcon() }),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("h3", { style: {
+            fontSize: "1.125rem",
+            fontWeight: 600,
+            color: "white",
+            margin: 0
+          }, children: title }),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            "button",
+            {
+              onClick: onClose,
+              style: {
+                marginLeft: "auto",
+                color: "#94a3b8",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "0.25rem",
+                borderRadius: "4px",
+                transition: "color 0.2s"
+              },
+              onMouseEnter: (e) => e.currentTarget.style.color = "white",
+              onMouseLeave: (e) => e.currentTarget.style.color = "#94a3b8",
+              children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("svg", { style: { width: "1.25rem", height: "1.25rem" }, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M6 18L18 6M6 6l12 12" }) })
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { style: { padding: "1rem" }, children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("p", { style: {
+          color: "#cbd5e1",
+          lineHeight: "1.6",
+          margin: 0
+        }, children: message }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { style: {
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: "0.75rem",
+          padding: "1rem",
+          borderTop: "1px solid #334155"
+        }, children: [
+          showCancel && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            "button",
+            {
+              onClick: handleCancel,
+              style: {
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                color: "#cbd5e1",
+                backgroundColor: "#475569",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+                transition: "background-color 0.2s"
+              },
+              onMouseEnter: (e) => e.currentTarget.style.backgroundColor = "#64748b",
+              onMouseLeave: (e) => e.currentTarget.style.backgroundColor = "#475569",
+              children: cancelText
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            "button",
+            {
+              onClick: handleConfirm,
+              style: {
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                color: "white",
+                backgroundColor: type === "warning" ? "#eab308" : type === "error" ? "#ef4444" : type === "success" ? "#22c55e" : "#3b82f6",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+                transition: "background-color 0.2s"
+              },
+              onMouseEnter: (e) => {
+                const baseColor = type === "warning" ? "#eab308" : type === "error" ? "#ef4444" : type === "success" ? "#22c55e" : "#3b82f6";
+                e.currentTarget.style.backgroundColor = baseColor === "#eab308" ? "#ca8a04" : baseColor === "#ef4444" ? "#dc2626" : baseColor === "#22c55e" ? "#16a34a" : "#2563eb";
+              },
+              onMouseLeave: (e) => {
+                const baseColor = type === "warning" ? "#eab308" : type === "error" ? "#ef4444" : type === "success" ? "#22c55e" : "#3b82f6";
+                e.currentTarget.style.backgroundColor = baseColor;
+              },
+              children: confirmText
+            }
+          )
+        ] })
+      ] })
+    ] });
+  };
+
+  // components/TagManagementItem.tsx
+  var import_jsx_runtime10 = __toESM(require_jsx_runtime());
   var TagManagementItem = ({ tag, onRename, onDelete, allTagNames }) => {
-    const [isEditing, setIsEditing] = (0, import_react2.useState)(false);
-    const [tagName, setTagName] = (0, import_react2.useState)(tag.name);
-    const [isSaving, setIsSaving] = (0, import_react2.useState)(false);
-    const [isDeleting, setIsDeleting] = (0, import_react2.useState)(false);
-    const inputRef = (0, import_react2.useRef)(null);
-    (0, import_react2.useEffect)(() => {
+    const [isEditing, setIsEditing] = (0, import_react4.useState)(false);
+    const [tagName, setTagName] = (0, import_react4.useState)(tag.name);
+    const [isSaving, setIsSaving] = (0, import_react4.useState)(false);
+    const [isDeleting, setIsDeleting] = (0, import_react4.useState)(false);
+    const inputRef = (0, import_react4.useRef)(null);
+    const { modalState, closeModal, showConfirm } = useModal();
+    (0, import_react4.useEffect)(() => {
       if (isEditing) {
         inputRef.current?.focus();
         inputRef.current?.select();
@@ -24895,7 +25247,12 @@
       }
       const isMerging = allTagNames.some((t) => t.toLowerCase() === newName.toLowerCase() && t.toLowerCase() !== tag.name.toLowerCase());
       if (isMerging) {
-        if (!confirm(`The tag "${newName}" already exists. Do you want to merge "${tag.name}" into it? This will update all affected bookmarks.`)) {
+        const confirmed = await showConfirm(
+          `The tag "${newName}" already exists. Do you want to merge "${tag.name}" into it? This will update all affected bookmarks.`,
+          "Merge Tags",
+          "warning"
+        );
+        if (!confirmed) {
           return;
         }
       }
@@ -24905,7 +25262,12 @@
       setIsEditing(false);
     };
     const handleDelete = async () => {
-      if (confirm(`Are you sure you want to delete the tag "${tag.name}" from all bookmarks? This cannot be undone.`)) {
+      const confirmed = await showConfirm(
+        `Are you sure you want to delete the tag "${tag.name}" from all bookmarks? This cannot be undone.`,
+        "Delete Tag",
+        "error"
+      );
+      if (confirmed) {
         setIsDeleting(true);
         try {
           await onDelete(tag.name);
@@ -24920,63 +25282,80 @@
       setIsEditing(false);
       setTagName(tag.name);
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "tag-management-item", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: "tag-management-item-content", children: isEditing ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
-        "input",
+    return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "tag-management-item", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "tag-management-item-content", children: isEditing ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          "input",
+          {
+            ref: inputRef,
+            type: "text",
+            value: tagName,
+            onChange: (e) => setTagName(e.target.value),
+            onKeyDown: (e) => e.key === "Enter" && handleSave(),
+            disabled: isSaving
+          }
+        ) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("p", { className: "tag-name", children: tag.name }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("p", { className: "tag-count", children: [
+            tag.count,
+            " bookmark",
+            tag.count !== 1 ? "s" : ""
+          ] })
+        ] }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "tag-management-item-actions", children: isEditing ? /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+            "button",
+            {
+              onClick: handleSave,
+              className: "save-btn",
+              title: "Save",
+              disabled: isSaving || !tagName.trim(),
+              onMouseDown: (e) => e.preventDefault(),
+              children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(SaveIcon, { className: "icon" })
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+            "button",
+            {
+              onClick: handleCancel,
+              className: "cancel-btn",
+              title: "Cancel",
+              onMouseDown: (e) => e.preventDefault(),
+              children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(CloseIcon, { className: "icon" })
+            }
+          )
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("button", { onClick: () => setIsEditing(true), disabled: isDeleting, className: "edit-btn", title: "Rename tag", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(EditIcon, { className: "icon" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("button", { onClick: handleDelete, disabled: isDeleting, className: "delete-btn", title: "Delete tag", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DeleteIcon, { className: "icon" }) })
+        ] }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+        Modal,
         {
-          ref: inputRef,
-          type: "text",
-          value: tagName,
-          onChange: (e) => setTagName(e.target.value),
-          onKeyDown: (e) => e.key === "Enter" && handleSave(),
-          disabled: isSaving
+          isOpen: modalState.isOpen,
+          onClose: closeModal,
+          title: modalState.title,
+          message: modalState.message,
+          type: modalState.type,
+          confirmText: modalState.confirmText,
+          cancelText: modalState.cancelText,
+          onConfirm: modalState.onConfirm,
+          onCancel: modalState.onCancel,
+          showCancel: modalState.showCancel
         }
-      ) : /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(import_jsx_runtime9.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("p", { className: "tag-name", children: tag.name }),
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("p", { className: "tag-count", children: [
-          tag.count,
-          " bookmark",
-          tag.count !== 1 ? "s" : ""
-        ] })
-      ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: "tag-management-item-actions", children: isEditing ? /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(import_jsx_runtime9.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
-          "button",
-          {
-            onClick: handleSave,
-            className: "save-btn",
-            title: "Save",
-            disabled: isSaving || !tagName.trim(),
-            onMouseDown: (e) => e.preventDefault(),
-            children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(SaveIcon, { className: "icon" })
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
-          "button",
-          {
-            onClick: handleCancel,
-            className: "cancel-btn",
-            title: "Cancel",
-            onMouseDown: (e) => e.preventDefault(),
-            children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(CloseIcon, { className: "icon" })
-          }
-        )
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(import_jsx_runtime9.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("button", { onClick: () => setIsEditing(true), disabled: isDeleting, className: "edit-btn", title: "Rename tag", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(EditIcon, { className: "icon" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("button", { onClick: handleDelete, disabled: isDeleting, className: "delete-btn", title: "Delete tag", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(DeleteIcon, { className: "icon" }) })
-      ] }) })
+      )
     ] });
   };
 
   // components/TagManagement.tsx
-  var import_jsx_runtime10 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime11 = __toESM(require_jsx_runtime());
   var TagManagement = ({ tags, onRename, onDelete, onBack }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "settings-view animate-fade-in", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "tag-management-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("button", { onClick: onBack, className: "back-btn", title: "Back to settings", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(BackIcon, { className: "icon" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("h2", { children: "Manage Tags" })
+    return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "settings-view animate-fade-in", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "tag-management-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: onBack, className: "back-btn", title: "Back to settings", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(BackIcon, { className: "icon" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h2", { children: "Manage Tags" })
       ] }),
-      tags.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("p", { className: "tag-management-empty", children: "No tags to manage." }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "tag-management-list", children: tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+      tags.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { className: "tag-management-empty", children: "No tags to manage." }) : /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "tag-management-list", children: tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
         TagManagementItem,
         {
           tag,
@@ -24990,7 +25369,7 @@
   };
 
   // components/Settings.tsx
-  var import_jsx_runtime11 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime12 = __toESM(require_jsx_runtime());
   var Settings = ({
     settings,
     onUpdateSettings,
@@ -25001,10 +25380,10 @@
     onRenameTag,
     onDeleteTag
   }) => {
-    const [view, setView] = (0, import_react3.useState)("main");
-    const [driveFolderInfo, setDriveFolderInfo] = (0, import_react3.useState)("");
+    const [view, setView] = (0, import_react5.useState)("main");
+    const [driveFolderInfo, setDriveFolderInfo] = (0, import_react5.useState)("");
     const isImporting = importStatus.status !== "idle";
-    (0, import_react3.useEffect)(() => {
+    (0, import_react5.useEffect)(() => {
       const getDriveFolderInfo = async () => {
         if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
           try {
@@ -25028,41 +25407,41 @@
       let statusClass = "";
       if (importStatus.status === "success") statusClass = "success";
       if (importStatus.status === "error") statusClass = "error";
-      let content = /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(import_jsx_runtime11.Fragment, {});
+      let content = /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_jsx_runtime12.Fragment, {});
       switch (importStatus.status) {
         case "scanning":
-          content = /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: "Scanning Chrome bookmarks..." });
+          content = /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Scanning Chrome bookmarks..." });
           break;
         case "importing":
           if (importStatus.progress) {
             const { current, total } = importStatus.progress;
             const title = importStatus.message || "";
-            content = /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("p", { children: [
+            content = /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("p", { children: [
               "Importing ",
               current,
               " of ",
               total,
               "...",
-              /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "progress-title", children: title })
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "progress-title", children: title })
             ] });
           } else {
-            content = /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: "Importing bookmarks..." });
+            content = /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Importing bookmarks..." });
           }
           break;
         case "success":
-          content = /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: importStatus.message });
+          content = /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: importStatus.message });
           break;
         case "error":
-          content = /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("p", { children: [
+          content = /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("p", { children: [
             "Error: ",
             importStatus.message
           ] });
           break;
       }
-      return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: `import-status ${statusClass}`, children: content });
+      return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: `import-status ${statusClass}`, children: content });
     };
     if (view === "tags") {
-      return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
         TagManagement,
         {
           tags: tagsWithCounts,
@@ -25072,26 +25451,26 @@
         }
       );
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "settings-view animate-fade-in", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "settings-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h2", { children: "Settings" }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "settings-view animate-fade-in", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "settings-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h2", { children: "Settings" }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
           "button",
           {
             onClick: onClose,
             className: "close-btn",
             title: "Close settings",
-            children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(CloseIcon, { className: "icon" })
+            children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(CloseIcon, { className: "icon" })
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "settings-body", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "setting-item", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h3", { children: "Automatic Sync" }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: "Sync with Google Drive on open and every hour." })
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "settings-body", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "setting-item", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Automatic Sync" }),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Sync with Google Drive on open and every hour." })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
             ToggleSwitch,
             {
               checked: settings.autoSync,
@@ -25099,35 +25478,35 @@
             }
           )
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "setting-item", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h3", { children: "Google Drive Location" }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: "Your bookmarks are saved in:" }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "drive-folder-info", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(CloudCheckIcon, { className: "icon" }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: driveFolderInfo })
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "setting-item", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Google Drive Location" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Your bookmarks are saved in:" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "drive-folder-info", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(CloudCheckIcon, { className: "icon" }),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { children: driveFolderInfo })
           ] })
         ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
           "div",
           {
             onClick: () => setView("tags"),
             className: "setting-item clickable",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h3", { children: "Manage Tags" }),
-                /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: "Rename, merge, or delete existing tags." })
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Manage Tags" }),
+                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Rename, merge, or delete existing tags." })
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(TagIcon, { className: "icon" })
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(TagIcon, { className: "icon" })
             ]
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "settings-divider", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "setting-item", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h3", { children: "Import Bookmarks" }),
-              /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: "Import from Chrome and auto-tag with AI." })
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "settings-divider", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "setting-item", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Import Bookmarks" }),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Import from Chrome and auto-tag with AI." })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
               "button",
               {
                 onClick: onImport,
@@ -25144,7 +25523,7 @@
   };
 
   // hooks/useBookmarks.ts
-  var import_react4 = __toESM(require_react());
+  var import_react6 = __toESM(require_react());
 
   // constants.ts
   var DB_NAME = "ChronoMarkDB";
@@ -25330,7 +25709,7 @@
       }
     }
     const query = encodeURIComponent(`name='${SYNC_FILE_NAME}' and trashed=false`);
-    const searchResponse = await fetch(`${GOOGLE_API_BASE_URL}/files?q=${query}&spaces=appDataFolder&fields=files(id)`, {
+    const searchResponse = await fetch(`${GOOGLE_API_BASE_URL}/files?q=${query}&fields=files(id)`, {
       headers: getHeaders(token)
     }).then(handleApiResponse);
     const searchResult = await searchResponse.json();
@@ -25346,8 +25725,7 @@
       headers: getHeaders(token),
       body: JSON.stringify({
         name: SYNC_FILE_NAME,
-        mimeType: "application/json",
-        parents: ["appDataFolder"]
+        mimeType: "application/json"
       })
     }).then(handleApiResponse);
     const newFile = await createResponse.json();
@@ -25636,12 +26014,12 @@
     return uniqueTags.slice(0, 3);
   };
   var useBookmarks = () => {
-    const [bookmarks, setBookmarks] = (0, import_react4.useState)([]);
-    const [syncStatus, setSyncStatus] = (0, import_react4.useState)({ status: "idle", lastSync: null });
-    const [isAuthenticated, setIsAuthenticated] = (0, import_react4.useState)(false);
-    const [settings, setSettings] = (0, import_react4.useState)({ autoSync: true });
-    const [importStatus, setImportStatus] = (0, import_react4.useState)({ status: "idle" });
-    const loadBookmarks = (0, import_react4.useCallback)(async () => {
+    const [bookmarks, setBookmarks] = (0, import_react6.useState)([]);
+    const [syncStatus, setSyncStatus] = (0, import_react6.useState)({ status: "idle", lastSync: null });
+    const [isAuthenticated, setIsAuthenticated] = (0, import_react6.useState)(false);
+    const [settings, setSettings] = (0, import_react6.useState)({ autoSync: true });
+    const [importStatus, setImportStatus] = (0, import_react6.useState)({ status: "idle" });
+    const loadBookmarks = (0, import_react6.useCallback)(async () => {
       try {
         await initDB();
         const localBookmarks = await getAllBookmarks();
@@ -25650,7 +26028,7 @@
         console.error("Failed to load bookmarks from DB:", error);
       }
     }, []);
-    const loadSettings = (0, import_react4.useCallback)(async () => {
+    const loadSettings = (0, import_react6.useCallback)(async () => {
       if (!storage) return;
       const result = await storage.get([SETTINGS_KEY, LAST_SYNC_KEY]);
       if (result[SETTINGS_KEY]) {
@@ -25660,7 +26038,7 @@
         setSyncStatus((prev) => ({ ...prev, lastSync: result[LAST_SYNC_KEY] }));
       }
     }, []);
-    const checkAuthStatus = (0, import_react4.useCallback)(async () => {
+    const checkAuthStatus = (0, import_react6.useCallback)(async () => {
       try {
         const token = await getAuthToken(false);
         if (token) {
@@ -25684,12 +26062,12 @@
         await clearAuthToken();
       }
     }, []);
-    (0, import_react4.useEffect)(() => {
+    (0, import_react6.useEffect)(() => {
       loadBookmarks();
       loadSettings();
       checkAuthStatus();
     }, [loadBookmarks, loadSettings, checkAuthStatus]);
-    const syncWithGoogleDrive = (0, import_react4.useCallback)(async () => {
+    const syncWithGoogleDrive = (0, import_react6.useCallback)(async () => {
       setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Authenticating..." }));
       try {
         console.log("Starting authentication process...");
@@ -25728,14 +26106,14 @@
         setIsAuthenticated(false);
       }
     }, [loadBookmarks]);
-    const updateSettings = (0, import_react4.useCallback)(async (newSettings) => {
+    const updateSettings = (0, import_react6.useCallback)(async (newSettings) => {
       const updatedSettings = { ...settings, ...newSettings };
       setSettings(updatedSettings);
       if (storage) {
         await storage.set({ [SETTINGS_KEY]: updatedSettings });
       }
     }, [settings]);
-    const addBookmark2 = (0, import_react4.useCallback)(async (bookmarkData) => {
+    const addBookmark2 = (0, import_react6.useCallback)(async (bookmarkData) => {
       const now = Date.now();
       const newBookmark = {
         ...bookmarkData,
@@ -25746,23 +26124,23 @@
       await addBookmark(newBookmark);
       await loadBookmarks();
     }, [loadBookmarks]);
-    const updateBookmark2 = (0, import_react4.useCallback)(async (bookmark) => {
+    const updateBookmark2 = (0, import_react6.useCallback)(async (bookmark) => {
       const bookmarkToUpdate = { ...bookmark, updatedAt: Date.now() };
       await updateBookmark(bookmarkToUpdate);
       await loadBookmarks();
     }, [loadBookmarks]);
-    const deleteBookmark2 = (0, import_react4.useCallback)(async (id) => {
+    const deleteBookmark2 = (0, import_react6.useCallback)(async (id) => {
       await deleteBookmark(id);
       await loadBookmarks();
     }, [loadBookmarks]);
-    const allTags = (0, import_react4.useMemo)(() => {
+    const allTags = (0, import_react6.useMemo)(() => {
       const tagSet = /* @__PURE__ */ new Set();
       bookmarks.forEach((bookmark) => {
         bookmark.tags.forEach((tag) => tagSet.add(tag));
       });
       return Array.from(tagSet).sort();
     }, [bookmarks]);
-    const tagsWithCounts = (0, import_react4.useMemo)(() => {
+    const tagsWithCounts = (0, import_react6.useMemo)(() => {
       const counts = /* @__PURE__ */ new Map();
       bookmarks.forEach((bookmark) => {
         bookmark.tags.forEach((tag) => {
@@ -25771,7 +26149,7 @@
       });
       return Array.from(counts.entries()).map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name));
     }, [bookmarks]);
-    const importFromChrome = (0, import_react4.useCallback)(async () => {
+    const importFromChrome = (0, import_react6.useCallback)(async () => {
       setImportStatus({ status: "scanning", message: "Finding Chrome bookmarks..." });
       try {
         const chromeBookmarks = await getChromeBookmarks();
@@ -25817,7 +26195,7 @@
         setImportStatus({ status: "error", message });
       }
     }, [bookmarks, loadBookmarks]);
-    const renameTag = (0, import_react4.useCallback)(async (oldName, newName) => {
+    const renameTag = (0, import_react6.useCallback)(async (oldName, newName) => {
       const bookmarksToUpdate = [];
       const now = Date.now();
       for (const bookmark of bookmarks) {
@@ -25829,7 +26207,7 @@
       await updateMultipleBookmarks(bookmarksToUpdate);
       await loadBookmarks();
     }, [bookmarks, loadBookmarks]);
-    const deleteTag = (0, import_react4.useCallback)(async (tagName) => {
+    const deleteTag = (0, import_react6.useCallback)(async (tagName) => {
       const bookmarksToUpdate = [];
       const now = Date.now();
       for (const bookmark of bookmarks) {
@@ -25864,29 +26242,29 @@
   };
 
   // components/SortDropdown.tsx
-  var import_jsx_runtime12 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime13 = __toESM(require_jsx_runtime());
   var SortDropdown = ({ sortOrder, onSortChange }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "sort-dropdown", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "sort-dropdown", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
         "select",
         {
           value: sortOrder,
           onChange: (e) => onSortChange(e.target.value),
           "aria-label": "Sort bookmarks",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "date_desc", children: "Date Added (Newest)" }),
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "date_asc", children: "Date Added (Oldest)" }),
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "title_asc", children: "Title (A-Z)" }),
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "title_desc", children: "Title (Z-A)" })
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("option", { value: "date_desc", children: "Date Added (Newest)" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("option", { value: "date_asc", children: "Date Added (Oldest)" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("option", { value: "title_asc", children: "Title (A-Z)" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("option", { value: "title_desc", children: "Title (Z-A)" })
           ]
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "icon-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("svg", { className: "icon", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2", d: "M8 9l4-4 4 4m0 6l-4 4-4-4" }) }) })
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "icon-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("svg", { className: "icon", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2", d: "M8 9l4-4 4 4m0 6l-4 4-4-4" }) }) })
     ] });
   };
 
   // App.tsx
-  var import_jsx_runtime13 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime14 = __toESM(require_jsx_runtime());
   var App = () => {
     const {
       bookmarks,
@@ -25905,13 +26283,13 @@
       renameTag,
       deleteTag
     } = useBookmarks();
-    const [searchTerm, setSearchTerm] = (0, import_react5.useState)("");
-    const [sortOrder, setSortOrder] = (0, import_react5.useState)("date_desc");
-    const [isAdding, setIsAdding] = (0, import_react5.useState)(false);
-    const [showSettings, setShowSettings] = (0, import_react5.useState)(false);
-    const [editingBookmark, setEditingBookmark] = (0, import_react5.useState)(null);
-    const [currentTab, setCurrentTab] = (0, import_react5.useState)(null);
-    (0, import_react5.useEffect)(() => {
+    const [searchTerm, setSearchTerm] = (0, import_react7.useState)("");
+    const [sortOrder, setSortOrder] = (0, import_react7.useState)("date_desc");
+    const [isAdding, setIsAdding] = (0, import_react7.useState)(false);
+    const [showSettings, setShowSettings] = (0, import_react7.useState)(false);
+    const [editingBookmark, setEditingBookmark] = (0, import_react7.useState)(null);
+    const [currentTab, setCurrentTab] = (0, import_react7.useState)(null);
+    (0, import_react7.useEffect)(() => {
       if (isAdding) {
         if (typeof chrome !== "undefined" && chrome.tabs) {
           chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -25924,7 +26302,7 @@
         }
       }
     }, [isAdding]);
-    const sortedAndFilteredBookmarks = (0, import_react5.useMemo)(() => {
+    const sortedAndFilteredBookmarks = (0, import_react7.useMemo)(() => {
       const filtered = bookmarks.filter(
         (bookmark) => bookmark.title.toLowerCase().includes(searchTerm.toLowerCase()) || bookmark.url.toLowerCase().includes(searchTerm.toLowerCase()) || bookmark.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
       );
@@ -25961,7 +26339,7 @@
     };
     const renderMainView = () => {
       if (isAdding || editingBookmark) {
-        return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+        return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           BookmarkForm,
           {
             onSave: handleSaveBookmark,
@@ -25973,7 +26351,7 @@
         );
       }
       if (showSettings) {
-        return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+        return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           Settings,
           {
             settings,
@@ -25987,20 +26365,22 @@
           }
         );
       }
-      return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(import_jsx_runtime13.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "main-controls", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "search-bar-container", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(SearchBar, { searchTerm, onSearch: setSearchTerm }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(SortDropdown, { sortOrder, onSortChange: setSortOrder })
+      return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(import_jsx_runtime14.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "main-controls", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "search-bar-container", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SearchBar, { searchTerm, onSearch: setSearchTerm }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SortDropdown, { sortOrder, onSortChange: setSortOrder })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-          BookmarkList,
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+          AdvancedVirtualizedList,
           {
             bookmarks: sortedAndFilteredBookmarks,
             onDelete: deleteBookmark2,
-            onEdit: handleStartEditing
+            onEdit: handleStartEditing,
+            containerHeight: 400,
+            estimatedItemHeight: 120
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           "button",
           {
             onClick: () => {
@@ -26010,16 +26390,16 @@
             },
             className: "add-bookmark-btn",
             title: "Add current tab",
-            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(AddIcon, { className: "icon" })
+            children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(AddIcon, { className: "icon" })
           }
         )
       ] });
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "app-container", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("header", { className: "app-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("h1", { children: "ChronoMark" }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "header-controls", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "app-container", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("header", { className: "app-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("h1", { children: "ChronoMark" }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "header-controls", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
             SyncStatus,
             {
               status: syncStatus,
@@ -26027,27 +26407,27 @@
               onSync: syncWithGoogleDrive
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("button", { onClick: () => {
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("button", { onClick: () => {
             setShowSettings(!showSettings);
             setIsAdding(false);
             setEditingBookmark(null);
-          }, className: "settings-btn", title: "Settings", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(SettingsIcon, { className: "icon" }) })
+          }, className: "settings-btn", title: "Settings", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SettingsIcon, { className: "icon" }) })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("main", { children: renderMainView() })
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("main", { children: renderMainView() })
     ] });
   };
   var App_default = App;
 
   // index.tsx
-  var import_jsx_runtime14 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime15 = __toESM(require_jsx_runtime());
   var rootElement = document.getElementById("root");
   if (!rootElement) {
     throw new Error("Could not find root element to mount to");
   }
   var root = import_client.default.createRoot(rootElement);
   root.render(
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(import_react6.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(App_default, {}) })
+    /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_react8.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(App_default, {}) })
   );
 })();
 /*! Bundled license information:

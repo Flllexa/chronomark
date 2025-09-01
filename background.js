@@ -134,7 +134,7 @@
       }
     }
     const query = encodeURIComponent(`name='${SYNC_FILE_NAME}' and trashed=false`);
-    const searchResponse = await fetch(`${GOOGLE_API_BASE_URL}/files?q=${query}&spaces=appDataFolder&fields=files(id)`, {
+    const searchResponse = await fetch(`${GOOGLE_API_BASE_URL}/files?q=${query}&fields=files(id)`, {
       headers: getHeaders(token)
     }).then(handleApiResponse);
     const searchResult = await searchResponse.json();
@@ -150,8 +150,7 @@
       headers: getHeaders(token),
       body: JSON.stringify({
         name: SYNC_FILE_NAME,
-        mimeType: "application/json",
-        parents: ["appDataFolder"]
+        mimeType: "application/json"
       })
     }).then(handleApiResponse);
     const newFile = await createResponse.json();

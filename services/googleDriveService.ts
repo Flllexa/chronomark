@@ -121,9 +121,9 @@ export const findOrCreateFile = async (token: string): Promise<string> => {
         }
     }
 
-    // Search for the file on Google Drive in the appDataFolder
+    // Search for the file on Google Drive in the user's root folder
     const query = encodeURIComponent(`name='${SYNC_FILE_NAME}' and trashed=false`);
-    const searchResponse = await fetch(`${GOOGLE_API_BASE_URL}/files?q=${query}&spaces=appDataFolder&fields=files(id)`, {
+    const searchResponse = await fetch(`${GOOGLE_API_BASE_URL}/files?q=${query}&fields=files(id)`, {
         headers: getHeaders(token)
     }).then(handleApiResponse);
 
@@ -136,14 +136,13 @@ export const findOrCreateFile = async (token: string): Promise<string> => {
         return fileId;
     }
 
-    // If not found, create it in the appDataFolder
+    // If not found, create it in the user's root folder
     const createResponse = await fetch(`${GOOGLE_API_BASE_URL}/files`, {
         method: 'POST',
         headers: getHeaders(token),
         body: JSON.stringify({
             name: SYNC_FILE_NAME,
-            mimeType: 'application/json',
-            parents: ['appDataFolder']
+            mimeType: 'application/json'
         })
     }).then(handleApiResponse);
 

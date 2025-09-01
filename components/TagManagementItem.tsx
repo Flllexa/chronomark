@@ -2,6 +2,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { TagWithCount } from '../types';
 import { EditIcon, DeleteIcon, SaveIcon, CloseIcon } from './icons';
+import { useModal } from '../hooks/useModal';
+import { Modal } from './Modal';
 
 interface TagManagementItemProps {
     tag: TagWithCount;
@@ -16,6 +18,7 @@ export const TagManagementItem: React.FC<TagManagementItemProps> = ({ tag, onRen
     const [isSaving, setIsSaving] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const { modalState, closeModal, showConfirm } = useModal();
 
     useEffect(() => {
         if (isEditing) {
@@ -34,7 +37,12 @@ export const TagManagementItem: React.FC<TagManagementItemProps> = ({ tag, onRen
 
         const isMerging = allTagNames.some(t => t.toLowerCase() === newName.toLowerCase() && t.toLowerCase() !== tag.name.toLowerCase());
         if (isMerging) {
-            if (!confirm(`The tag "${newName}" already exists. Do you want to merge "${tag.name}" into it? This will update all affected bookmarks.`)) {
+            const confirmed = await showConfirm(
+                `The tag "${newName}" already exists. Do you want to merge "${tag.name}" into it? This will update all affected bookmarks.`,
+                'Merge Tags',
+                'warning'
+            );
+            if (!confirmed) {
                 return;
             }
         }
@@ -46,7 +54,13 @@ export const TagManagementItem: React.FC<TagManagementItemProps> = ({ tag, onRen
     };
     
     const handleDelete = async () => {
-        if (confirm(`Are you sure you want to delete the tag "${tag.name}" from all bookmarks? This cannot be undone.`)) {
+        const confirmed = await showConfirm(
+            `Are you sure you want to delete the tag "${tag.name}" from all bookmarks? This cannot be undone.`,
+            'Delete Tag',
+            'error'
+        );
+        
+        if (confirmed) {
             setIsDeleting(true);
             try {
                 await onDelete(tag.name);
@@ -68,57 +82,72 @@ export const TagManagementItem: React.FC<TagManagementItemProps> = ({ tag, onRen
     }
     
     return (
-        <div className="tag-management-item">
-            <div className="tag-management-item-content">
-                {isEditing ? (
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        value={tagName}
-                        onChange={(e) => setTagName(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && handleSave()}
-                        disabled={isSaving}
-                    />
-                ) : (
-                    <>
-                        <p className="tag-name">{tag.name}</p>
-                        <p className="tag-count">{tag.count} bookmark{tag.count !== 1 ? 's' : ''}</p>
-                    </>
-                )}
+        <>
+            <div className="tag-management-item">
+                <div className="tag-management-item-content">
+                    {isEditing ? (
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            value={tagName}
+                            onChange={(e) => setTagName(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+                            disabled={isSaving}
+                        />
+                    ) : (
+                        <>
+                            <p className="tag-name">{tag.name}</p>
+                            <p className="tag-count">{tag.count} bookmark{tag.count !== 1 ? 's' : ''}</p>
+                        </>
+                    )}
+                </div>
+                
+                <div className="tag-management-item-actions">
+                    {isEditing ? (
+                        <>
+                            <button 
+                                onClick={handleSave} 
+                                className="save-btn" 
+                                title="Save" 
+                                disabled={isSaving || !tagName.trim()}
+                                onMouseDown={e => e.preventDefault()}
+                            >
+                                <SaveIcon className="icon" />
+                            </button>
+                             <button 
+                                onClick={handleCancel} 
+                                className="cancel-btn" 
+                                title="Cancel"
+                                onMouseDown={e => e.preventDefault()}
+                            >
+                                <CloseIcon className="icon" />
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={() => setIsEditing(true)} disabled={isDeleting} className="edit-btn" title="Rename tag">
+                                <EditIcon className="icon" />
+                            </button>
+                            <button onClick={handleDelete} disabled={isDeleting} className="delete-btn" title="Delete tag">
+                                <DeleteIcon className="icon" />
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
             
-            <div className="tag-management-item-actions">
-                {isEditing ? (
-                    <>
-                        <button 
-                            onClick={handleSave} 
-                            className="save-btn" 
-                            title="Save" 
-                            disabled={isSaving || !tagName.trim()}
-                            onMouseDown={e => e.preventDefault()}
-                        >
-                            <SaveIcon className="icon" />
-                        </button>
-                         <button 
-                            onClick={handleCancel} 
-                            className="cancel-btn" 
-                            title="Cancel"
-                            onMouseDown={e => e.preventDefault()}
-                        >
-                            <CloseIcon className="icon" />
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <button onClick={() => setIsEditing(true)} disabled={isDeleting} className="edit-btn" title="Rename tag">
-                            <EditIcon className="icon" />
-                        </button>
-                        <button onClick={handleDelete} disabled={isDeleting} className="delete-btn" title="Delete tag">
-                            <DeleteIcon className="icon" />
-                        </button>
-                    </>
-                )}
-            </div>
-        </div>
+            <Modal
+                isOpen={modalState.isOpen}
+                onClose={closeModal}
+                title={modalState.title}
+                message={modalState.message}
+                type={modalState.type}
+                confirmText={modalState.confirmText}
+                cancelText={modalState.cancelText}
+                onConfirm={modalState.onConfirm}
+                onCancel={modalState.onCancel}
+                showCancel={modalState.showCancel}
+            />
+        </>
     );
 };
