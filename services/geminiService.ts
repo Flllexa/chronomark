@@ -178,23 +178,32 @@ class GeminiService {
     private createTagPrompt(title: string, url: string): string {
         const domain = this.extractDomain(url);
         
-        return `Analyze this bookmark and suggest 5-10 relevant tags:
+        return `You are a bookmark tagging expert. Analyze this bookmark and generate EXACTLY between 5 to 10 relevant tags.
 
+Bookmark Information:
 Title: "${title}"
 URL: ${url}
 Domain: ${domain}
 
-Rules:
-1. Generate concise, lowercase tags (1-2 words each)
-2. Focus on: technology, category, purpose, domain type
-3. Avoid generic words like "website", "page", "link"
-4. Consider the domain and title context
-5. Generate MINIMUM 5 tags and MAXIMUM 10 tags
-6. Return ONLY a JSON array of objects with this format:
+IMPORTANT REQUIREMENTS:
+1. You MUST generate AT LEAST 5 tags and AT MOST 10 tags
+2. Each tag should be concise, lowercase, 5-10 words maximum
+3. Focus on: technology stack, category, purpose, domain type, content type
+4. Include both specific and general tags for better organization
+5. Avoid generic words like "website", "page", "link", "site"
+6. Consider the domain context and title meaning
+7. If unsure, generate more tags rather than fewer (aim for 7-8 tags)
 
+Example categories to consider:
+- Technology: react, javascript, python, api, database
+- Purpose: tutorial, documentation, tool, reference, news
+- Category: development, design, productivity, education, entertainment
+- Domain type: github, stackoverflow, medium, youtube, official
+
+Return ONLY a valid JSON array with this exact format:
 [{"tag": "example-tag", "confidence": 0.85, "reason": "Brief explanation"}]
 
-Response:`;
+Generate your response now:`;
     }
 
     /**
@@ -235,15 +244,25 @@ Response:`;
             }).filter(suggestion => 
                 suggestion.tag.length > 0 && 
                 suggestion.tag.length <= 30
+            ).filter((suggestion, index, array) => 
+                array.findIndex(s => s.tag === suggestion.tag) === index // Remove duplicates
             );
 
-            // Ensure we have between 5 and 10 tags
+            // Strict validation for tag count - must have at least 5 tags
             if (suggestions.length < 5) {
-                console.warn(`Gemini returned only ${suggestions.length} tags, expected 5-10`);
+                console.error(`CRITICAL: Gemini generated only ${suggestions.length} tags, expected 5-10:`, suggestions.map(s => s.tag));
+                console.error('Raw Gemini response:', text);
+                // Return empty array to trigger fallback
+                return [];
             }
             
-            // Limit to maximum 10 tags
-            return suggestions.slice(0, 10);
+            if (suggestions.length > 10) {
+                console.warn(`Gemini generated ${suggestions.length} tags, limiting to 10`);
+                return suggestions.slice(0, 10);
+            }
+            
+            console.log(`Successfully generated ${suggestions.length} tags:`, suggestions.map(s => s.tag));
+            return suggestions;
             
         } catch (error) {
             console.error('Error parsing Gemini response:', error);
@@ -361,6 +380,33 @@ Response:`;
                     }
                 }
             }
+        }
+        
+        // Enhanced fallback: if we don't have enough tags, generate more
+        if (tags.length < 5) {
+            const commonTechWords = ['javascript', 'react', 'python', 'api', 'tutorial', 'documentation', 'tool', 'reference', 'development', 'web'];
+            const commonCategories = ['productivity', 'education', 'news', 'entertainment', 'business', 'technology', 'design', 'programming'];
+            
+            // Extract words from the text
+            const extractedWords = text.toLowerCase()
+                .replace(/[^a-z0-9\s]/g, ' ')
+                .split(/\s+/)
+                .filter(word => word.length > 2 && word.length < 20)
+                .filter(word => !['the', 'and', 'for', 'with', 'from', 'this', 'that', 'are', 'was', 'will', 'have', 'has'].includes(word));
+            
+            // Combine extracted words with some common fallback tags
+            const allPossibleTags = [...new Set([...extractedWords, ...commonTechWords, ...commonCategories])];
+            
+            // Add more tags to reach at least 5
+            const neededTags = 5 - tags.length;
+            const additionalTags = allPossibleTags.slice(0, neededTags).map(word => ({
+                tag: word,
+                confidence: extractedWords.includes(word) ? 0.5 : 0.3,
+                source: 'ai_gemini' as const,
+                reason: extractedWords.includes(word) ? 'Extracted from bookmark' : 'Common fallback tag'
+            }));
+            
+            tags.push(...additionalTags);
         }
         
         return tags.slice(0, 10); // Limit to 10 tags
