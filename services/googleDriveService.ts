@@ -14,11 +14,128 @@ export class GoogleAuthError extends Error {
     }
 }
 
+// Check if we're running in Microsoft Edge
+const isEdge = (): boolean => {
+    return typeof navigator !== 'undefined' && navigator.userAgent.includes('Edg/');
+};
+
+// Check if browser supports chrome.identity API
+const supportsIdentityAPI = (): boolean => {
+    return typeof chrome !== 'undefined' && chrome.identity;
+};
+
+// Check if browser supports getAuthToken (Chrome style)
+const supportsGetAuthToken = (): boolean => {
+    return supportsIdentityAPI() && !isEdge();
+};
+
+// Edge OAuth flow using launchWebAuthFlow
+const getAuthTokenEdge = (interactive: boolean): Promise<string | undefined> => {
+    return new Promise((resolve, reject) => {
+        if (!interactive) {
+            // Edge doesn't support silent token refresh, return undefined for non-interactive
+            return resolve(undefined);
+        }
+
+        const clientId = '214396245139-vpq9cr8hqh4tivh03nfos6lmeosrnsdn.apps.googleusercontent.com';
+        const scopes = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
+        
+        // For extensions, we need to use the exact redirect URI that's registered
+        // Try to get the standard redirect URI first, then fallback to extension format
+        let redirectUri;
+        try {
+            redirectUri = chrome.identity.getRedirectURL();
+            console.log('Using chrome.identity.getRedirectURL():', redirectUri);
+        } catch (error) {
+            console.log('getRedirectURL failed, using manual format');
+            redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`;
+        }
+        
+        // Alternative: Use the standard OAuth redirect for web apps if extension redirect fails
+        // This would need to be registered in Google Cloud Console
+        if (!redirectUri || redirectUri.includes('undefined')) {
+            redirectUri = 'urn:ietf:wg:oauth:2.0:oob';  // Out-of-band redirect for installed apps
+            console.log('Using out-of-band redirect');
+        }
+        
+        // Debug log
+        console.log('Edge OAuth - Redirect URI:', redirectUri);
+        console.log('Edge OAuth - Extension ID:', chrome.runtime.id);
+        
+        const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+            `client_id=${encodeURIComponent(clientId)}&` +
+            `response_type=token&` +
+            `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+            `scope=${encodeURIComponent(scopes)}&` +
+            `access_type=online&` +
+            `include_granted_scopes=true&` +
+            `prompt=consent`;
+
+        console.log('Edge OAuth - Auth URL:', authUrl);
+
+        chrome.identity.launchWebAuthFlow(
+            {
+                url: authUrl,
+                interactive: true
+            },
+            (responseUrl) => {
+                console.log('Edge OAuth - Response URL:', responseUrl);
+                console.log('Edge OAuth - Runtime error:', chrome.runtime.lastError);
+
+                if (chrome.runtime.lastError) {
+                    return reject(new Error(`OAuth Error: ${chrome.runtime.lastError.message}`));
+                }
+
+                if (!responseUrl) {
+                    return reject(new Error('Authorization was cancelled or no response received'));
+                }
+
+                // Handle different response formats
+                let accessToken = null;
+
+                // Try URL fragment first (standard OAuth implicit flow)
+                if (responseUrl.includes('#')) {
+                    const urlFragment = responseUrl.split('#')[1];
+                    if (urlFragment) {
+                        const params = new URLSearchParams(urlFragment);
+                        accessToken = params.get('access_token');
+                    }
+                }
+
+                // Try URL query parameters (some OAuth flows)
+                if (!accessToken && responseUrl.includes('?')) {
+                    const urlQuery = responseUrl.split('?')[1];
+                    if (urlQuery) {
+                        const params = new URLSearchParams(urlQuery);
+                        accessToken = params.get('access_token');
+                    }
+                }
+
+                // Try to extract from the full URL if needed
+                if (!accessToken) {
+                    const accessTokenMatch = responseUrl.match(/access_token=([^&]+)/);
+                    if (accessTokenMatch) {
+                        accessToken = decodeURIComponent(accessTokenMatch[1]);
+                    }
+                }
+                
+                if (!accessToken) {
+                    console.log('Edge OAuth - Full response URL for debugging:', responseUrl);
+                    return reject(new Error('No access token found in OAuth response'));
+                }
+
+                console.log('Edge OAuth - Success! Token received');
+                resolve(accessToken);
+            }
+        );
+    });
+};
+
 // Helper to handle API responses and auth errors
 const handleApiResponse = async (response: Response): Promise<Response> => {
     if (response.status === 401 || response.status === 403) {
         // This token is bad. Clear it from the cache.
-        if (typeof chrome !== 'undefined' && chrome.identity) {
+        if (supportsGetAuthToken()) {
             const clearToken = () => {
                 return new Promise<void>((resolve) => {
                     chrome.identity.getAuthToken({ interactive: false }, (token?: string) => {
@@ -46,13 +163,19 @@ const handleApiResponse = async (response: Response): Promise<Response> => {
 
 export const getAuthToken = (interactive: boolean): Promise<string | undefined> => {
     return new Promise((resolve, reject) => {
-        if (typeof chrome === 'undefined' || !chrome.identity) {
+        if (!supportsIdentityAPI()) {
             if (interactive) {
-                // Only warn if an interactive login was attempted, to avoid spamming the console on startup.
                 console.warn("Chrome identity API not available. This is expected when running outside of a Chrome extension. Sync features will be disabled.");
             }
             return resolve(undefined);
         }
+
+        // Use Edge-compatible flow for Microsoft Edge
+        if (isEdge()) {
+            return getAuthTokenEdge(interactive).then(resolve).catch(reject);
+        }
+
+        // Use Chrome's getAuthToken for Chrome and other Chromium browsers
         chrome.identity.getAuthToken({ interactive }, (token) => {
             if (chrome.runtime && chrome.runtime.lastError) {
                 if (interactive) {
@@ -71,10 +194,24 @@ export const getAuthToken = (interactive: boolean): Promise<string | undefined> 
 
 export const clearAuthToken = (): Promise<void> => {
     return new Promise((resolve) => {
-        if (typeof chrome === 'undefined' || !chrome.identity) {
+        if (!supportsIdentityAPI()) {
             return resolve();
         }
 
+        // For Edge, we just clear local storage since tokens aren't cached
+        if (isEdge()) {
+            const storage = (chrome.storage && chrome.storage.local) ? chrome.storage.local : null;
+            if (storage) {
+                storage.remove(FILE_ID_KEY, () => {
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+            return;
+        }
+
+        // Chrome token clearing
         chrome.identity.getAuthToken({ interactive: false }, (token?: string) => {
             if ((chrome.runtime && chrome.runtime.lastError) || !token) {
                 // If there's an error or no token, there's nothing to clear.

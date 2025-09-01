@@ -1,0 +1,96 @@
+<svg width="1280" height="800" viewBox="0 0 1280 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1280" height="800" fill="#1a202c"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="1280" height="80" fill="#2d3748"/>
+  
+  <!-- ChronoMark Logo and Title -->
+  <circle cx="60" cy="40" r="20" fill="#4fd1c7"/>
+  <text x="100" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#4fd1c7">ChronoMark</text>
+  
+  <!-- Sync Status -->
+  <text x="300" y="45" font-family="Arial, sans-serif" font-size="14" fill="#68d391">Last synced: 12 minutes ago</text>
+  <circle cx="480" cy="40" r="8" fill="#68d391"/>
+  
+  <!-- Settings Icon -->
+  <rect x="1200" y="30" width="20" height="20" rx="2" fill="#a0aec0"/>
+  
+  <!-- Modal Overlay -->
+  <rect width="1280" height="800" fill="rgba(0,0,0,0.5)"/>
+  
+  <!-- Edit Bookmark Modal -->
+  <rect x="340" y="150" width="600" height="500" rx="12" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
+  
+  <!-- Modal Header -->
+  <text x="370" y="190" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#4fd1c7">Edit Bookmark</text>
+  
+  <!-- Close Button -->
+  <circle cx="900" cy="175" r="15" fill="#4a5568"/>
+  <text x="895" y="180" font-family="Arial, sans-serif" font-size="16" fill="#e2e8f0">×</text>
+  
+  <!-- Title Field -->
+  <text x="370" y="240" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e2e8f0">Title</text>
+  <rect x="370" y="250" width="540" height="40" rx="6" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+  <text x="385" y="275" font-family="Arial, sans-serif" font-size="14" fill="#e2e8f0">Claude Code Templates</text>
+  
+  <!-- URL Field -->
+  <text x="370" y="320" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e2e8f0">URL</text>
+  <rect x="370" y="330" width="540" height="40" rx="6" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+  <text x="385" y="355" font-family="Arial, sans-serif" font-size="14" fill="#e2e8f0">https://aitm**.com/</text>
+  
+  <!-- Tags Field -->
+  <text x="370" y="400" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e2e8f0">Tags (press Enter to add)</text>
+  <rect x="370" y="410" width="540" height="80" rx="6" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+  
+  <!-- Existing Tags in Input -->
+  <rect x="385" y="425" width="60" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="400" y="440" font-family="Arial, sans-serif" font-size="12" fill="white">claude</text>
+  <text x="450" y="440" font-family="Arial, sans-serif" font-size="12" fill="#4fd1c7">×</text>
+  
+  <rect x="460" y="425" width="50" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="475" y="440" font-family="Arial, sans-serif" font-size="12" fill="white">code</text>
+  <text x="505" y="440" font-family="Arial, sans-serif" font-size="12" fill="#4fd1c7">×</text>
+  
+  <rect x="520" y="425" width="80" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="540" y="440" font-family="Arial, sans-serif" font-size="12" fill="white">templates</text>
+  <text x="595" y="440" font-family="Arial, sans-serif" font-size="12" fill="#4fd1c7">×</text>
+  
+  <!-- New tag being typed -->
+  <text x="385" y="470" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">ai</text>
+  <rect x="405" y="460" width="2" height="16" fill="#4fd1c7"/> <!-- Cursor -->
+  
+  <!-- Action Buttons -->
+  <rect x="650" y="580" width="80" height="35" rx="6" fill="#4a5568" stroke="#718096" stroke-width="1"/>
+  <text x="675" y="602" font-family="Arial, sans-serif" font-size="14" fill="#e2e8f0">Cancel</text>
+  
+  <rect x="750" y="580" width="80" height="35" rx="6" fill="#4fd1c7"/>
+  <text x="775" y="602" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Update</text>
+  
+  <!-- Background Bookmarks (Blurred Effect) -->
+  <g opacity="0.3">
+    <!-- Search Bar -->
+    <rect x="40" y="120" width="300" height="40" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+    <text x="60" y="145" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">🔍 Search bookmarks...</text>
+    
+    <!-- Bookmark Items -->
+    <rect x="40" y="200" width="600" height="100" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+    <text x="60" y="230" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4fd1c7">Claude Code Templates</text>
+    
+    <rect x="40" y="320" width="600" height="100" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+    <text x="60" y="350" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4fd1c7">NEZTI - Sua plataforma de ...</text>
+    
+    <rect x="40" y="440" width="600" height="100" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+    <text x="60" y="470" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4fd1c7">Pricing - Affordable NLP & L...</text>
+  </g>
+  
+  <!-- Highlight Effect on Modal -->
+  <rect x="340" y="150" width="600" height="500" rx="12" fill="none" stroke="#4fd1c7" stroke-width="2" opacity="0.8"/>
+  
+  <!-- Feature Callout -->
+  <rect x="950" y="200" width="280" height="120" rx="8" fill="#2d3748" stroke="#4fd1c7" stroke-width="2"/>
+  <text x="970" y="230" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4fd1c7">✨ Sistema de Tags Inteligente</text>
+  <text x="970" y="255" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Adicione múltiplas tags</text>
+  <text x="970" y="275" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Remova com um clique</text>
+  <text x="970" y="295" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Busca instantânea por tags</text>
+</svg>

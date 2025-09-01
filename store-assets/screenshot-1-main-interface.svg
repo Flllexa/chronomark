@@ -1,0 +1,107 @@
+<svg width="1280" height="800" viewBox="0 0 1280 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1280" height="800" fill="#1a202c"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="1280" height="80" fill="#2d3748"/>
+  
+  <!-- ChronoMark Logo and Title -->
+  <circle cx="60" cy="40" r="20" fill="#4fd1c7"/>
+  <text x="100" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#4fd1c7">ChronoMark</text>
+  
+  <!-- Sync Status -->
+  <text x="300" y="45" font-family="Arial, sans-serif" font-size="14" fill="#68d391">Last synced: 11 minutes ago</text>
+  <circle cx="480" cy="40" r="8" fill="#68d391"/>
+  
+  <!-- Settings Icon -->
+  <rect x="1200" y="30" width="20" height="20" rx="2" fill="#a0aec0"/>
+  
+  <!-- Search Bar -->
+  <rect x="40" y="120" width="300" height="40" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+  <text x="60" y="145" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">🔍 Search bookmarks...</text>
+  
+  <!-- Sort Dropdown -->
+  <rect x="380" y="120" width="200" height="40" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+  <text x="400" y="145" font-family="Arial, sans-serif" font-size="14" fill="#e2e8f0">Date Added (Newest)</text>
+  <polygon points="560,135 570,145 560,155" fill="#a0aec0"/>
+  
+  <!-- Bookmark Items -->
+  <!-- Bookmark 1 -->
+  <rect x="40" y="200" width="600" height="100" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+  <text x="60" y="230" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4fd1c7">Claude Code Templates</text>
+  <text x="60" y="250" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">🔗 https://aitm**.com/</text>
+  
+  <!-- Tags for Bookmark 1 -->
+  <rect x="60" y="265" width="60" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="75" y="280" font-family="Arial, sans-serif" font-size="12" fill="white">claude</text>
+  
+  <rect x="130" y="265" width="50" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="145" y="280" font-family="Arial, sans-serif" font-size="12" fill="white">code</text>
+  
+  <rect x="190" y="265" width="80" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="210" y="280" font-family="Arial, sans-serif" font-size="12" fill="white">templates</text>
+  
+  <!-- Bookmark 2 -->
+  <rect x="40" y="320" width="600" height="100" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+  <text x="60" y="350" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4fd1c7">NEZTI - Sua plataforma de ...</text>
+  <text x="60" y="370" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">🔗 https://nez**.com.br/simule-e-contrat...</text>
+  
+  <!-- Tags for Bookmark 2 -->
+  <rect x="60" y="385" width="50" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="75" y="400" font-family="Arial, sans-serif" font-size="12" fill="white">nezti</text>
+  
+  <rect x="120" y="385" width="40" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="130" y="400" font-family="Arial, sans-serif" font-size="12" fill="white">sua</text>
+  
+  <rect x="170" y="385" width="80" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="190" y="400" font-family="Arial, sans-serif" font-size="12" fill="white">plataforma</text>
+  
+  <!-- Bookmark 3 -->
+  <rect x="40" y="440" width="600" height="100" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+  <text x="60" y="470" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4fd1c7">Pricing - Affordable NLP & L...</text>
+  <text x="60" y="490" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">🔗 https://coh***.com/pricing?__hstc=1...</text>
+  
+  <!-- Tags for Bookmark 3 -->
+  <rect x="60" y="505" width="60" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="75" y="520" font-family="Arial, sans-serif" font-size="12" fill="white">pricing</text>
+  
+  <rect x="130" y="505" width="80" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="155" y="520" font-family="Arial, sans-serif" font-size="12" fill="white">affordable</text>
+  
+  <rect x="220" y="505" width="30" height="25" rx="12" fill="#2b6cb0"/>
+  <text x="230" y="520" font-family="Arial, sans-serif" font-size="12" fill="white">nlp</text>
+  
+  <!-- Bookmark 4 -->
+  <rect x="40" y="560" width="600" height="100" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+  <text x="60" y="590" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4fd1c7">Introduction to Generative A...</text>
+  <text x="60" y="610" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">🔗 https://exam***.com/introduction-to...</text>
+  
+  <!-- Add Button -->
+  <circle cx="1200" cy="600" r="30" fill="#4fd1c7"/>
+  <text x="1190" y="610" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">+</text>
+  
+  <!-- Side Panel Info -->
+  <rect x="700" y="200" width="540" height="400" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+  <text x="720" y="230" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e2e8f0">📊 Estatísticas</text>
+  
+  <text x="720" y="270" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">Total de Bookmarks: 247</text>
+  <text x="720" y="300" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">Tags Únicas: 89</text>
+  <text x="720" y="330" font-family="Arial, sans-serif" font-size="14" fill="#a0aec0">Última Sincronização: 11 min atrás</text>
+  
+  <text x="720" y="380" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e2e8f0">🏷️ Tags Populares</text>
+  
+  <rect x="720" y="400" width="60" height="25" rx="12" fill="#4299e1"/>
+  <text x="735" y="415" font-family="Arial, sans-serif" font-size="12" fill="white">development</text>
+  
+  <rect x="790" y="400" width="40" height="25" rx="12" fill="#48bb78"/>
+  <text x="800" y="415" font-family="Arial, sans-serif" font-size="12" fill="white">tools</text>
+  
+  <rect x="840" y="400" width="50" height="25" rx="12" fill="#ed8936"/>
+  <text x="855" y="415" font-family="Arial, sans-serif" font-size="12" fill="white">learning</text>
+  
+  <rect x="720" y="435" width="45" height="25" rx="12" fill="#9f7aea"/>
+  <text x="735" y="450" font-family="Arial, sans-serif" font-size="12" fill="white">design</text>
+  
+  <rect x="775" y="435" width="30" height="25" rx="12" fill="#f56565"/>
+  <text x="785" y="450" font-family="Arial, sans-serif" font-size="12" fill="white">api</text>
+</svg>
