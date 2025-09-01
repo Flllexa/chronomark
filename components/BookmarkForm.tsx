@@ -20,7 +20,7 @@ interface BookmarkFormProps {
 export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, onUpdate, initialData, allTags = [], existingBookmarks = [] }) => {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const [tags, setTags] = useState<string[]>([]);
+    const [tags, setTags] = useState<string[]>(Array.isArray(initialData?.tags) ? initialData.tags : []);
     const [tagInput, setTagInput] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
     
@@ -35,18 +35,22 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const formContainerRef = useRef<HTMLDivElement>(null);
 
     const isEditing = useMemo(() => {
-        const editing = !!(initialData && 'id' in initialData && initialData.id);
-        console.log('isEditing:', editing, 'initialData:', initialData);
-        return editing;
+        return !!(initialData && 'id' in initialData && initialData.id);
     }, [initialData]);
     
     // Ensure tags are properly loaded when editing
     useEffect(() => {
         if (isEditing && initialData && initialData.tags) {
-            console.log('Ensuring tags are loaded for editing:', initialData.tags);
-            setTags(initialData.tags);
+            setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
         }
     }, [isEditing, initialData]);
+    
+    // Force reload tags when component mounts with editing data
+    useEffect(() => {
+        if (initialData && 'id' in initialData && initialData.id && initialData.tags) {
+            setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
+        }
+    }, []); // Empty dependency array - only run on mount
     
     // Check if URL already exists in bookmarks (excluding current bookmark if editing)
     const existingBookmark = useMemo(() => {
@@ -75,10 +79,9 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
 
     useEffect(() => {
         if (initialData) {
-            console.log('Loading initial data:', initialData);
             setTitle(initialData.title || '');
             setUrl(initialData.url || '');
-            setTags(initialData.tags || []);
+            setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
         } else {
             // Reset form when no initial data
             setTitle('');
@@ -87,12 +90,18 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         }
     }, [initialData]);
     
+    // Additional effect to ensure tags are loaded when initialData changes
+    useEffect(() => {
+        if (initialData && initialData.tags && Array.isArray(initialData.tags)) {
+            setTags(initialData.tags);
+        }
+    }, [initialData?.tags]);
+    
     // Auto-load existing bookmark data when URL duplicate is detected
     useEffect(() => {
         if (existingBookmark && !isEditing) {
-            console.log('Loading existing bookmark data:', existingBookmark);
             setTitle(existingBookmark.title);
-            setTags(existingBookmark.tags || []);
+            setTags(Array.isArray(existingBookmark.tags) ? existingBookmark.tags : []);
         }
     }, [existingBookmark, isEditing]);
 
@@ -149,7 +158,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         return () => clearTimeout(timeoutId);
     }, [title, url, geminiStatus.available, isGeneratingTags, isEditing, hasGeneratedSuggestions]);
 
-    // Reset suggestions when form is reset or editing changes
+    // Reset suggestions when form is reset
     useEffect(() => {
         if (!title || !url) {
             setHasGeneratedSuggestions(false);
@@ -158,30 +167,30 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         }
     }, [title, url]);
     
-    // Debug effect to track state changes
+    // Reset AI suggestions when switching to edit mode
     useEffect(() => {
-        console.log('Form state updated:', {
-            isEditing,
-            title,
-            url,
-            tags,
-            initialData
-        });
-    }, [isEditing, title, url, tags, initialData]);
+        if (isEditing) {
+            setHasGeneratedSuggestions(true); // Prevent auto-generation when editing
+            setAiSuggestions([]);
+            setShowAiSuggestions(false);
+        }
+    }, [isEditing]);
+    
+
     
     const filteredSuggestions = useMemo(() => {
         if (!showSuggestions) return [];
         const lowercasedInput = tagInput.toLowerCase();
         return allTags.filter(tag => 
-            !tags.includes(tag) && 
+            !Array.isArray(tags) || !tags.includes(tag) && 
             tag.toLowerCase().includes(lowercasedInput)
         );
     }, [showSuggestions, tagInput, allTags, tags]);
 
     const handleAddTag = (tag: string) => {
         const newTag = tag.trim();
-        if (newTag && !tags.includes(newTag)) {
-            setTags([...tags, newTag]);
+        if (newTag && (!Array.isArray(tags) || !tags.includes(newTag))) {
+            setTags([...(Array.isArray(tags) ? tags : []), newTag]);
         }
         setTagInput('');
         setShowSuggestions(false);
@@ -200,7 +209,9 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     };
 
     const removeTag = (tagToRemove: string) => {
-        setTags(tags.filter(tag => tag !== tagToRemove));
+        if (Array.isArray(tags)) {
+            setTags(tags.filter(tag => tag !== tagToRemove));
+        }
     };
 
     // Gemini AI functions
@@ -228,8 +239,8 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     };
 
     const addAiSuggestion = (suggestion: TagSuggestion) => {
-        if (!tags.includes(suggestion.tag)) {
-            setTags([...tags, suggestion.tag]);
+        if (!Array.isArray(tags) || !tags.includes(suggestion.tag)) {
+            setTags([...(Array.isArray(tags) ? tags : []), suggestion.tag]);
             // Remove the selected suggestion from the list
             setAiSuggestions(aiSuggestions.filter(s => s.tag !== suggestion.tag));
         }
@@ -237,7 +248,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
 
     // Filter AI suggestions to exclude already added tags
     const filteredAiSuggestions = useMemo(() => {
-        return aiSuggestions.filter(suggestion => !tags.includes(suggestion.tag));
+        return aiSuggestions.filter(suggestion => !Array.isArray(tags) || !tags.includes(suggestion.tag));
     }, [aiSuggestions, tags]);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -248,7 +259,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
             onUpdate({
                 ...existingBookmark,
                 title,
-                tags,
+                tags: Array.isArray(tags) ? tags : [],
                 updatedAt: Date.now(),
             });
         } else if (isEditing && onUpdate && initialData?.id && initialData.createdAt !== undefined) {
@@ -258,11 +269,11 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                 createdAt: initialData.createdAt,
                 title,
                 url,
-                tags,
+                tags: Array.isArray(tags) ? tags : [],
                 updatedAt: Date.now(),
             });
         } else {
-            onSave({ title, url, tags });
+            onSave({ title, url, tags: Array.isArray(tags) ? tags : [] });
         }
     };
 
@@ -298,7 +309,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                             className="tag-input-wrapper"
                             onClick={() => tagInputRef.current?.focus()}
                         >
-                        {tags.map(tag => (
+                        {Array.isArray(tags) && tags.map(tag => (
                             <Tag key={tag} text={tag} onRemove={() => removeTag(tag)} />
                         ))}
                             <input
@@ -309,7 +320,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                                 onChange={(e) => setTagInput(e.target.value)}
                                 onKeyDown={handleTagInputKeyDown}
                                 onFocus={() => setShowSuggestions(true)}
-                                placeholder={tags.length === 0 ? 'Add tags...' : ''}
+                                placeholder={Array.isArray(tags) && tags.length === 0 ? 'Add tags...' : ''}
                                 autoComplete="off"
                             />
                         </div>
