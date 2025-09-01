@@ -122,6 +122,7 @@ const App: React.FC = () => {
                     tagsWithCounts={tagsWithCounts}
                     onRenameTag={renameTag}
                     onDeleteTag={deleteTag}
+                    hasExistingBookmarks={bookmarks.length > 0}
                 />
             );
         }

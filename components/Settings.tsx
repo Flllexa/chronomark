@@ -15,6 +15,7 @@ interface SettingsProps {
     tagsWithCounts: TagWithCount[];
     onRenameTag: (oldName: string, newName: string) => Promise<void>;
     onDeleteTag: (tagName: string) => Promise<void>;
+    hasExistingBookmarks: boolean;
 }
 
 type SettingsView = 'main' | 'tags';
@@ -27,7 +28,8 @@ export const Settings: React.FC<SettingsProps> = ({
     onImport,
     tagsWithCounts,
     onRenameTag,
-    onDeleteTag
+    onDeleteTag,
+    hasExistingBookmarks
 }) => {
     const [view, setView] = useState<SettingsView>('main');
     const [driveFolderInfo, setDriveFolderInfo] = useState<string>('');
@@ -154,14 +156,27 @@ export const Settings: React.FC<SettingsProps> = ({
 
                 <div className="settings-divider">
                     <div className="setting-item">
-                        <div>
-                            <h3>Import Bookmarks</h3>
-                            <p>Import from Chrome and auto-tag with AI.</p>
+                        <div className="import-section">
+                            <div className="import-header">
+                                <h3>Import Bookmarks</h3>
+                                {hasExistingBookmarks && (
+                                    <div className="info-icon" title="Import is disabled because you already have bookmarks. This prevents duplicates and maintains your current organization.">
+                                        ℹ️
+                                    </div>
+                                )}
+                            </div>
+                            <p>
+                                {hasExistingBookmarks 
+                                    ? "Import is disabled to prevent duplicates since you already have bookmarks."
+                                    : "Import from Chrome and auto-tag with AI."
+                                }
+                            </p>
                         </div>
                         <button
                             onClick={onImport}
-                            disabled={isImporting}
-                            className="btn btn-primary import-btn"
+                            disabled={isImporting || hasExistingBookmarks}
+                            className={`btn btn-primary import-btn ${hasExistingBookmarks ? 'disabled-with-reason' : ''}`}
+                            title={hasExistingBookmarks ? "Import disabled - you already have bookmarks" : ""}
                         >
                             {isImporting ? 'Importing...' : 'Import from Chrome'}
                         </button>

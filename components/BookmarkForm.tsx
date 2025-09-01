@@ -27,6 +27,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const [isGeneratingTags, setIsGeneratingTags] = useState(false);
     const [aiSuggestions, setAiSuggestions] = useState<TagSuggestion[]>([]);
     const [showAiSuggestions, setShowAiSuggestions] = useState(false);
+    const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = useState(false);
     
     const tagInputRef = useRef<HTMLInputElement>(null);
     const formContainerRef = useRef<HTMLDivElement>(null);
@@ -66,6 +67,42 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         };
         checkGeminiStatus();
     }, []);
+
+    // Auto-generate AI suggestions when title and URL are available
+    useEffect(() => {
+        const autoGenerateAiSuggestions = async () => {
+            if (geminiStatus.available && title && url && !isGeneratingTags && !isEditing && !hasGeneratedSuggestions) {
+                setIsGeneratingTags(true);
+                setAiSuggestions([]);
+                
+                try {
+                    const suggestions = await geminiService.generateTags(title, url);
+                    if (suggestions && suggestions.length > 0) {
+                        setAiSuggestions(suggestions);
+                        setShowAiSuggestions(true);
+                        setHasGeneratedSuggestions(true);
+                    }
+                } catch (error) {
+                    console.error('Error auto-generating AI suggestions:', error);
+                } finally {
+                    setIsGeneratingTags(false);
+                }
+            }
+        };
+
+        // Debounce the auto-generation to avoid too many API calls
+        const timeoutId = setTimeout(autoGenerateAiSuggestions, 1000);
+        return () => clearTimeout(timeoutId);
+    }, [title, url, geminiStatus.available, isGeneratingTags, isEditing, hasGeneratedSuggestions]);
+
+    // Reset suggestions when form is reset or editing changes
+    useEffect(() => {
+        if (isEditing || !title || !url) {
+            setHasGeneratedSuggestions(false);
+            setAiSuggestions([]);
+            setShowAiSuggestions(false);
+        }
+    }, [isEditing, title, url]);
     
     const filteredSuggestions = useMemo(() => {
         if (!showSuggestions) return [];
@@ -128,9 +165,15 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const addAiSuggestion = (suggestion: TagSuggestion) => {
         if (!tags.includes(suggestion.tag)) {
             setTags([...tags, suggestion.tag]);
+            // Remove the selected suggestion from the list
             setAiSuggestions(aiSuggestions.filter(s => s.tag !== suggestion.tag));
         }
     };
+
+    // Filter AI suggestions to exclude already added tags
+    const filteredAiSuggestions = useMemo(() => {
+        return aiSuggestions.filter(suggestion => !tags.includes(suggestion.tag));
+    }, [aiSuggestions, tags]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -214,46 +257,34 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                     </div>
                 </div>
                 
-                {/* Gemini AI Suggestions Section */}
+                {/* AI Tag Suggestions Section */}
                 {geminiStatus.available && (
                     <div className="ai-suggestions-section">
-                        <div className="ai-status">
-                            <span className="ai-status-indicator">
-                                🤖 Gemini AI {geminiStatus.available ? 'Ready' : 'Unavailable'}
-                            </span>
-                            {!geminiStatus.available && geminiStatus.reason && (
-                                <span className="ai-status-reason">({geminiStatus.reason})</span>
-                            )}
-                        </div>
+                        {isGeneratingTags && (
+                            <div className="ai-generating-status">
+                                <span className="ai-generating-text">🔄 Gerando sugestões de tags...</span>
+                            </div>
+                        )}
                         
-                        <button 
-                            type="button" 
-                            onClick={generateAiSuggestions}
-                            disabled={isGeneratingTags || !title || !url}
-                            className="btn btn-ai"
-                        >
-                            {isGeneratingTags ? '🔄 Generating...' : '✨ Generate AI Tags'}
-                        </button>
-                        
-                        {showAiSuggestions && aiSuggestions.length > 0 && (
+                        {showAiSuggestions && filteredAiSuggestions.length > 0 && (
                             <div className="ai-suggestions">
-                                <h4>AI Suggestions:</h4>
+                                <h4 className="ai-suggestions-title">🏷️ Sugestões de Tags</h4>
                                 <div className="ai-suggestions-list">
-                                    {aiSuggestions.map((suggestion, index) => (
+                                    {filteredAiSuggestions.map((suggestion, index) => (
                                         <button
                                             key={index}
                                             type="button"
                                             onClick={() => addAiSuggestion(suggestion)}
-                                            className="ai-suggestion-tag"
-                                            title={`Confidence: ${Math.round(suggestion.confidence * 100)}% | Source: ${suggestion.source}`}
+                                            className="ai-suggestion-btn"
+                                            title={`Confiança: ${Math.round(suggestion.confidence * 100)}%`}
                                         >
                                             {suggestion.tag}
-                                            <span className="confidence-badge">
-                                                {Math.round(suggestion.confidence * 100)}%
-                                            </span>
                                         </button>
                                     ))}
                                 </div>
+                                <p className="ai-suggestions-info">
+                                    💡 Estas sugestões foram geradas automaticamente por inteligência artificial com base no título e URL do seu favorito. Clique nas tags para adicioná-las.
+                                </p>
                             </div>
                         )}
                     </div>

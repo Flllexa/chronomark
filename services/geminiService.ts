@@ -202,10 +202,13 @@ Response:`;
     private parseTagResponse(text: string): TagSuggestion[] {
         try {
             // Clean the response text
-            const cleanText = text.trim()
+            let cleanText = text.trim()
                 .replace(/```json\s*/g, '')
                 .replace(/```\s*/g, '')
                 .replace(/^Response:\s*/g, '');
+
+            // Fix common JSON issues
+            cleanText = this.fixMalformedJson(cleanText);
 
             const parsed = JSON.parse(cleanText);
             
@@ -239,6 +242,90 @@ Response:`;
             
             // Fallback: try to extract tags from plain text
             return this.extractTagsFromText(text);
+        }
+    }
+
+    /**
+     * Fix common JSON malformation issues
+     */
+    private fixMalformedJson(text: string): string {
+        try {
+            // Remove any trailing incomplete objects/arrays
+            let fixed = text.trim();
+            
+            // If it starts with [ but doesn't end with ], try to fix it
+            if (fixed.startsWith('[') && !fixed.endsWith(']')) {
+                // Find the last complete object
+                let lastCompleteIndex = -1;
+                let braceCount = 0;
+                let inString = false;
+                let escapeNext = false;
+                
+                for (let i = 0; i < fixed.length; i++) {
+                    const char = fixed[i];
+                    
+                    if (escapeNext) {
+                        escapeNext = false;
+                        continue;
+                    }
+                    
+                    if (char === '\\') {
+                        escapeNext = true;
+                        continue;
+                    }
+                    
+                    if (char === '"' && !escapeNext) {
+                        inString = !inString;
+                        continue;
+                    }
+                    
+                    if (!inString) {
+                        if (char === '{') {
+                            braceCount++;
+                        } else if (char === '}') {
+                            braceCount--;
+                            if (braceCount === 0) {
+                                lastCompleteIndex = i;
+                            }
+                        }
+                    }
+                }
+                
+                if (lastCompleteIndex > -1) {
+                    fixed = fixed.substring(0, lastCompleteIndex + 1) + ']';
+                }
+            }
+            
+            // Fix unterminated strings by adding closing quotes
+            if (fixed.includes('"') && !this.isValidJson(fixed)) {
+                const lines = fixed.split('\n');
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    const quoteCount = (line.match(/"/g) || []).length;
+                    if (quoteCount % 2 !== 0 && line.includes(':')) {
+                        // Add closing quote at the end of the line
+                        lines[i] = line + '"';
+                    }
+                }
+                fixed = lines.join('\n');
+            }
+            
+            return fixed;
+        } catch (error) {
+            console.warn('Error fixing malformed JSON:', error);
+            return text;
+        }
+    }
+
+    /**
+     * Check if a string is valid JSON
+     */
+    private isValidJson(text: string): boolean {
+        try {
+            JSON.parse(text);
+            return true;
+        } catch {
+            return false;
         }
     }
 
