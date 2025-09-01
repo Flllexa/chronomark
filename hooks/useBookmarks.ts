@@ -128,16 +128,25 @@ export const useBookmarks = () => {
         setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Authenticating...' }));
         
         try {
-            // Clear any existing invalid tokens first
-            await googleDriveService.clearAuthToken();
+            console.log("Starting authentication process...");
             
-            // Try to get a fresh token with interactive auth
-            const token = await googleDriveService.getAuthToken(true);
+            // First try to get token without interactive (silent auth)
+            let token = await googleDriveService.getAuthToken(false);
+            console.log("Silent auth result:", token ? "Token obtained" : "No token");
+            
+            // If no token, try interactive auth
+            if (!token) {
+                setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Please login to Google...' }));
+                console.log("Attempting interactive authentication...");
+                token = await googleDriveService.getAuthToken(true);
+                console.log("Interactive auth result:", token ? "Token obtained" : "No token");
+            }
             
             if (!token) {
                 throw new Error("Authentication failed or was cancelled by the user.");
             }
             
+            console.log("Authentication successful, starting sync...");
             setIsAuthenticated(true);
             setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Syncing data...' }));
             
@@ -157,6 +166,7 @@ export const useBookmarks = () => {
             
             if (error instanceof GoogleAuthError) {
                 message = "Authentication failed. Please try again.";
+                console.log("Clearing auth token due to GoogleAuthError");
                 await googleDriveService.clearAuthToken();
             } else if (error instanceof Error) {
                 if (error.message.includes('cancelled')) {
@@ -164,6 +174,7 @@ export const useBookmarks = () => {
                 } else if (error.message.includes('Authentication failed')) {
                     message = "Authentication failed. Please try again.";
                 }
+                console.log("Error message:", error.message);
             }
             
             setSyncStatus(prev => ({ ...prev, status: 'error', message }));

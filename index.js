@@ -25686,11 +25686,19 @@
     const syncWithGoogleDrive = (0, import_react4.useCallback)(async () => {
       setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Authenticating..." }));
       try {
-        await clearAuthToken();
-        const token = await getAuthToken(true);
+        console.log("Starting authentication process...");
+        let token = await getAuthToken(false);
+        console.log("Silent auth result:", token ? "Token obtained" : "No token");
+        if (!token) {
+          setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Please login to Google..." }));
+          console.log("Attempting interactive authentication...");
+          token = await getAuthToken(true);
+          console.log("Interactive auth result:", token ? "Token obtained" : "No token");
+        }
         if (!token) {
           throw new Error("Authentication failed or was cancelled by the user.");
         }
+        console.log("Authentication successful, starting sync...");
         setIsAuthenticated(true);
         setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Syncing data..." }));
         const syncTime = await syncCoreLogic(token);
@@ -25705,6 +25713,7 @@
         let message = "An unexpected error occurred during sync.";
         if (error instanceof GoogleAuthError) {
           message = "Authentication failed. Please try again.";
+          console.log("Clearing auth token due to GoogleAuthError");
           await clearAuthToken();
         } else if (error instanceof Error) {
           if (error.message.includes("cancelled")) {
@@ -25712,6 +25721,7 @@
           } else if (error.message.includes("Authentication failed")) {
             message = "Authentication failed. Please try again.";
           }
+          console.log("Error message:", error.message);
         }
         setSyncStatus((prev) => ({ ...prev, status: "error", message }));
         setIsAuthenticated(false);
