@@ -107,6 +107,7 @@ const App: React.FC = () => {
                     onCancel={handleCancel}
                     initialData={editingBookmark || currentTab}
                     allTags={allTags}
+                    existingBookmarks={bookmarks}
                 />
             );
         }

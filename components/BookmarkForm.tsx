@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import type { Bookmark, CurrentTab } from '../types';
 import { Tag } from './Tag';
+import { AddIcon, EditIcon } from './icons';
 import geminiService from '../services/geminiService';
 import type { TagSuggestion } from '../services/smartTaggingService';
 
@@ -13,9 +14,10 @@ interface BookmarkFormProps {
     onUpdate?: (bookmark: Bookmark) => void;
     initialData?: Partial<Bookmark & CurrentTab> | null;
     allTags?: string[];
+    existingBookmarks?: Bookmark[];
 }
 
-export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, onUpdate, initialData, allTags = [] }) => {
+export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, onUpdate, initialData, allTags = [], existingBookmarks = [] }) => {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
     const [tags, setTags] = useState<string[]>([]);
@@ -33,6 +35,31 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const formContainerRef = useRef<HTMLDivElement>(null);
 
     const isEditing = useMemo(() => !!(initialData && 'id' in initialData && initialData.id), [initialData]);
+    
+    // Check if URL already exists in bookmarks (excluding current bookmark if editing)
+    const existingBookmark = useMemo(() => {
+        if (!url) return null;
+        
+        // Normalize URLs for comparison (remove trailing slashes, convert to lowercase)
+        const normalizeUrl = (urlStr: string) => {
+            try {
+                const urlObj = new URL(urlStr);
+                return urlObj.href.toLowerCase().replace(/\/$/, '');
+            } catch {
+                return urlStr.toLowerCase().replace(/\/$/, '');
+            }
+        };
+        
+        const normalizedUrl = normalizeUrl(url);
+        
+        return existingBookmarks.find(bookmark => {
+            const normalizedBookmarkUrl = normalizeUrl(bookmark.url);
+            return normalizedBookmarkUrl === normalizedUrl && 
+                   (!isEditing || bookmark.id !== initialData?.id);
+        });
+    }, [url, existingBookmarks, isEditing, initialData?.id]);
+    
+    const isUrlDuplicate = !!existingBookmark;
 
     useEffect(() => {
         if (initialData) {
@@ -41,6 +68,14 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
             setTags(initialData.tags || []);
         }
     }, [initialData]);
+    
+    // Auto-load existing bookmark data when URL duplicate is detected
+    useEffect(() => {
+        if (existingBookmark && !isEditing) {
+            setTitle(existingBookmark.title);
+            setTags(existingBookmark.tags || []);
+        }
+    }, [existingBookmark, isEditing]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -177,7 +212,16 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (isEditing && onUpdate && initialData?.id && initialData.createdAt !== undefined) {
+        
+        // If URL already exists and we're not editing, edit the existing bookmark
+        if (isUrlDuplicate && !isEditing && onUpdate && existingBookmark) {
+            onUpdate({
+                ...existingBookmark,
+                title,
+                tags,
+                updatedAt: Date.now(),
+            });
+        } else if (isEditing && onUpdate && initialData?.id && initialData.createdAt !== undefined) {
             // FIX: Added `updatedAt` to satisfy the `Bookmark` type requirement for the `onUpdate` handler.
             onUpdate({
                 id: initialData.id,
@@ -195,7 +239,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     return (
         <div ref={formContainerRef}>
             <form onSubmit={handleSubmit} className="bookmark-form animate-fade-in">
-                <h2>{isEditing ? 'Edit Bookmark' : 'Save Bookmark'}</h2>
+                <h2>{isEditing || isUrlDuplicate ? 'Edit Bookmark' : 'Save Bookmark'}</h2>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input
@@ -295,7 +339,12 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                         Cancel
                     </button>
                     <button type="submit" className="btn btn-primary">
-                        {isEditing ? 'Update' : 'Save'}
+                        {isEditing || isUrlDuplicate ? (
+                            <EditIcon className="w-4 h-4 mr-2" />
+                        ) : (
+                            <AddIcon className="w-4 h-4 mr-2" />
+                        )}
+                        {isEditing || isUrlDuplicate ? 'Update' : 'Save'}
                     </button>
                 </div>
             </form>
