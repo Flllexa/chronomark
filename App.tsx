@@ -172,13 +172,15 @@ const App: React.FC = () => {
                     </div>
                     <SortDropdown sortOrder={sortOrder} onSortChange={setSortOrder} />
                 </div>
-                <AdvancedVirtualizedList
-                    bookmarks={sortedAndFilteredBookmarks}
-                    onDelete={deleteBookmark}
-                    onEdit={handleStartEditing}
-                    containerHeight={400}
-                    estimatedItemHeight={120}
-                />
+                <div className="virtualized-list-container">
+                    <AdvancedVirtualizedList
+                        bookmarks={sortedAndFilteredBookmarks}
+                        onDelete={deleteBookmark}
+                        onEdit={handleStartEditing}
+                        containerHeight={0} // Will be calculated by CSS
+                        estimatedItemHeight={120}
+                    />
+                </div>
                 <button
                     onClick={() => {
                         if (existingBookmarkForCurrentTab) {

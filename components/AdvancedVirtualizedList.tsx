@@ -56,8 +56,11 @@ export const AdvancedVirtualizedList: React.FC<AdvancedVirtualizedListProps> = (
     const visibleItems = useMemo(() => {
         if (itemPositions.length === 0) return [];
 
+        // Get actual container height if containerHeight is 0
+        const actualContainerHeight = containerHeight || (containerRef.current?.clientHeight || 400);
+
         const startIndex = itemPositions.findIndex(pos => pos.top + pos.height > scrollTop);
-        const endIndex = itemPositions.findIndex(pos => pos.top > scrollTop + containerHeight);
+        const endIndex = itemPositions.findIndex(pos => pos.top > scrollTop + actualContainerHeight);
 
         const start = Math.max(0, startIndex === -1 ? 0 : startIndex);
         const end = endIndex === -1 ? itemPositions.length : endIndex + 1;
@@ -98,8 +101,16 @@ export const AdvancedVirtualizedList: React.FC<AdvancedVirtualizedListProps> = (
     useEffect(() => {
         if (containerRef.current) {
             setScrollTop(containerRef.current.scrollTop);
+            // If containerHeight is 0, use the actual container height
+            if (containerHeight === 0) {
+                const rect = containerRef.current.getBoundingClientRect();
+                if (rect.height > 0) {
+                    // Update the scroll calculation with actual height
+                    setScrollTop(containerRef.current.scrollTop);
+                }
+            }
         }
-    }, [bookmarks]);
+    }, [bookmarks, containerHeight]);
 
     if (bookmarks.length === 0) {
         return <div className="bookmark-list-empty">No bookmarks found.</div>;
@@ -109,12 +120,14 @@ export const AdvancedVirtualizedList: React.FC<AdvancedVirtualizedListProps> = (
         itemPositions[itemPositions.length - 1].top + itemPositions[itemPositions.length - 1].height : 
         bookmarks.length * estimatedItemHeight;
 
+    const actualHeight = containerHeight || '100%';
+    
     return (
         <div 
             ref={containerRef}
             className="advanced-virtualized-list"
             style={{
-                height: containerHeight,
+                height: actualHeight,
                 overflowY: 'auto',
                 position: 'relative'
             }}

@@ -82,6 +82,7 @@
             flex-direction: column;
             color: var(--text-gray-100);
             position: relative;
+            overflow: hidden; /* Prevent app-level scrolling */
         }
 
         .app-header {
@@ -118,7 +119,7 @@
         main {
             flex-grow: 1;
             overflow-x: auto;
-            overflow-y: auto;
+            overflow-y: hidden; /* Remove vertical scrolling by default */
             padding: 1rem;
             padding-bottom: 5rem; /* Space for floating button */
             position: relative;
@@ -127,7 +128,14 @@
             min-height: 500px;
             max-width: 100%;
         }
-        
+
+        /* For forms and settings, enable scrolling */
+        main:has(.bookmark-form), main:has(.settings-view) {
+            overflow-y: auto;
+            min-height: 500px;
+            position: relative;
+        }
+
         main::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -147,24 +155,19 @@
             background: #64748b;
         }
         
-        /* Home View - no vertical scrolling needed since AdvancedVirtualizedList handles it */
+        /* Home View - Let AdvancedVirtualizedList handle all scrolling */
         .home-view {
-            height: 100%;
+            height: calc(100vh - 140px); /* Full height minus header and padding */
             display: flex;
             flex-direction: column;
-            overflow: visible;
+            overflow: hidden; /* No scrolling at this level */
             max-width: 100%;
-            min-height: 400px;
             position: relative;
             z-index: 1;
+            min-height: 0; /* Allow flex shrinking */
         }
         
-        /* For forms and settings, enable scrolling */
-        main:has(.bookmark-form), main:has(.settings-view) {
-            overflow-y: auto;
-            min-height: 500px;
-            position: relative;
-        }
+
 
         .main-controls {
             display: flex;
@@ -1065,14 +1068,25 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
         
+        /* Virtualized List Container */
+        .virtualized-list-container {
+            flex: 1;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            min-height: 0; /* Allow flex shrinking */
+        }
+        
         /* Virtualized List Styles */
         .advanced-virtualized-list {
             scrollbar-width: thin;
             scrollbar-color: #475569 #1e293b;
             max-width: 100%;
-            min-height: 400px;
+            height: 100% !important; /* Use full container height */
             position: relative;
             z-index: 1;
+            overflow-y: auto; /* Enable scrolling only for the list */
+            overflow-x: hidden; /* Hide horizontal scrollbar */
         }
         .advanced-virtualized-list::-webkit-scrollbar {
             width: 8px;
@@ -1091,7 +1105,8 @@
 
         .virtualized-items-container {
             max-width: 100%;
-            min-height: 400px;
+            height: 100%;
+            position: relative;
         }
         
         /* AI Suggestions Styles */
