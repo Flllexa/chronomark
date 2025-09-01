@@ -120,6 +120,7 @@
             overflow-x: auto;
             overflow-y: auto;
             padding: 1rem;
+            padding-bottom: 5rem; /* Space for floating button */
             position: relative;
             scrollbar-width: thin;
             scrollbar-color: #475569 #1e293b;
@@ -154,6 +155,8 @@
             overflow: visible;
             max-width: 100%;
             min-height: 400px;
+            position: relative;
+            z-index: 1;
         }
         
         /* For forms and settings, enable scrolling */
@@ -175,20 +178,22 @@
         }
         
         .add-bookmark-btn {
-            position: absolute;
+            position: fixed;
             bottom: 1.5rem;
             right: 1.5rem;
             background-color: var(--cyan-500);
             color: var(--text-white);
             border-radius: 9999px;
             padding: 1rem;
-            box-shadow: var(--shadow-lg);
-            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+            z-index: 1000;
         }
 
         .add-bookmark-btn:hover {
             background-color: var(--cyan-400);
             transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(6, 182, 212, 0.6);
         }
 
         .icon {
@@ -1066,6 +1071,8 @@
             scrollbar-color: #475569 #1e293b;
             max-width: 100%;
             min-height: 400px;
+            position: relative;
+            z-index: 1;
         }
         .advanced-virtualized-list::-webkit-scrollbar {
             width: 8px;
