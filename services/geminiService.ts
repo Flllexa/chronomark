@@ -4,7 +4,7 @@
  * No server proxy needed - runs directly in the extension
  */
 
-import SmartTaggingService, { TagSuggestion } from './smartTaggingService';
+import { TagSuggestion } from './smartTaggingService';
 
 interface GeminiConfig {
     model?: string;
@@ -45,7 +45,7 @@ class GeminiService {
         topK: 40
     };
 
-    private constructor() {}
+    private constructor() { }
 
     public static getInstance(): GeminiService {
         if (!GeminiService.instance) {
@@ -69,12 +69,12 @@ class GeminiService {
                     reject(new Error(`Auth error: ${chrome.runtime.lastError.message}`));
                     return;
                 }
-                
+
                 if (!token) {
                     reject(new Error('No auth token available'));
                     return;
                 }
-                
+
                 resolve(token);
             });
         });
@@ -89,7 +89,7 @@ class GeminiService {
     ): Promise<GeminiResponse> {
         const token = await this.getAuthToken();
         const finalConfig = { ...this.defaultConfig, ...config };
-        
+
         const requestBody = {
             contents: [{
                 parts: [{
@@ -153,7 +153,7 @@ class GeminiService {
         try {
             const prompt = this.createTagPrompt(title, url);
             const response = await this.makeGeminiRequest(prompt, config);
-            
+
             if (!response.candidates || response.candidates.length === 0) {
                 throw new Error('No response from Gemini API');
             }
@@ -165,7 +165,7 @@ class GeminiService {
 
             const text = content.parts[0].text;
             return this.parseTagResponse(text);
-            
+
         } catch (error) {
             console.error('Gemini tag generation error:', error);
             throw error;
@@ -177,33 +177,23 @@ class GeminiService {
      */
     private createTagPrompt(title: string, url: string): string {
         const domain = this.extractDomain(url);
-        
-        return `You are a bookmark tagging expert. Analyze this bookmark and generate EXACTLY between 5 to 10 relevant tags.
 
-Bookmark Information:
+        return `Analyze this bookmark and suggest 5-10 relevant tags:
+
 Title: "${title}"
 URL: ${url}
 Domain: ${domain}
 
-IMPORTANT REQUIREMENTS:
-1. You MUST generate AT LEAST 5 tags and AT MOST 10 tags
-2. Each tag should be concise, lowercase, 5-10 words maximum
-3. Focus on: technology stack, category, purpose, domain type, content type
-4. Include both specific and general tags for better organization
-5. Avoid generic words like "website", "page", "link", "site"
-6. Consider the domain context and title meaning
-7. If unsure, generate more tags rather than fewer (aim for 7-8 tags)
+Rules:
+1. Generate concise, lowercase tags (1-3 words each)
+2. Focus on: technology, category, purpose, domain type
+3. Avoid generic words like "website", "page", "link"
+4. Consider the domain and title context
+5. Return ONLY a JSON array of strings
 
-Example categories to consider:
-- Technology: react, javascript, python, api, database
-- Purpose: tutorial, documentation, tool, reference, news
-- Category: development, design, productivity, education, entertainment
-- Domain type: github, stackoverflow, medium, youtube, official
+Sample: ["javascript", "react", "tutorial", "frontend", "web-development"]
 
-Return ONLY a valid JSON array with this exact format:
-[{"tag": "example-tag", "confidence": 0.85, "reason": "Brief explanation"}]
-
-Generate your response now:`;
+Response:`;
     }
 
     /**
@@ -217,143 +207,52 @@ Generate your response now:`;
                 .replace(/```\s*/g, '')
                 .replace(/^Response:\s*/g, '');
 
-            // Fix common JSON issues
-            cleanText = this.fixMalformedJson(cleanText);
+            console.log('Cleaned Gemini response:', cleanText);
 
-            const parsed = JSON.parse(cleanText);
-            
-            if (!Array.isArray(parsed)) {
-                throw new Error('Response is not an array');
-            }
+            let parsed;
+            try {
+                parsed = JSON.parse(cleanText);
+            } catch (parseError) {
+                console.warn('JSON parse failed, attempting manual extraction:', parseError);
 
-            const suggestions = parsed.map((item: any, index: number): TagSuggestion => {
-                if (!item.tag || typeof item.tag !== 'string') {
-                    throw new Error(`Invalid tag at index ${index}`);
+                // Try to extract JSON array manually using regex
+                const jsonMatch = cleanText.match(/\[.*\]/s);
+                if (jsonMatch) {
+                    try {
+                        parsed = JSON.parse(jsonMatch[0]);
+                        console.log('Successfully extracted JSON manually');
+                    } catch (manualError) {
+                        console.error('Manual JSON extraction also failed:', manualError);
+                        return this.extractTagsFromText(text);
+                    }
+                } else {
+                    console.error('No JSON array found in response');
+                    return this.extractTagsFromText(text);
                 }
+            }
 
-                return {
-                    tag: item.tag.toLowerCase().trim(),
-                    confidence: typeof item.confidence === 'number' 
-                        ? Math.max(0, Math.min(1, item.confidence))
-                        : 0.7,
+            if (!Array.isArray(parsed)) {
+                console.warn('Gemini response is not an array:', parsed);
+                return this.extractTagsFromText(text);
+            }
+
+            return parsed
+                .filter((item: any) => typeof item === 'string')
+                .map((tag: string): TagSuggestion => ({
+                    tag: tag.toLowerCase().trim(),
+                    confidence: 0.8,
                     source: 'ai_gemini' as const,
-                    reason: typeof item.reason === 'string' 
-                        ? item.reason.trim() 
-                        : 'AI generated suggestion'
-                };
-            }).filter(suggestion => 
-                suggestion.tag.length > 0 && 
-                suggestion.tag.length <= 30
-            ).filter((suggestion, index, array) => 
-                array.findIndex(s => s.tag === suggestion.tag) === index // Remove duplicates
-            );
+                    reason: 'AI generated suggestion'
+                }))
+                .filter(suggestion =>
+                    suggestion.tag.length > 0 &&
+                    suggestion.tag.length <= 30
+                );
 
-            // Strict validation for tag count - must have at least 5 tags
-            if (suggestions.length < 5) {
-                console.error(`CRITICAL: Gemini generated only ${suggestions.length} tags, expected 5-10:`, suggestions.map(s => s.tag));
-                console.error('Raw Gemini response:', text);
-                // Return empty array to trigger fallback
-                return [];
-            }
-            
-            if (suggestions.length > 10) {
-                console.warn(`Gemini generated ${suggestions.length} tags, limiting to 10`);
-                return suggestions.slice(0, 10);
-            }
-            
-            console.log(`Successfully generated ${suggestions.length} tags:`, suggestions.map(s => s.tag));
-            return suggestions;
-            
         } catch (error) {
             console.error('Error parsing Gemini response:', error);
             console.error('Raw response:', text);
-            
-            // Fallback: try to extract tags from plain text
             return this.extractTagsFromText(text);
-        }
-    }
-
-    /**
-     * Fix common JSON malformation issues
-     */
-    private fixMalformedJson(text: string): string {
-        try {
-            // Remove any trailing incomplete objects/arrays
-            let fixed = text.trim();
-            
-            // If it starts with [ but doesn't end with ], try to fix it
-            if (fixed.startsWith('[') && !fixed.endsWith(']')) {
-                // Find the last complete object
-                let lastCompleteIndex = -1;
-                let braceCount = 0;
-                let inString = false;
-                let escapeNext = false;
-                
-                for (let i = 0; i < fixed.length; i++) {
-                    const char = fixed[i];
-                    
-                    if (escapeNext) {
-                        escapeNext = false;
-                        continue;
-                    }
-                    
-                    if (char === '\\') {
-                        escapeNext = true;
-                        continue;
-                    }
-                    
-                    if (char === '"' && !escapeNext) {
-                        inString = !inString;
-                        continue;
-                    }
-                    
-                    if (!inString) {
-                        if (char === '{') {
-                            braceCount++;
-                        } else if (char === '}') {
-                            braceCount--;
-                            if (braceCount === 0) {
-                                lastCompleteIndex = i;
-                            }
-                        }
-                    }
-                }
-                
-                if (lastCompleteIndex > -1) {
-                    fixed = fixed.substring(0, lastCompleteIndex + 1) + ']';
-                }
-            }
-            
-            // Fix unterminated strings by adding closing quotes
-            if (fixed.includes('"') && !this.isValidJson(fixed)) {
-                const lines = fixed.split('\n');
-                for (let i = 0; i < lines.length; i++) {
-                    const line = lines[i];
-                    const quoteCount = (line.match(/"/g) || []).length;
-                    if (quoteCount % 2 !== 0 && line.includes(':')) {
-                        // Add closing quote at the end of the line
-                        lines[i] = line + '"';
-                    }
-                }
-                fixed = lines.join('\n');
-            }
-            
-            return fixed;
-        } catch (error) {
-            console.warn('Error fixing malformed JSON:', error);
-            return text;
-        }
-    }
-
-    /**
-     * Check if a string is valid JSON
-     */
-    private isValidJson(text: string): boolean {
-        try {
-            JSON.parse(text);
-            return true;
-        } catch {
-            return false;
         }
     }
 
@@ -363,7 +262,7 @@ Generate your response now:`;
     private extractTagsFromText(text: string): TagSuggestion[] {
         const lines = text.split('\n').filter(line => line.trim());
         const tags: TagSuggestion[] = [];
-        
+
         for (const line of lines) {
             // Look for patterns like "- tag" or "1. tag" or just "tag"
             const match = line.match(/(?:[-*]\s*|\d+\.\s*)?([a-zA-Z][a-zA-Z0-9-_]{1,29})/g);
@@ -381,35 +280,8 @@ Generate your response now:`;
                 }
             }
         }
-        
-        // Enhanced fallback: if we don't have enough tags, generate more
-        if (tags.length < 5) {
-            const commonTechWords = ['javascript', 'react', 'python', 'api', 'tutorial', 'documentation', 'tool', 'reference', 'development', 'web'];
-            const commonCategories = ['productivity', 'education', 'news', 'entertainment', 'business', 'technology', 'design', 'programming'];
-            
-            // Extract words from the text
-            const extractedWords = text.toLowerCase()
-                .replace(/[^a-z0-9\s]/g, ' ')
-                .split(/\s+/)
-                .filter(word => word.length > 2 && word.length < 20)
-                .filter(word => !['the', 'and', 'for', 'with', 'from', 'this', 'that', 'are', 'was', 'will', 'have', 'has'].includes(word));
-            
-            // Combine extracted words with some common fallback tags
-            const allPossibleTags = [...new Set([...extractedWords, ...commonTechWords, ...commonCategories])];
-            
-            // Add more tags to reach at least 5
-            const neededTags = 5 - tags.length;
-            const additionalTags = allPossibleTags.slice(0, neededTags).map(word => ({
-                tag: word,
-                confidence: extractedWords.includes(word) ? 0.5 : 0.3,
-                source: 'ai_gemini' as const,
-                reason: extractedWords.includes(word) ? 'Extracted from bookmark' : 'Common fallback tag'
-            }));
-            
-            tags.push(...additionalTags);
-        }
-        
-        return tags.slice(0, 10); // Limit to 10 tags
+
+        return tags.slice(0, 5); // Limit to 5 tags
     }
 
     /**
@@ -442,9 +314,9 @@ Generate your response now:`;
 
             // Try to get auth token
             await this.getAuthToken();
-            
+
             return { available: true };
-            
+
         } catch (error) {
             return {
                 available: false,
@@ -468,7 +340,7 @@ Generate your response now:`;
                 // Ignore parsing errors
             }
         }
-        
+
         return {
             requestCount: 0,
             lastUsed: null
@@ -482,7 +354,7 @@ Generate your response now:`;
         const stats = this.getUsageStats();
         stats.requestCount += 1;
         stats.lastUsed = Date.now();
-        
+
         try {
             localStorage.setItem('gemini_usage_stats', JSON.stringify(stats));
         } catch {
@@ -503,40 +375,62 @@ export async function suggestTagsWithGemini(
     url: string,
     config?: GeminiConfig
 ): Promise<TagSuggestion[]> {
-    try {
-        // Check availability first
-        const availability = await geminiService.checkAvailability();
-        if (!availability.available) {
-            console.warn('Gemini not available:', availability.reason);
-            // Import and use fallback service
-            const SmartTaggingService = await import('./smartTaggingService');
-            return SmartTaggingService.default.suggestTags(title, url);
-        }
+    const maxRetries = 2;
+    let attempt = 0;
 
-        // Generate tags with Gemini
-        const geminiTags = await geminiService.generateTags(title, url, config);
-        
-        // If we get good results, return them
-        if (geminiTags.length > 0) {
-            return geminiTags;
-        }
-        
-        // Fallback to local rules if no tags generated
-        console.warn('No tags from Gemini, using fallback');
-        const SmartTaggingService = await import('./smartTaggingService');
-            return SmartTaggingService.default.suggestTags(title, url);
-        
-    } catch (error) {
-        console.error('Error in Gemini tag suggestion:', error);
-        
-        // Always fallback to local rules on error
+    while (attempt < maxRetries) {
+        attempt++;
+        console.log(`Gemini attempt ${attempt}/${maxRetries}`);
+
         try {
-            const SmartTaggingService = await import('./smartTaggingService');
-            return SmartTaggingService.default.suggestTags(title, url);
-        } catch (fallbackError) {
-            console.error('Fallback also failed:', fallbackError);
-            return [];
+            // Check availability first
+            const availability = await geminiService.checkAvailability();
+            if (!availability.available) {
+                console.warn('Gemini not available:', availability.reason);
+                break; // Exit retry loop and use fallback
+            }
+
+            // Generate tags with Gemini
+            const geminiTags = await geminiService.generateTags(title, url, config);
+
+            // If we get any valid tags (5-10 as per prompt), return them
+            if (geminiTags.length >= 5 && geminiTags.length <= 10) {
+                console.log(`Gemini success on attempt ${attempt}: generated ${geminiTags.length} tags`);
+                return geminiTags;
+            }
+
+            // If we get some tags but not in expected range, log and retry
+            if (geminiTags.length > 0) {
+                console.warn(`Gemini generated ${geminiTags.length} tags instead of 5-10 on attempt ${attempt}`);
+            } else {
+                console.warn(`Gemini generated no tags on attempt ${attempt}`);
+            }
+
+            // If this is not the last attempt, wait before retrying
+            if (attempt < maxRetries) {
+                console.log('Waiting 1 second before retry...');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+
+        } catch (error) {
+            console.error(`Gemini attempt ${attempt} failed:`, error);
+            
+            // If this is not the last attempt, wait before retrying
+            if (attempt < maxRetries) {
+                console.log('Waiting 1 second before retry...');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
         }
+    }
+
+    // All attempts failed, use fallback
+    console.warn(`All ${maxRetries} Gemini attempts failed, using fallback service`);
+    try {
+        const SmartTaggingService = await import('./smartTaggingService');
+        return SmartTaggingService.default.suggestTags(title, url);
+    } catch (fallbackError) {
+        console.error('Fallback service also failed:', fallbackError);
+        return [];
     }
 }
 
