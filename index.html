@@ -321,6 +321,14 @@
         .bookmark-item-content a:hover {
             color: var(--cyan-300);
         }
+        .bookmark-item-content a.unsafe-url {
+            color: var(--red-400);
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        .bookmark-item-content a.unsafe-url:hover {
+            color: var(--red-400);
+        }
         .bookmark-item-content a span {
             white-space: nowrap;
             overflow: hidden;

@@ -4,6 +4,26 @@ import type { Bookmark } from '../types';
 import { Tag } from './Tag';
 import { DeleteIcon, EditIcon, LinkIcon } from './icons';
 
+// Function to sanitize URLs and prevent javascript: URLs
+const sanitizeUrl = (url: string): { safeUrl: string; isSafe: boolean } => {
+    try {
+        const urlObj = new URL(url);
+        // Check if the URL scheme is dangerous
+        if (urlObj.protocol === 'javascript:' || urlObj.protocol === 'data:' || urlObj.protocol === 'vbscript:') {
+            return { safeUrl: '#', isSafe: false };
+        }
+        return { safeUrl: url, isSafe: true };
+    } catch {
+        // If URL parsing fails, check if it starts with dangerous protocols
+        const lowerUrl = url.toLowerCase();
+        if (lowerUrl.startsWith('javascript:') || lowerUrl.startsWith('data:') || lowerUrl.startsWith('vbscript:')) {
+            return { safeUrl: '#', isSafe: false };
+        }
+        // For relative URLs or other formats, return as is
+        return { safeUrl: url, isSafe: true };
+    }
+};
+
 interface BookmarkItemProps {
     bookmark: Bookmark;
     onDelete: (id: string) => void;
@@ -11,12 +31,21 @@ interface BookmarkItemProps {
 }
 
 export const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onDelete, onEdit }) => {
+    const { safeUrl, isSafe } = sanitizeUrl(bookmark.url);
+    
     return (
         <div className="bookmark-item">
             <div className="bookmark-item-header">
                 <div className="bookmark-item-content">
                     <h3>{bookmark.title}</h3>
-                    <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
+                    <a 
+                        href={safeUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={!isSafe ? (e) => e.preventDefault() : undefined}
+                        title={!isSafe ? "This URL has been blocked for security reasons" : undefined}
+                        className={!isSafe ? "unsafe-url" : ""}
+                    >
                         <LinkIcon className="icon"/>
                         <span>{bookmark.url}</span>
                     </a>

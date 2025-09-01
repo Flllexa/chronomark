@@ -24689,15 +24689,42 @@
 
   // components/BookmarkItem.tsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+  var sanitizeUrl = (url) => {
+    try {
+      const urlObj = new URL(url);
+      if (urlObj.protocol === "javascript:" || urlObj.protocol === "data:" || urlObj.protocol === "vbscript:") {
+        return { safeUrl: "#", isSafe: false };
+      }
+      return { safeUrl: url, isSafe: true };
+    } catch {
+      const lowerUrl = url.toLowerCase();
+      if (lowerUrl.startsWith("javascript:") || lowerUrl.startsWith("data:") || lowerUrl.startsWith("vbscript:")) {
+        return { safeUrl: "#", isSafe: false };
+      }
+      return { safeUrl: url, isSafe: true };
+    }
+  };
   var BookmarkItem = ({ bookmark, onDelete, onEdit }) => {
+    const { safeUrl, isSafe } = sanitizeUrl(bookmark.url);
     return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item", children: [
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item-header", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item-content", children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { children: bookmark.title }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("a", { href: bookmark.url, target: "_blank", rel: "noopener noreferrer", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(LinkIcon, { className: "icon" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: bookmark.url })
-          ] })
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+            "a",
+            {
+              href: safeUrl,
+              target: "_blank",
+              rel: "noopener noreferrer",
+              onClick: !isSafe ? (e) => e.preventDefault() : void 0,
+              title: !isSafe ? "This URL has been blocked for security reasons" : void 0,
+              className: !isSafe ? "unsafe-url" : "",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(LinkIcon, { className: "icon" }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: bookmark.url })
+              ]
+            }
+          )
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item-actions", children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { onClick: () => onEdit(bookmark), title: "Edit bookmark", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(EditIcon, { className: "icon" }) }),
