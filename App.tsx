@@ -72,11 +72,35 @@ const App: React.FC = () => {
     }, []);
 
     const sortedAndFilteredBookmarks = useMemo(() => {
-        const filtered = bookmarks.filter(bookmark =>
-            bookmark.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            bookmark.url.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            bookmark.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
+        // Function to normalize text (remove accents and convert to lowercase)
+        const normalizeText = (text: string) => {
+            return text
+                .toLowerCase()
+                .normalize('NFD') // Decompose accented characters
+                .replace(/[\u0300-\u036f]/g, '') // Remove accent marks
+                .trim();
+        };
+
+        const filtered = bookmarks.filter(bookmark => {
+            // If no search term, show all bookmarks
+            if (!searchTerm.trim()) return true;
+            
+            // Split search term into individual keywords and normalize them
+            const keywords = normalizeText(searchTerm).split(/\s+/);
+            
+            // Prepare normalized searchable text
+            const title = normalizeText(bookmark.title);
+            const url = normalizeText(bookmark.url);
+            const tags = bookmark.tags.map(tag => normalizeText(tag));
+            const allTagsText = tags.join(' ');
+            
+            // Each keyword must be found in at least one field (title, url, or tags)
+            return keywords.every(keyword => 
+                title.includes(keyword) ||
+                url.includes(keyword) ||
+                allTagsText.includes(keyword)
+            );
+        });
 
         return filtered.sort((a, b) => {
             switch (sortOrder) {
