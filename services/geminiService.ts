@@ -178,7 +178,7 @@ class GeminiService {
     private createTagPrompt(title: string, url: string): string {
         const domain = this.extractDomain(url);
         
-        return `Analyze this bookmark and suggest 3-5 relevant tags:
+        return `Analyze this bookmark and suggest 5-10 relevant tags:
 
 Title: "${title}"
 URL: ${url}
@@ -189,7 +189,8 @@ Rules:
 2. Focus on: technology, category, purpose, domain type
 3. Avoid generic words like "website", "page", "link"
 4. Consider the domain and title context
-5. Return ONLY a JSON array of objects with this format:
+5. Generate MINIMUM 5 tags and MAXIMUM 10 tags
+6. Return ONLY a JSON array of objects with this format:
 
 [{"tag": "example-tag", "confidence": 0.85, "reason": "Brief explanation"}]
 
@@ -216,7 +217,7 @@ Response:`;
                 throw new Error('Response is not an array');
             }
 
-            return parsed.map((item: any, index: number): TagSuggestion => {
+            const suggestions = parsed.map((item: any, index: number): TagSuggestion => {
                 if (!item.tag || typeof item.tag !== 'string') {
                     throw new Error(`Invalid tag at index ${index}`);
                 }
@@ -235,6 +236,14 @@ Response:`;
                 suggestion.tag.length > 0 && 
                 suggestion.tag.length <= 30
             );
+
+            // Ensure we have between 5 and 10 tags
+            if (suggestions.length < 5) {
+                console.warn(`Gemini returned only ${suggestions.length} tags, expected 5-10`);
+            }
+            
+            // Limit to maximum 10 tags
+            return suggestions.slice(0, 10);
             
         } catch (error) {
             console.error('Error parsing Gemini response:', error);
@@ -354,7 +363,7 @@ Response:`;
             }
         }
         
-        return tags.slice(0, 5); // Limit to 5 tags
+        return tags.slice(0, 10); // Limit to 10 tags
     }
 
     /**
