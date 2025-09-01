@@ -130,17 +130,12 @@ export const useBookmarks = () => {
         try {
             console.log("Starting authentication process...");
             
-            // First try to get token without interactive (silent auth)
-            let token = await googleDriveService.getAuthToken(false);
-            console.log("Silent auth result:", token ? "Token obtained" : "No token");
+            // Always try interactive auth first for now
+            setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Please login to Google...' }));
+            console.log("Attempting interactive authentication...");
             
-            // If no token, try interactive auth
-            if (!token) {
-                setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Please login to Google...' }));
-                console.log("Attempting interactive authentication...");
-                token = await googleDriveService.getAuthToken(true);
-                console.log("Interactive auth result:", token ? "Token obtained" : "No token");
-            }
+            const token = await googleDriveService.getAuthToken(true);
+            console.log("Interactive auth result:", token ? "Token obtained" : "No token");
             
             if (!token) {
                 throw new Error("Authentication failed or was cancelled by the user.");
@@ -165,9 +160,8 @@ export const useBookmarks = () => {
             let message = "An unexpected error occurred during sync.";
             
             if (error instanceof GoogleAuthError) {
-                message = "Authentication failed. Please try again.";
-                console.log("Clearing auth token due to GoogleAuthError");
-                await googleDriveService.clearAuthToken();
+                message = "OAuth configuration error. Please check Google Cloud Console.";
+                console.log("GoogleAuthError details:", error.message);
             } else if (error instanceof Error) {
                 if (error.message.includes('cancelled')) {
                     message = "Authentication was cancelled.";

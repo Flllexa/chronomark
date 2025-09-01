@@ -25247,12 +25247,18 @@
   var handleApiResponse = async (response) => {
     if (response.status === 401 || response.status === 403) {
       if (typeof chrome !== "undefined" && chrome.identity) {
-        chrome.identity.getAuthToken({ interactive: false }, (token) => {
-          if (token) {
-            chrome.identity.removeCachedAuthToken({ token }, () => {
+        const clearToken = () => {
+          return new Promise((resolve) => {
+            chrome.identity.getAuthToken({ interactive: false }, (token) => {
+              if (token) {
+                chrome.identity.removeCachedAuthToken({ token }, () => resolve());
+              } else {
+                resolve();
+              }
             });
-          }
-        });
+          });
+        };
+        await clearToken();
       }
       throw new GoogleAuthError("Authentication token is invalid or expired.");
     }
@@ -25687,14 +25693,10 @@
       setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Authenticating..." }));
       try {
         console.log("Starting authentication process...");
-        let token = await getAuthToken(false);
-        console.log("Silent auth result:", token ? "Token obtained" : "No token");
-        if (!token) {
-          setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Please login to Google..." }));
-          console.log("Attempting interactive authentication...");
-          token = await getAuthToken(true);
-          console.log("Interactive auth result:", token ? "Token obtained" : "No token");
-        }
+        setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Please login to Google..." }));
+        console.log("Attempting interactive authentication...");
+        const token = await getAuthToken(true);
+        console.log("Interactive auth result:", token ? "Token obtained" : "No token");
         if (!token) {
           throw new Error("Authentication failed or was cancelled by the user.");
         }
@@ -25712,9 +25714,8 @@
         console.error("Sync failed:", error);
         let message = "An unexpected error occurred during sync.";
         if (error instanceof GoogleAuthError) {
-          message = "Authentication failed. Please try again.";
-          console.log("Clearing auth token due to GoogleAuthError");
-          await clearAuthToken();
+          message = "OAuth configuration error. Please check Google Cloud Console.";
+          console.log("GoogleAuthError details:", error.message);
         } else if (error instanceof Error) {
           if (error.message.includes("cancelled")) {
             message = "Authentication was cancelled.";

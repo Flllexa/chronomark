@@ -73,12 +73,18 @@
   var handleApiResponse = async (response) => {
     if (response.status === 401 || response.status === 403) {
       if (typeof chrome !== "undefined" && chrome.identity) {
-        chrome.identity.getAuthToken({ interactive: false }, (token) => {
-          if (token) {
-            chrome.identity.removeCachedAuthToken({ token }, () => {
+        const clearToken = () => {
+          return new Promise((resolve) => {
+            chrome.identity.getAuthToken({ interactive: false }, (token) => {
+              if (token) {
+                chrome.identity.removeCachedAuthToken({ token }, () => resolve());
+              } else {
+                resolve();
+              }
             });
-          }
-        });
+          });
+        };
+        await clearToken();
       }
       throw new GoogleAuthError("Authentication token is invalid or expired.");
     }

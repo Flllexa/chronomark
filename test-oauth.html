@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OAuth Test</title>
+</head>
+<body>
+    <h1>OAuth Test</h1>
+    <button id="testAuth">Test Authentication</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('testAuth').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                console.log('Testing Chrome Identity API...');
+                
+                if (typeof chrome === 'undefined' || !chrome.identity) {
+                    resultDiv.innerHTML = 'ERROR: Chrome Identity API not available';
+                    return;
+                }
+                
+                console.log('Chrome Identity API available, testing getAuthToken...');
+                
+                // Test non-interactive first
+                chrome.identity.getAuthToken({ interactive: false }, (token) => {
+                    console.log('Non-interactive result:', token);
+                    
+                    if (chrome.runtime && chrome.runtime.lastError) {
+                        console.log('Non-interactive error:', chrome.runtime.lastError);
+                        resultDiv.innerHTML = `Non-interactive failed: ${chrome.runtime.lastError.message}`;
+                        
+                        // Try interactive
+                        console.log('Trying interactive authentication...');
+                        chrome.identity.getAuthToken({ interactive: true }, (interactiveToken) => {
+                            console.log('Interactive result:', interactiveToken);
+                            
+                            if (chrome.runtime && chrome.runtime.lastError) {
+                                console.log('Interactive error:', chrome.runtime.lastError);
+                                resultDiv.innerHTML = `Interactive failed: ${chrome.runtime.lastError.message}`;
+                            } else if (interactiveToken) {
+                                resultDiv.innerHTML = `SUCCESS: Token obtained (${interactiveToken.substring(0, 20)}...)`;
+                            } else {
+                                resultDiv.innerHTML = 'Interactive auth returned no token';
+                            }
+                        });
+                    } else if (token) {
+                        resultDiv.innerHTML = `SUCCESS: Token already available (${token.substring(0, 20)}...)`;
+                    } else {
+                        resultDiv.innerHTML = 'Non-interactive returned no token';
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Test error:', error);
+                resultDiv.innerHTML = `ERROR: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

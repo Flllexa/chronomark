@@ -17,14 +17,20 @@ export class GoogleAuthError extends Error {
 // Helper to handle API responses and auth errors
 const handleApiResponse = async (response: Response): Promise<Response> => {
     if (response.status === 401 || response.status === 403) {
-        // This token is bad. Attempt to clear it from the cache.
+        // This token is bad. Clear it from the cache.
         if (typeof chrome !== 'undefined' && chrome.identity) {
-            chrome.identity.getAuthToken({ interactive: false }, (token?: string) => {
-                if (token) {
-                    // Fire-and-forget removal of the invalid token.
-                    chrome.identity.removeCachedAuthToken({ token }, () => {});
-                }
-            });
+            const clearToken = () => {
+                return new Promise<void>((resolve) => {
+                    chrome.identity.getAuthToken({ interactive: false }, (token?: string) => {
+                        if (token) {
+                            chrome.identity.removeCachedAuthToken({ token }, () => resolve());
+                        } else {
+                            resolve();
+                        }
+                    });
+                });
+            };
+            await clearToken();
         }
         throw new GoogleAuthError('Authentication token is invalid or expired.');
     }
