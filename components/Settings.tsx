@@ -1,8 +1,8 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Settings as SettingsType, ImportStatus, TagWithCount } from '../types';
-import { CloseIcon, TagIcon } from './icons';
+import { CloseIcon, TagIcon, CloudCheckIcon } from './icons';
 import { ToggleSwitch } from './ToggleSwitch';
 import { TagManagement } from './TagManagement';
 
@@ -30,8 +30,31 @@ export const Settings: React.FC<SettingsProps> = ({
     onDeleteTag
 }) => {
     const [view, setView] = useState<SettingsView>('main');
+    const [driveFolderInfo, setDriveFolderInfo] = useState<string>('');
 
     const isImporting = importStatus.status !== 'idle';
+
+    useEffect(() => {
+        // Get the file ID from storage to show folder info
+        const getDriveFolderInfo = async () => {
+            if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+                try {
+                    const result = await chrome.storage.local.get(['googleDriveFileId']);
+                    if (result.googleDriveFileId) {
+                        setDriveFolderInfo('Google Drive > App Data > chronomark_bookmarks.json');
+                    } else {
+                        setDriveFolderInfo('Not configured yet');
+                    }
+                } catch (error) {
+                    setDriveFolderInfo('Unable to determine location');
+                }
+            } else {
+                setDriveFolderInfo('Chrome extension storage not available');
+            }
+        };
+
+        getDriveFolderInfo();
+    }, []);
 
     const renderImportStatus = () => {
         if (!isImporting) return null;
@@ -104,6 +127,17 @@ export const Settings: React.FC<SettingsProps> = ({
                         checked={settings.autoSync}
                         onChange={(checked) => onUpdateSettings({ autoSync: checked })}
                     />
+                </div>
+
+                <div className="setting-item">
+                    <div>
+                        <h3>Google Drive Location</h3>
+                        <p>Your bookmarks are saved in:</p>
+                        <div className="drive-folder-info">
+                            <CloudCheckIcon className="icon" />
+                            <span>{driveFolderInfo}</span>
+                        </div>
+                    </div>
                 </div>
                 
                 <div 

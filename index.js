@@ -1096,7 +1096,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect5(create, deps) {
+          function useEffect6(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1879,7 +1879,7 @@
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect5;
+          exports.useEffect = useEffect6;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
@@ -24975,7 +24975,27 @@
     onDeleteTag
   }) => {
     const [view, setView] = (0, import_react3.useState)("main");
+    const [driveFolderInfo, setDriveFolderInfo] = (0, import_react3.useState)("");
     const isImporting = importStatus.status !== "idle";
+    (0, import_react3.useEffect)(() => {
+      const getDriveFolderInfo = async () => {
+        if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
+          try {
+            const result = await chrome.storage.local.get(["googleDriveFileId"]);
+            if (result.googleDriveFileId) {
+              setDriveFolderInfo("Google Drive > App Data > chronomark_bookmarks.json");
+            } else {
+              setDriveFolderInfo("Not configured yet");
+            }
+          } catch (error) {
+            setDriveFolderInfo("Unable to determine location");
+          }
+        } else {
+          setDriveFolderInfo("Chrome extension storage not available");
+        }
+      };
+      getDriveFolderInfo();
+    }, []);
     const renderImportStatus = () => {
       if (!isImporting) return null;
       let statusClass = "";
@@ -25052,6 +25072,14 @@
             }
           )
         ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "setting-item", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h3", { children: "Google Drive Location" }),
+          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { children: "Your bookmarks are saved in:" }),
+          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "drive-folder-info", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(CloudCheckIcon, { className: "icon" }),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: driveFolderInfo })
+          ] })
+        ] }) }),
         /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
           "div",
           {
