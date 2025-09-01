@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import type { Bookmark, CurrentTab } from '../types';
 import { Tag } from './Tag';
+import geminiService from '../services/geminiService';
+import type { TagSuggestion } from '../services/smartTaggingService';
 
 interface BookmarkFormProps {
     // FIX: Updated `onSave` type to align with `addBookmark` which handles timestamp generation.
@@ -19,6 +21,12 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const [tags, setTags] = useState<string[]>([]);
     const [tagInput, setTagInput] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
+    
+    // Gemini AI states
+    const [geminiStatus, setGeminiStatus] = useState<{available: boolean; reason?: string}>({available: false});
+    const [isGeneratingTags, setIsGeneratingTags] = useState(false);
+    const [aiSuggestions, setAiSuggestions] = useState<TagSuggestion[]>([]);
+    const [showAiSuggestions, setShowAiSuggestions] = useState(false);
     
     const tagInputRef = useRef<HTMLInputElement>(null);
     const formContainerRef = useRef<HTMLDivElement>(null);
@@ -43,6 +51,20 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
+    }, []);
+
+    // Check Gemini AI availability on component mount
+    useEffect(() => {
+        const checkGeminiStatus = async () => {
+            try {
+                const status = await geminiService.checkAvailability();
+                setGeminiStatus(status);
+            } catch (error) {
+                console.error('Error checking Gemini status:', error);
+                setGeminiStatus({available: false, reason: 'Error checking availability'});
+            }
+        };
+        checkGeminiStatus();
     }, []);
     
     const filteredSuggestions = useMemo(() => {
@@ -77,6 +99,37 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
 
     const removeTag = (tagToRemove: string) => {
         setTags(tags.filter(tag => tag !== tagToRemove));
+    };
+
+    // Gemini AI functions
+    const generateAiSuggestions = async () => {
+        if (!geminiStatus.available || !title || !url) {
+            return;
+        }
+
+        setIsGeneratingTags(true);
+        setAiSuggestions([]);
+        
+        try {
+            const suggestions = await geminiService.generateTags(title, url);
+            if (suggestions && suggestions.length > 0) {
+                // Filter out tags that are already added
+                const newSuggestions = suggestions.filter(suggestion => !tags.includes(suggestion.tag));
+                setAiSuggestions(newSuggestions);
+                setShowAiSuggestions(true);
+            }
+        } catch (error) {
+            console.error('Error generating AI suggestions:', error);
+        } finally {
+            setIsGeneratingTags(false);
+        }
+    };
+
+    const addAiSuggestion = (suggestion: TagSuggestion) => {
+        if (!tags.includes(suggestion.tag)) {
+            setTags([...tags, suggestion.tag]);
+            setAiSuggestions(aiSuggestions.filter(s => s.tag !== suggestion.tag));
+        }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -160,6 +213,52 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                         )}
                     </div>
                 </div>
+                
+                {/* Gemini AI Suggestions Section */}
+                {geminiStatus.available && (
+                    <div className="ai-suggestions-section">
+                        <div className="ai-status">
+                            <span className="ai-status-indicator">
+                                🤖 Gemini AI {geminiStatus.available ? 'Ready' : 'Unavailable'}
+                            </span>
+                            {!geminiStatus.available && geminiStatus.reason && (
+                                <span className="ai-status-reason">({geminiStatus.reason})</span>
+                            )}
+                        </div>
+                        
+                        <button 
+                            type="button" 
+                            onClick={generateAiSuggestions}
+                            disabled={isGeneratingTags || !title || !url}
+                            className="btn btn-ai"
+                        >
+                            {isGeneratingTags ? '🔄 Generating...' : '✨ Generate AI Tags'}
+                        </button>
+                        
+                        {showAiSuggestions && aiSuggestions.length > 0 && (
+                            <div className="ai-suggestions">
+                                <h4>AI Suggestions:</h4>
+                                <div className="ai-suggestions-list">
+                                    {aiSuggestions.map((suggestion, index) => (
+                                        <button
+                                            key={index}
+                                            type="button"
+                                            onClick={() => addAiSuggestion(suggestion)}
+                                            className="ai-suggestion-tag"
+                                            title={`Confidence: ${Math.round(suggestion.confidence * 100)}% | Source: ${suggestion.source}`}
+                                        >
+                                            {suggestion.tag}
+                                            <span className="confidence-badge">
+                                                {Math.round(suggestion.confidence * 100)}%
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+                
                 <div className="form-actions">
                     <button type="button" onClick={onCancel} className="btn btn-secondary">
                         Cancel
