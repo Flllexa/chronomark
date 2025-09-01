@@ -2,7 +2,7 @@
 import React from 'react';
 // FIX: Aliased the imported SyncStatus type to avoid a name collision with the component.
 import type { SyncStatus as SyncStatusType } from '../types';
-import { GoogleIcon, SyncIcon, CheckCircleIcon, ExclamationCircleIcon } from './icons';
+import { GoogleIcon, SyncIcon, CheckCircleIcon, ExclamationCircleIcon, CloudCheckIcon } from './icons';
 
 interface SyncStatusProps {
     status: SyncStatusType;
@@ -65,16 +65,22 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ status, isAuthenticated,
         }
     };
 
+    const isSynced = status.status === 'success' || (status.status === 'idle' && status.lastSync);
+    
     return (
         <div className="sync-status">
             {renderStatus()}
             <button
                 onClick={onSync}
                 disabled={isSyncing}
-                className="sync-btn"
-                title="Sync with Google Drive"
+                className={`sync-btn ${isSynced ? 'synced' : ''}`}
+                title={isSynced ? "All synced! Click to sync again" : "Sync with Google Drive"}
             >
-                <SyncIcon className={`icon ${isSyncing ? 'spinning' : ''}`} />
+                {isSynced ? (
+                    <CloudCheckIcon className="icon" />
+                ) : (
+                    <SyncIcon className={`icon ${isSyncing ? 'spinning' : ''}`} />
+                )}
             </button>
         </div>
     );

@@ -24520,6 +24520,10 @@
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M6 6h.008v.008H6V6z" })
   ] });
   var BackIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M15.75 19.5L8.25 12l7.5-7.5" }) });
+  var CloudCheckIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M3.75 13.5l10.5-11.25L12 10.5h8.25l-1.5 6.75H3.75z" })
+  ] });
 
   // components/Tag.tsx
   var import_jsx_runtime2 = __toESM(require_jsx_runtime());
@@ -24796,6 +24800,7 @@
           return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "sync-status-text", children: "Ready to sync" });
       }
     };
+    const isSynced = status.status === "success" || status.status === "idle" && status.lastSync;
     return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "sync-status", children: [
       renderStatus(),
       /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
@@ -24803,9 +24808,9 @@
         {
           onClick: onSync,
           disabled: isSyncing,
-          className: "sync-btn",
-          title: "Sync with Google Drive",
-          children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(SyncIcon, { className: `icon ${isSyncing ? "spinning" : ""}` })
+          className: `sync-btn ${isSynced ? "synced" : ""}`,
+          title: isSynced ? "All synced! Click to sync again" : "Sync with Google Drive",
+          children: isSynced ? /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(CloudCheckIcon, { className: "icon" }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(SyncIcon, { className: `icon ${isSyncing ? "spinning" : ""}` })
         }
       )
     ] });
