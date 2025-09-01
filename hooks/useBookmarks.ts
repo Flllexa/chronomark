@@ -128,14 +128,11 @@ export const useBookmarks = () => {
         setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Authenticating...' }));
         
         try {
-            // First try to get token without interactive (silent auth)
-            let token = await googleDriveService.getAuthToken(false);
+            // Clear any existing invalid tokens first
+            await googleDriveService.clearAuthToken();
             
-            // If no token or token is invalid, try interactive auth
-            if (!token) {
-                setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Please login to Google...' }));
-                token = await googleDriveService.getAuthToken(true);
-            }
+            // Try to get a fresh token with interactive auth
+            const token = await googleDriveService.getAuthToken(true);
             
             if (!token) {
                 throw new Error("Authentication failed or was cancelled by the user.");
@@ -159,31 +156,8 @@ export const useBookmarks = () => {
             let message = "An unexpected error occurred during sync.";
             
             if (error instanceof GoogleAuthError) {
-                message = "Authentication token expired. Please try again.";
-                // Clear the invalid token and try to reauthenticate
+                message = "Authentication failed. Please try again.";
                 await googleDriveService.clearAuthToken();
-                setIsAuthenticated(false);
-                
-                // Try to reauthenticate automatically after a short delay
-                setTimeout(async () => {
-                    try {
-                        setSyncStatus(prev => ({ ...prev, status: 'syncing', message: 'Re-authenticating...' }));
-                        const newToken = await googleDriveService.getAuthToken(true);
-                        if (newToken) {
-                            // Retry the sync with the new token
-                            await syncWithGoogleDrive();
-                        }
-                    } catch (reauthError) {
-                        console.error("Re-authentication failed:", reauthError);
-                        setSyncStatus(prev => ({ 
-                            ...prev, 
-                            status: 'error', 
-                            message: "Please click sync again to login." 
-                        }));
-                    }
-                }, 1000);
-                
-                return; // Don't set error status yet, wait for reauth attempt
             } else if (error instanceof Error) {
                 if (error.message.includes('cancelled')) {
                     message = "Authentication was cancelled.";
