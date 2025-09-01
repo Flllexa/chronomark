@@ -42,6 +42,8 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     useEffect(() => {
         if (isEditing && initialData && initialData.tags) {
             setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
+            // Reset hasGeneratedSuggestions to allow AI suggestions to be generated for editing
+            setHasGeneratedSuggestions(false);
         }
     }, [isEditing, initialData]);
     
@@ -49,6 +51,8 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     useEffect(() => {
         if (initialData && 'id' in initialData && initialData.id && initialData.tags) {
             setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
+            // Reset hasGeneratedSuggestions to allow AI suggestions to be generated
+            setHasGeneratedSuggestions(false);
         }
     }, []); // Empty dependency array - only run on mount
     
@@ -84,6 +88,8 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
             setTitle(initialData.title || '');
             setUrl(initialData.url || '');
             setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
+            // Reset hasGeneratedSuggestions to allow AI suggestions to be generated for editing
+            setHasGeneratedSuggestions(false);
         } else {
             // Reset form when no initial data
             setTitle('');
@@ -96,6 +102,8 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     useEffect(() => {
         if (initialData && initialData.tags && Array.isArray(initialData.tags)) {
             setTags(initialData.tags);
+            // Reset hasGeneratedSuggestions to allow AI suggestions to be generated
+            setHasGeneratedSuggestions(false);
         }
     }, [initialData?.tags]);
     
@@ -136,14 +144,18 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     // Auto-generate AI suggestions when title and URL are available
     useEffect(() => {
         const autoGenerateAiSuggestions = async () => {
-            if (geminiStatus.available && title && url && !isGeneratingTags && !hasGeneratedSuggestions && !isEditing) {
+            if (geminiStatus.available && title && url && !isGeneratingTags && !hasGeneratedSuggestions) {
                 setIsGeneratingTags(true);
                 setAiSuggestions([]);
                 
                 try {
                     const suggestions = await geminiService.generateTags(title, url);
                     if (suggestions && suggestions.length > 0) {
-                        setAiSuggestions(suggestions);
+                        // Filter out tags that are already added
+                        const newSuggestions = suggestions.filter(suggestion => 
+                            !Array.isArray(tags) || !tags.includes(suggestion.tag)
+                        );
+                        setAiSuggestions(newSuggestions);
                         setShowAiSuggestions(true);
                         setHasGeneratedSuggestions(true);
                     }
@@ -158,7 +170,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         // Debounce the auto-generation to avoid too many API calls
         const timeoutId = setTimeout(autoGenerateAiSuggestions, 1000);
         return () => clearTimeout(timeoutId);
-    }, [title, url, geminiStatus.available, isGeneratingTags, isEditing, hasGeneratedSuggestions]);
+    }, [title, url, geminiStatus.available, isGeneratingTags, hasGeneratedSuggestions, tags]);
 
     // Reset suggestions when form is reset
     useEffect(() => {
@@ -169,14 +181,14 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         }
     }, [title, url]);
     
-    // Reset AI suggestions when switching to edit mode
+    // Reset hasGeneratedSuggestions when title or URL changes (to allow regeneration)
     useEffect(() => {
-        if (isEditing) {
-            setHasGeneratedSuggestions(true); // Prevent auto-generation when editing
-            setAiSuggestions([]);
-            setShowAiSuggestions(false);
+        if (title && url) {
+            setHasGeneratedSuggestions(false);
         }
-    }, [isEditing]);
+    }, [title, url]);
+    
+
     
 
     
@@ -229,7 +241,9 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
             const suggestions = await geminiService.generateTags(title, url);
             if (suggestions && suggestions.length > 0) {
                 // Filter out tags that are already added
-                const newSuggestions = suggestions.filter(suggestion => !tags.includes(suggestion.tag));
+                const newSuggestions = suggestions.filter(suggestion => 
+                    !Array.isArray(tags) || !tags.includes(suggestion.tag)
+                );
                 setAiSuggestions(newSuggestions);
                 setShowAiSuggestions(true);
             }
@@ -250,7 +264,9 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
 
     // Filter AI suggestions to exclude already added tags
     const filteredAiSuggestions = useMemo(() => {
-        return aiSuggestions.filter(suggestion => !Array.isArray(tags) || !tags.includes(suggestion.tag));
+        return aiSuggestions.filter(suggestion => 
+            !Array.isArray(tags) || !tags.includes(suggestion.tag)
+        );
     }, [aiSuggestions, tags]);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -356,7 +372,9 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                         
                         {showAiSuggestions && filteredAiSuggestions.length > 0 && (
                             <div className="ai-suggestions">
-                                <h4 className="ai-suggestions-title">🏷️ Sugestões de Tags</h4>
+                                <h4 className="ai-suggestions-title">
+                                    🏷️ Sugestões de Tags {isEditing ? '(Edição)' : ''}
+                                </h4>
                                 <div className="ai-suggestions-list">
                                     {filteredAiSuggestions.map((suggestion, index) => (
                                         <button

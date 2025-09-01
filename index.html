@@ -199,7 +199,7 @@
             border-radius: 0.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.5rem;
             max-height: calc(100vh - 120px);
             min-height: 500px;
             overflow-x: auto;
@@ -233,6 +233,7 @@
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--cyan-400);
+            margin: 0 0 0.5rem 0;
         }
         
         .form-group label {
@@ -243,12 +244,17 @@
             margin-bottom: 0.25rem;
         }
         
+        .form-group {
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
         .form-input {
             width: 100%;
             background-color: var(--bg-slate-700);
             border: 1px solid var(--border-slate-600);
             border-radius: 0.375rem;
-            padding: 0.5rem;
+            padding: 0.375rem;
             box-sizing: border-box;
         }
         
@@ -284,10 +290,10 @@
             background-color: var(--bg-slate-700);
             border: 1px solid var(--border-slate-600);
             border-radius: 0.375rem;
-            padding: 0.5rem;
+            padding: 0.375rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.375rem;
             align-items: center;
         }
         
@@ -338,14 +344,14 @@
         
         /* Ensure the form has enough bottom margin for suggestions */
         .bookmark-form .form-group:last-of-type {
-            margin-bottom: 2rem;
+            margin-bottom: 0.75rem;
         }
         
         /* Improve tag input container positioning */
         .tag-input-container {
             position: relative;
             z-index: 1;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
         
 
@@ -354,14 +360,14 @@
             display: flex;
             justify-content: flex-end;
             gap: 0.75rem;
-            padding-top: 0.5rem;
+            padding-top: 0.25rem;
             margin-top: auto;
             position: relative;
             z-index: 1;
         }
 
         .btn {
-            padding: 0.5rem 1rem;
+            padding: 0.375rem 0.75rem;
             border-radius: 0.375rem;
             transition: background-color 0.2s;
             font-weight: 600;
@@ -933,8 +939,8 @@
         
         /* AI Suggestions Styles */
         .ai-suggestions-section {
-            margin-top: 1rem;
-            padding: 1rem;
+            margin-top: 0.5rem;
+            padding: 0.75rem;
             background: linear-gradient(135deg, var(--bg-slate-800-50), var(--bg-slate-800));
             border-radius: 0.75rem;
             border: 1px solid var(--border-slate-700);
@@ -1155,11 +1161,11 @@
         }
         
         .ai-suggestion-btn {
-            padding: 0.375rem 0.75rem;
+            padding: 0.25rem 0.5rem;
             background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
             color: var(--text-white);
             border: none;
-            border-radius: 1rem;
+            border-radius: 0.75rem;
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 0.75rem;
@@ -1181,49 +1187,49 @@
         }
         
         .ai-generating-status {
-            margin: 10px 0;
-            padding: 8px 12px;
+            margin: 6px 0;
+            padding: 6px 8px;
             background: rgba(102, 126, 234, 0.1);
-            border-radius: 8px;
+            border-radius: 6px;
             border-left: 3px solid #667eea;
         }
 
         .ai-generating-text {
             color: #667eea;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
         }
         
         .ai-suggestions-title {
-            margin: 0 0 12px 0;
+            margin: 0 0 8px 0;
             color: var(--text-white);
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
         }
         
         .ai-suggestions-info {
-            margin: 12px 0 0 0;
-            padding: 8px;
+            margin: 8px 0 0 0;
+            padding: 6px;
             background: var(--bg-slate-700-50);
             border-radius: 4px;
             color: var(--text-gray-300);
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 12px;
+            line-height: 1.3;
             border-left: 3px solid var(--green-400);
         }
         
         /* Ensure AI suggestions section has proper spacing */
         .ai-suggestions-section {
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         
         /* Improve AI suggestions list scrolling */
         .ai-suggestions-list {
-            max-height: 8rem;
+            max-height: 6rem;
             overflow-y: auto;
             overflow-x: hidden;
             padding: 0.25rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
         
         /* Final positioning improvements for the form */
@@ -1257,8 +1263,8 @@
             background-color: var(--bg-slate-600);
             border-radius: 0.375rem;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            margin-top: 0.25rem;
-            max-height: 12rem;
+            margin-top: 0.125rem;
+            max-height: 10rem;
             overflow-y: auto;
             overflow-x: hidden;
             top: 100%;
@@ -1269,12 +1275,12 @@
         /* Style the tag suggestions list */
         .tag-suggestions ul {
             list-style: none;
-            padding: 0.25rem 0;
+            padding: 0.125rem 0;
             margin: 0;
         }
         
         .tag-suggestions li {
-            padding: 0.5rem 0.75rem;
+            padding: 0.375rem 0.5rem;
             font-size: 0.875rem;
             color: var(--text-gray-200);
             cursor: pointer;
