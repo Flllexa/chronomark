@@ -179,3 +179,4 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 >>>>>>> 2b589202a26daa298c35846d828c92ffcbc4e70c
+manifest.json
