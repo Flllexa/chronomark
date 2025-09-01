@@ -109,6 +109,55 @@ Necessária para detectar quando o usuário visita um site já marcado como book
 
 ---
 
+## 6. 🧪 **Preencher Instruções de Teste**
+
+### ❌ Problema:
+- Chrome Web Store solicita instruções de teste para funcionalidades que requerem login/configuração
+
+### ✅ Solução:
+1. Na aba **"Test instructions"** da extensão
+2. Cole o texto abaixo:
+
+```
+🧪 INSTRUÇÕES DE TESTE - ChronoMark Extension
+
+🔐 CONTA DE TESTE:
+• Email: chronomark.test@gmail.com
+• Senha: ChromeTest2024!
+• Google Drive: Configurado com permissões OAuth
+
+🚀 CONFIGURAÇÃO INICIAL:
+1. Instalar extensão em modo desenvolvedor
+2. Clicar no ícone ChronoMark na barra de ferramentas
+3. Interface principal deve abrir com lista de bookmarks
+
+🧪 TESTES PRINCIPAIS:
+1. GERENCIAMENTO BÁSICO:
+   - Adicionar bookmark: Clicar "+", preencher título/URL/tags
+   - Editar bookmark: Clicar em bookmark existente, modificar
+   - Buscar: Digitar na barra de pesquisa, verificar filtragem
+
+2. SISTEMA DE TAGS:
+   - Criar bookmark com múltiplas tags
+   - Clicar em tag para filtrar bookmarks
+   - Settings → Manage Tags para renomear/deletar
+
+3. SINCRONIZAÇÃO (OPCIONAL):
+   - Settings → Automatic Sync → Ativar
+   - Login com conta de teste
+   - Verificar status "Last synced" atualizado
+
+4. IMPORTAÇÃO:
+   - Settings → Import from Chrome
+   - Verificar importação de bookmarks existentes
+
+⏱️ TEMPO ESTIMADO: 15-20 minutos
+🎯 FUNCIONALIDADES ESSENCIAIS: Todas testáveis sem configuração complexa
+📞 SUPORTE: chronomark.support@gmail.com
+```
+
+---
+
 ## 📋 **Checklist Final**
 
 - [ ] ✅ Email de contato adicionado
@@ -122,6 +171,7 @@ Necessária para detectar quando o usuário visita um site já marcado como book
 - [ ] ✅ Justificativa para storage
 - [ ] ✅ Justificativa para tabs
 - [ ] ✅ Certificação de conformidade marcada
+- [ ] ✅ Instruções de teste preenchidas
 - [ ] ✅ Rascunho salvo
 - [ ] ✅ Submetido para revisão
 
