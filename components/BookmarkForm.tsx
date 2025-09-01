@@ -34,7 +34,19 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const tagInputRef = useRef<HTMLInputElement>(null);
     const formContainerRef = useRef<HTMLDivElement>(null);
 
-    const isEditing = useMemo(() => !!(initialData && 'id' in initialData && initialData.id), [initialData]);
+    const isEditing = useMemo(() => {
+        const editing = !!(initialData && 'id' in initialData && initialData.id);
+        console.log('isEditing:', editing, 'initialData:', initialData);
+        return editing;
+    }, [initialData]);
+    
+    // Ensure tags are properly loaded when editing
+    useEffect(() => {
+        if (isEditing && initialData && initialData.tags) {
+            console.log('Ensuring tags are loaded for editing:', initialData.tags);
+            setTags(initialData.tags);
+        }
+    }, [isEditing, initialData]);
     
     // Check if URL already exists in bookmarks (excluding current bookmark if editing)
     const existingBookmark = useMemo(() => {
@@ -63,15 +75,22 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
 
     useEffect(() => {
         if (initialData) {
+            console.log('Loading initial data:', initialData);
             setTitle(initialData.title || '');
             setUrl(initialData.url || '');
             setTags(initialData.tags || []);
+        } else {
+            // Reset form when no initial data
+            setTitle('');
+            setUrl('');
+            setTags([]);
         }
     }, [initialData]);
     
     // Auto-load existing bookmark data when URL duplicate is detected
     useEffect(() => {
         if (existingBookmark && !isEditing) {
+            console.log('Loading existing bookmark data:', existingBookmark);
             setTitle(existingBookmark.title);
             setTags(existingBookmark.tags || []);
         }
@@ -106,7 +125,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     // Auto-generate AI suggestions when title and URL are available
     useEffect(() => {
         const autoGenerateAiSuggestions = async () => {
-            if (geminiStatus.available && title && url && !isGeneratingTags && !hasGeneratedSuggestions) {
+            if (geminiStatus.available && title && url && !isGeneratingTags && !hasGeneratedSuggestions && !isEditing) {
                 setIsGeneratingTags(true);
                 setAiSuggestions([]);
                 
@@ -132,12 +151,23 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
 
     // Reset suggestions when form is reset or editing changes
     useEffect(() => {
-        if (isEditing || !title || !url) {
+        if (!title || !url) {
             setHasGeneratedSuggestions(false);
             setAiSuggestions([]);
             setShowAiSuggestions(false);
         }
-    }, [isEditing, title, url]);
+    }, [title, url]);
+    
+    // Debug effect to track state changes
+    useEffect(() => {
+        console.log('Form state updated:', {
+            isEditing,
+            title,
+            url,
+            tags,
+            initialData
+        });
+    }, [isEditing, title, url, tags, initialData]);
     
     const filteredSuggestions = useMemo(() => {
         if (!showSuggestions) return [];

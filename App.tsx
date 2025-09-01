@@ -164,7 +164,7 @@ const App: React.FC = () => {
         }
 
         return (
-            <>
+            <div className="home-view">
                 <div className="main-controls">
                     <div className="search-bar-container">
                         <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
@@ -195,7 +195,7 @@ const App: React.FC = () => {
                         <AddIcon className="icon" />
                     )}
                 </button>
-            </>
+            </div>
         );
     };
 

@@ -10,12 +10,15 @@
             --bg-slate-800: #1e293b;
             --bg-slate-700: #334155;
             --bg-slate-600: #475569;
+            --bg-slate-500: #64748b;
+            --bg-slate-400: #94a3b8;
             --bg-slate-800-50: rgba(30, 41, 59, 0.5);
             --bg-slate-700-50: rgba(51, 65, 85, 0.5);
             --bg-slate-900-50: rgba(15, 23, 42, 0.5);
 
             --text-white: #ffffff;
             --text-gray-100: #f1f5f9;
+            --text-gray-200: #e2e8f0;
             --text-gray-300: #d1d5db;
             --text-gray-400: #9ca3af;
             
@@ -24,7 +27,13 @@
             --cyan-400: #22d3ee;
             --cyan-500: #06b6d4;
             --cyan-600: #0891b2;
+            --cyan-700: #0e7490;
             --cyan-800: #155e75;
+
+            --blue-500: #3b82f6;
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
 
             --red-400: #f87171;
             --green-400: #4ade80;
@@ -68,9 +77,11 @@
         
         .app-container {
             height: 100vh;
+            min-height: 600px;
             display: flex;
             flex-direction: column;
             color: var(--text-gray-100);
+            position: relative;
         }
 
         .app-header {
@@ -106,8 +117,45 @@
         
         main {
             flex-grow: 1;
-            overflow-y: auto;
+            overflow-x: auto;
             padding: 1rem;
+            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: #475569 #1e293b;
+            min-height: 500px;
+        }
+        
+        main::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        main::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        
+        main::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        
+        main::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        
+        /* Home View - no vertical scrolling needed since AdvancedVirtualizedList handles it */
+        .home-view {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: visible;
+        }
+        
+        /* For forms and settings, enable scrolling */
+        main:has(.bookmark-form), main:has(.settings-view) {
+            overflow-y: auto;
+            min-height: 500px;
             position: relative;
         }
 
@@ -152,6 +200,33 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            max-height: calc(100vh - 120px);
+            min-height: 500px;
+            overflow-x: auto;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #475569 #1e293b;
+            position: relative;
+            justify-content: space-between;
+        }
+        
+        .bookmark-form::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .bookmark-form::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        
+        .bookmark-form::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        
+        .bookmark-form::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
         }
         
         .bookmark-form h2 {
@@ -223,40 +298,66 @@
             border: none;
         }
         
-        .tag-suggestions {
-            position: absolute;
-            z-index: 10;
-            width: 100%;
-            background-color: var(--bg-slate-600);
-            border-radius: 0.375rem;
-            box-shadow: var(--shadow-lg);
-            margin-top: 0.25rem;
-            max-height: 10rem;
-            overflow-y: auto;
+        /* Ensure suggestions are visible when they might overflow the form */
+        .bookmark-form:has(.tag-suggestions) {
+            overflow: visible;
         }
         
-        .tag-suggestions ul {
-            list-style: none;
-            padding: 0.25rem 0;
-            margin: 0;
+        .tag-input-container:has(.tag-suggestions) {
+            overflow: visible;
         }
         
-        .tag-suggestions li {
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-            color: var(--text-gray-200);
-            cursor: pointer;
+
+        
+        /* Custom scrollbar for AI suggestions */
+        .ai-suggestions-list::-webkit-scrollbar {
+            width: 6px;
         }
         
-        .tag-suggestions li:hover {
-            background-color: #475569;
+        .ai-suggestions-list::-webkit-scrollbar-track {
+            background: var(--bg-slate-700);
+            border-radius: 3px;
         }
+        
+        .ai-suggestions-list::-webkit-scrollbar-thumb {
+            background: var(--bg-slate-500);
+            border-radius: 3px;
+        }
+        
+        .ai-suggestions-list::-webkit-scrollbar-thumb:hover {
+            background: var(--bg-slate-400);
+        }
+        
+
+        
+        /* Additional spacing and positioning improvements */
+        .form-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        /* Ensure the form has enough bottom margin for suggestions */
+        .bookmark-form .form-group:last-of-type {
+            margin-bottom: 2rem;
+        }
+        
+        /* Improve tag input container positioning */
+        .tag-input-container {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+
         
         .form-actions {
             display: flex;
             justify-content: flex-end;
             gap: 0.75rem;
             padding-top: 0.5rem;
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
         }
 
         .btn {
@@ -536,6 +637,30 @@
             padding: 0.5rem;
             background-color: var(--bg-slate-800-50);
             border-radius: 0.5rem;
+            max-height: calc(100vh - 120px);
+            overflow-x: auto;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #475569 #1e293b;
+        }
+        
+        .settings-view::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .settings-view::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        
+        .settings-view::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        
+        .settings-view::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
         }
         .settings-header {
             display: flex;
@@ -815,7 +940,7 @@
             border: 1px solid var(--border-slate-700);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
         
         .ai-suggestions-section::before {
@@ -923,6 +1048,10 @@
             flex-wrap: wrap;
             gap: 0.25rem;
             margin-top: 0.5rem;
+            max-height: 8rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0.25rem;
         }
         
         .ai-suggestion-item {
@@ -1081,6 +1210,98 @@
             font-size: 13px;
             line-height: 1.4;
             border-left: 3px solid var(--green-400);
+        }
+        
+        /* Ensure AI suggestions section has proper spacing */
+        .ai-suggestions-section {
+            margin-bottom: 1rem;
+        }
+        
+        /* Improve AI suggestions list scrolling */
+        .ai-suggestions-list {
+            max-height: 8rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Final positioning improvements for the form */
+        .bookmark-form {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Ensure the form content has proper spacing */
+        .bookmark-form > *:not(.form-actions) {
+            flex-shrink: 0;
+        }
+        
+        /* Make form actions stick to bottom */
+        .bookmark-form .form-actions {
+            margin-top: auto;
+            flex-shrink: 0;
+        }
+        
+        /* Ensure tag suggestions are always visible and properly positioned */
+        .tag-input-container:has(.tag-suggestions) {
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Prevent suggestions from being cut off by any container */
+        .tag-suggestions {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            background-color: var(--bg-slate-600);
+            border-radius: 0.375rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            margin-top: 0.25rem;
+            max-height: 12rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            top: 100%;
+            left: 0;
+            right: 0;
+        }
+        
+        /* Style the tag suggestions list */
+        .tag-suggestions ul {
+            list-style: none;
+            padding: 0.25rem 0;
+            margin: 0;
+        }
+        
+        .tag-suggestions li {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-gray-200);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .tag-suggestions li:hover {
+            background-color: var(--bg-slate-500);
+        }
+        
+        /* Custom scrollbar for tag suggestions */
+        .tag-suggestions::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .tag-suggestions::-webkit-scrollbar-track {
+            background: var(--bg-slate-700);
+            border-radius: 3px;
+        }
+        
+        .tag-suggestions::-webkit-scrollbar-thumb {
+            background: var(--bg-slate-500);
+            border-radius: 3px;
+        }
+        
+        .tag-suggestions::-webkit-scrollbar-thumb:hover {
+            background: var(--bg-slate-400);
         }
         
         .add-ai-suggestion-btn:hover {
