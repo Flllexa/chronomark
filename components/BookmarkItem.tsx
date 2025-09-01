@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { Bookmark } from '../types';
 import { Tag } from './Tag';
 import { DeleteIcon, EditIcon, LinkIcon } from './icons';
@@ -31,6 +31,8 @@ interface BookmarkItemProps {
 }
 
 export const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onDelete, onEdit }) => {
+    const [showAllTags, setShowAllTags] = useState(false);
+
     // Verificação de segurança para bookmark undefined
     if (!bookmark || !bookmark.url || !bookmark.title) {
         return (
@@ -45,6 +47,8 @@ export const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onDelete, 
     }
 
     const { safeUrl, isSafe } = sanitizeUrl(bookmark.url);
+    const hasMoreTags = bookmark.tags.length > 3;
+    const displayedTags = hasMoreTags ? bookmark.tags.slice(0, 3) : bookmark.tags;
     
     return (
         <div className="bookmark-item">
@@ -74,7 +78,37 @@ export const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onDelete, 
             </div>
             {bookmark.tags.length > 0 && (
                 <div className="bookmark-item-tags">
-                    {bookmark.tags.map(tag => <Tag key={tag} text={tag} />)}
+                    {displayedTags.map(tag => <Tag key={tag} text={tag} />)}
+                    {hasMoreTags && (
+                        <button 
+                            className="show-more-tags-btn"
+                            onClick={() => setShowAllTags(true)}
+                            title={`Show all ${bookmark.tags.length} tags`}
+                        >
+                            +{bookmark.tags.length - 3}
+                        </button>
+                    )}
+                </div>
+            )}
+            
+            {/* Modal para mostrar todas as tags */}
+            {showAllTags && (
+                <div className="tags-modal-overlay" onClick={() => setShowAllTags(false)}>
+                    <div className="tags-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="tags-modal-header">
+                            <h3>All Tags for "{bookmark.title}"</h3>
+                            <button 
+                                className="close-modal-btn"
+                                onClick={() => setShowAllTags(false)}
+                                title="Close"
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div className="tags-modal-content">
+                            {bookmark.tags.map(tag => <Tag key={tag} text={tag} />)}
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
