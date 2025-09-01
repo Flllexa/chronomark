@@ -93,8 +93,25 @@ export const useBookmarks = () => {
     const checkAuthStatus = useCallback(async () => {
         try {
             const token = await googleDriveService.getAuthToken(false);
-            setIsAuthenticated(!!token);
+            if (token) {
+                // Verify the token is still valid by making a simple API call
+                try {
+                    const response = await fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (response.ok) {
+                        setIsAuthenticated(true);
+                        return;
+                    }
+                } catch (verifyError) {
+                    console.warn("Token verification failed:", verifyError);
+                }
+            }
+            // If we get here, either no token or invalid token
+            setIsAuthenticated(false);
+            await googleDriveService.clearAuthToken();
         } catch (error) {
+            console.warn("Auth status check failed:", error);
             setIsAuthenticated(false);
         }
     }, []);
@@ -127,9 +144,20 @@ export const useBookmarks = () => {
 
         } catch (error) {
             console.error("Sync failed:", error);
-            const message = error instanceof GoogleAuthError || (error instanceof Error && error.message.includes('cancelled'))
-                ? "Authentication failed."
-                : "An unexpected error occurred during sync.";
+            let message = "An unexpected error occurred during sync.";
+            
+            if (error instanceof GoogleAuthError) {
+                message = "Authentication token expired. Please try again.";
+                // Clear the invalid token
+                await googleDriveService.clearAuthToken();
+            } else if (error instanceof Error) {
+                if (error.message.includes('cancelled')) {
+                    message = "Authentication was cancelled.";
+                } else if (error.message.includes('Authentication failed')) {
+                    message = "Authentication failed. Please try again.";
+                }
+            }
+            
             setSyncStatus(prev => ({ ...prev, status: 'error', message }));
             setIsAuthenticated(false);
         }

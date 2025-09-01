@@ -25255,6 +25255,28 @@
       });
     });
   };
+  var clearAuthToken = () => {
+    return new Promise((resolve) => {
+      if (typeof chrome === "undefined" || !chrome.identity) {
+        return resolve();
+      }
+      chrome.identity.getAuthToken({ interactive: false }, (token) => {
+        if (chrome.runtime && chrome.runtime.lastError || !token) {
+          return resolve();
+        }
+        chrome.identity.removeCachedAuthToken({ token }, () => {
+          const storage2 = chrome.storage && chrome.storage.local ? chrome.storage.local : null;
+          if (storage2) {
+            storage2.remove(FILE_ID_KEY, () => {
+              resolve();
+            });
+          } else {
+            resolve();
+          }
+        });
+      });
+    });
+  };
   var getHeaders = (token) => ({
     "Authorization": `Bearer ${token}`,
     "Content-Type": "application/json"
@@ -25608,8 +25630,23 @@
     const checkAuthStatus = (0, import_react4.useCallback)(async () => {
       try {
         const token = await getAuthToken(false);
-        setIsAuthenticated(!!token);
+        if (token) {
+          try {
+            const response = await fetch("https://www.googleapis.com/oauth2/v1/userinfo", {
+              headers: { "Authorization": `Bearer ${token}` }
+            });
+            if (response.ok) {
+              setIsAuthenticated(true);
+              return;
+            }
+          } catch (verifyError) {
+            console.warn("Token verification failed:", verifyError);
+          }
+        }
+        setIsAuthenticated(false);
+        await clearAuthToken();
       } catch (error) {
+        console.warn("Auth status check failed:", error);
         setIsAuthenticated(false);
       }
     }, []);
@@ -25636,7 +25673,17 @@
         setTimeout(() => setSyncStatus((prev) => ({ ...prev, status: "idle" })), 3e3);
       } catch (error) {
         console.error("Sync failed:", error);
-        const message = error instanceof GoogleAuthError || error instanceof Error && error.message.includes("cancelled") ? "Authentication failed." : "An unexpected error occurred during sync.";
+        let message = "An unexpected error occurred during sync.";
+        if (error instanceof GoogleAuthError) {
+          message = "Authentication token expired. Please try again.";
+          await clearAuthToken();
+        } else if (error instanceof Error) {
+          if (error.message.includes("cancelled")) {
+            message = "Authentication was cancelled.";
+          } else if (error.message.includes("Authentication failed")) {
+            message = "Authentication failed. Please try again.";
+          }
+        }
         setSyncStatus((prev) => ({ ...prev, status: "error", message }));
         setIsAuthenticated(false);
       }

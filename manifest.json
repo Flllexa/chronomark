@@ -37,5 +37,8 @@
       "https://www.googleapis.com/auth/userinfo.profile"
     ]
   },
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAca8c6fe7014c52be1e51d8525f11ffa3"
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAca8c6fe7014c52be1e51d8525f11ffa3",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
 }
