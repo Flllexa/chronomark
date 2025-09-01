@@ -1,141 +1,141 @@
-# Chrome Web Store Listing - ChronoMark Extension
+# Chrome Web Store Listing — ChronoMark Extension
 
-## Informações Básicas
+## Basic Information
 
-### Nome da Extensão
-**ChronoMark - Smart Bookmark Manager**
+### Extension Name
+**ChronoMark — Smart Bookmark Manager**
 
-### Descrição Curta (132 caracteres máximo)
-**Organize seus bookmarks com tags inteligentes e sincronização com Google Drive**
+### Short Description (max 132 characters)
+**Organize your bookmarks with smart tags and secure Google Drive sync.**
 
-### Descrição Detalhada
+### Detailed Description
 
-**Transforme seus bookmarks em um sistema de organização poderoso!**
+**Turn your bookmarks into a powerful organization system.**
 
-ChronoMark é uma extensão moderna que revoluciona a forma como você gerencia seus bookmarks no Chrome. Com um sistema inteligente de tags e sincronização automática, nunca mais perca seus sites favoritos.
+ChronoMark is a modern extension that reimagines how you manage bookmarks in Chrome. With a flexible multi-tag system and optional synchronization, you will never lose your favorite sites again.
 
-**🏷️ Funcionalidades Principais:**
+**🏷️ Key Features**
 
-• **Tags Inteligentes**: Organize bookmarks com múltiplas tags personalizadas
-• **Busca Avançada**: Encontre qualquer bookmark por título, URL ou tag
-• **Sincronização Segura**: Backup automático no seu Google Drive pessoal
-• **Interface Moderna**: Design limpo e responsivo
-• **Performance Otimizada**: Lista virtualizada para milhares de bookmarks
-• **Privacidade Total**: Seus dados ficam apenas com você
+• **Smart Tags** — Organize bookmarks with multiple custom tags  
+• **Advanced Search** — Find any bookmark by title, URL, or tag  
+• **Secure Sync** — Automatic backup to your personal Google Drive  
+• **Modern UI** — Clean, responsive design  
+• **Optimized Performance** — Virtualized list for thousands of bookmarks  
+• **Privacy First** — Your data stays with you
 
-**🚀 Como Usar:**
+**🚀 How It Works**
 
-1. **Instale** a extensão e faça login com sua conta Google
-2. **Organize** seus bookmarks existentes com tags personalizadas
-3. **Adicione** novos bookmarks diretamente pela extensão
-4. **Busque** instantaneamente por qualquer conteúdo
-5. **Sincronize** automaticamente com seu Google Drive
+1. Install the extension and (optionally) sign in with your Google account  
+2. Organize existing bookmarks with custom tags  
+3. Add new bookmarks directly from the extension  
+4. Search instantly across all fields  
+5. Optionally sync with your Google Drive
 
-**🔒 Segurança e Privacidade:**
+**🔒 Security & Privacy**
 
-• Código 100% open source
-• Nenhum dado enviado para nossos servidores
-• Sincronização apenas com SEU Google Drive
-• Conformidade com LGPD, GDPR e CCPA
-• Política de privacidade transparente
+• 100% open source  
+• No data sent to our servers  
+• Sync only with YOUR Google Drive  
+• Complies with GDPR, LGPD, and CCPA  
+• Transparent privacy policy
 
-**💡 Ideal Para:**
+**💡 Perfect For**
 
-• Desenvolvedores que salvam muitos recursos técnicos
-• Pesquisadores que organizam fontes por projeto
-• Estudantes que categorizam materiais de estudo
-• Profissionais que gerenciam recursos por cliente
-• Qualquer pessoa com muitos bookmarks!
+• Developers who save many technical resources  
+• Researchers organizing sources per project  
+• Students managing study materials  
+• Professionals handling client resources  
+• Anyone with a lot of bookmarks!
 
-**🆕 Diferenciais:**
+**🆕 Differentials**
 
-• Sistema de tags múltiplas (não apenas pastas)
-• Busca instantânea em tempo real
-• Interface moderna e intuitiva
-• Sincronização com Google Drive (não servidores próprios)
-• Performance otimizada para grandes volumes
-• Totalmente gratuito e open source
+• Multi-tag system (not just folders)  
+• Instant real-time search  
+• Modern and intuitive interface  
+• Google Drive sync (no proprietary servers)  
+• Optimized for large datasets  
+• Completely free and open source
 
-**📱 Compatibilidade:**
-• Chrome 88+
-• Chromium e navegadores baseados em Chromium
+**📱 Compatibility**
+• Chrome 88+  
+• Chromium and Chromium-based browsers
 
 ---
 
-**Experimente agora e transforme seus bookmarks em um sistema de organização profissional!**
+Try it now and turn your bookmarks into a professional-grade organization system!
 
-## Categoria
+## Category
 **Productivity**
 
-## Idioma Principal
-**Português (Brasil)**
+## Primary Language
+**English (US)**
 
-## Idiomas Suportados
-- Português (Brasil)
+## Supported Languages
 - English (US)
+- Portuguese (Brazil)
 
 ## Website
-**https://github.com/[seu-usuario]/chronomark**
+**https://github.com/[your-username]/chronomark**
 
-## Suporte
-**https://github.com/[seu-usuario]/chronomark/issues**
+## Support
+**https://github.com/[your-username]/chronomark/issues**
 
-## Política de Privacidade
-**https://github.com/[seu-usuario]/chronomark/blob/main/PRIVACY_POLICY.md**
+## Privacy Policy
+**https://github.com/[your-username]/chronomark/blob/main/PRIVACY_POLICY.md**
 
-## Justificativas de Permissões
+## Permission Justifications
 
 ### bookmarks
-**Necessária para ler, criar e organizar os bookmarks do usuário. Esta é a funcionalidade principal da extensão.**
+Required to read, create, and manage the user’s bookmarks. This is the core functionality of the extension.
 
 ### storage
-**Necessária para armazenar configurações locais do usuário, como preferências de interface e configurações de sincronização.**
+Required to store local user preferences (UI settings and sync options).
 
 ### identity
-**Necessária para autenticação OAuth com Google, permitindo sincronização segura com Google Drive do usuário.**
+Required for Google OAuth authentication to enable secure Google Drive synchronization.
 
 ### host permission: https://www.googleapis.com/*
-**Necessária para comunicação com Google Drive API para funcionalidade de sincronização. Apenas usado quando o usuário autoriza explicitamente.**
+Required for communication with the Google Drive API when the user explicitly enables sync.
 
-## Screenshots Sugeridos
+## Suggested Screenshots
 
-1. **Tela Principal**: Interface principal mostrando lista de bookmarks com tags
-2. **Sistema de Tags**: Adicionando/editando tags em um bookmark
-3. **Busca em Ação**: Demonstrando a busca por tags ou título
-4. **Configurações**: Tela de configurações com opções de sincronização
-5. **Adicionar Bookmark**: Formulário para adicionar novo bookmark com tags
+1. Main interface: bookmark list with tags  
+2. Tag system: adding/editing bookmark tags  
+3. Search in action: search by tag or title  
+4. Settings: sync and privacy options  
+5. Add bookmark: form with tags
 
-## Tile Icon (Opcional)
-- Tamanho: 440x280px
-- Formato: PNG ou JPEG
-- Deve mostrar o ícone da extensão com texto explicativo
+## Tile Icon (Optional)
+- Size: 440×280 px  
+- Format: PNG or JPEG  
+- Should show the extension icon with explanatory text
 
-## Notas para Revisão
+## Review Notes
 
-### Conformidade
-- ✅ Política de privacidade completa e transparente
-- ✅ Justificativas claras para todas as permissões
-- ✅ Código open source disponível
-- ✅ Nenhum dado enviado para servidores próprios
-- ✅ Conformidade com regulamentações de privacidade
+### Compliance
+- ✅ Complete and transparent privacy policy  
+- ✅ Clear justification for all permissions  
+- ✅ Open-source code available  
+- ✅ No data sent to our servers  
+- ✅ Compliance with privacy regulations
 
-### Qualidade
-- ✅ Interface moderna e responsiva
-- ✅ Performance otimizada
-- ✅ Funcionalidades bem testadas
-- ✅ Documentação completa
+### Quality
+- ✅ Modern and responsive interface  
+- ✅ Optimized performance  
+- ✅ Well-tested features  
+- ✅ Comprehensive documentation
 
-### Diferenciação
-- ✅ Sistema único de tags múltiplas
-- ✅ Sincronização com Google Drive (não servidores próprios)
-- ✅ Foco em privacidade e transparência
-- ✅ Performance superior para grandes volumes
+### Differentiation
+- ✅ Unique multi-tag system  
+- ✅ Google Drive sync (no proprietary servers)  
+- ✅ Privacy and transparency focus  
+- ✅ Superior performance for large volumes
 
 ---
 
-**Lembre-se de:**
-1. Criar screenshots de alta qualidade (1280x800px)
-2. Testar em diferentes resoluções
-3. Verificar todos os links antes da submissão
-4. Aguardar 1-3 dias úteis para revisão
-5. Responder rapidamente a qualquer feedback da equipe de revisão
+Remember to:
+1) Upload high-quality 1280×800 screenshots  
+2) Test across resolutions  
+3) Verify all links before submission  
+4) Expect 1–3 business days for review  
+5) Reply quickly to review team feedback

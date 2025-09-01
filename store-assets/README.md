@@ -1,104 +1,103 @@
-# Chrome Web Store Assets - ChronoMark
+# Chrome Web Store Assets — ChronoMark
 
-## 📸 Screenshots Criados
+## 📸 Created Screenshots
 
-Este diretório contém os assets necessários para publicação na Chrome Web Store:
+This directory contains the assets required for publishing on the Chrome Web Store.
 
-### Screenshots Principais (1280x800px)
-- `screenshot-1-main-interface.png` - Interface principal com bookmarks e tags
-- `screenshot-2-edit-bookmark.png` - Modal de edição de bookmark com sistema de tags
-- `screenshot-3-settings.png` - Tela de configurações com sincronização Google Drive
+### Primary Screenshots (1280×800)
+- `screenshot-1-main-interface.png` — Main interface with bookmarks and tags
+- `screenshot-2-edit-bookmark.png` — Edit bookmark modal with tagging system
+- `screenshot-3-settings.png` — Settings page with Google Drive sync
 
-### Screenshots Alternativos (640x400px)
+### Alternative Screenshots (640×400)
 - `screenshot-1-main-interface-small.png`
-- `screenshot-2-edit-bookmark-small.png` 
+- `screenshot-2-edit-bookmark-small.png`
 - `screenshot-3-settings-small.png`
 
-## 🎯 Funcionalidades Demonstradas
+## 🎯 Features Shown
 
-### Screenshot 1: Interface Principal
-- ✅ Lista de bookmarks organizada
-- ✅ Sistema de tags coloridas
-- ✅ Barra de busca
-- ✅ Status de sincronização
-- ✅ Estatísticas e tags populares
-- ✅ Dados sensíveis obfuscados (URLs parcialmente mascaradas)
+### Screenshot 1: Main Interface
+- ✅ Organized bookmark list
+- ✅ Colored tag chips
+- ✅ Search bar
+- ✅ Sync status
+- ✅ Popular tags and quick stats
+- ✅ Sensitive data obfuscated (partially masked URLs)
 
-### Screenshot 2: Edição de Bookmark
-- ✅ Modal de edição intuitivo
-- ✅ Sistema de tags com remoção fácil
-- ✅ Adição de novas tags
-- ✅ Interface moderna e responsiva
-- ✅ Callouts explicativos das funcionalidades
+### Screenshot 2: Edit Bookmark
+- ✅ Intuitive edit modal
+- ✅ Tag management (add/remove)
+- ✅ Create new tags
+- ✅ Modern and responsive UI
+- ✅ Feature callouts
 
-### Screenshot 3: Configurações
-- ✅ Sincronização automática com Google Drive
-- ✅ Localização dos dados no Google Drive
-- ✅ Gerenciamento de tags
-- ✅ Import inteligente do Chrome
-- ✅ Destaques de privacidade e segurança
+### Screenshot 3: Settings
+- ✅ Automatic Google Drive sync
+- ✅ Data location within Google Drive
+- ✅ Tag management
+- ✅ Smart Chrome import
+- ✅ Privacy and security highlights
 
-## 📋 Informações para Chrome Web Store
+## 📋 Chrome Web Store Requirements
 
-### Requisitos Atendidos
-- ✅ Dimensões: 1280x800px (recomendado) e 640x400px (alternativo)
-- ✅ Formato: PNG de alta qualidade
-- ✅ Quantidade: 3 screenshots (dentro do limite de 1-5)
-- ✅ Conteúdo: Demonstra funcionalidades principais
-- ✅ Privacidade: Dados sensíveis obfuscados
+- ✅ Resolution: 1280×800 (recommended) and 640×400 (alternative)
+- ✅ Format: High-quality PNG
+- ✅ Quantity: 3 screenshots (within the 1–5 limit)
+- ✅ Content: Demonstrates core features
+- ✅ Privacy: Sensitive data obfuscated
 
-### Como Usar na Publicação
+## How to Use During Publishing
 
-1. **Acesse**: [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole/)
-2. **Faça Upload**: Use os arquivos PNG de 1280x800px
-3. **Ordem Sugerida**:
-   - Screenshot 1: Interface principal (primeira impressão)
-   - Screenshot 2: Funcionalidade de tags (diferencial)
-   - Screenshot 3: Configurações e privacidade (confiança)
+1. Go to: Chrome Web Store Developer Console  
+2. Upload: Use the 1280×800 PNG files  
+3. Suggested Order:
+   - Screenshot 1: Main interface (first impression)
+   - Screenshot 2: Tagging feature (differentiator)
+   - Screenshot 3: Settings and privacy (trust)
 
-## 🛠️ Comandos Makefile
+## 🛠️ Makefile Commands
 
 ```bash
-# Converter SVG para PNG (1280x800)
+# Convert SVG to PNG (1280×800)
 make convert-screenshots
 
-# Converter SVG para PNG pequeno (640x400)
+# Convert SVG to smaller PNG (640×400)
 make convert-screenshots-small
 
-# Ver informações da loja
+# Show store information
 make store-info
 
-# Guia completo de publicação
+# Full publishing guide
 make store-help
 ```
 
-## 📝 Descrições Sugeridas para Cada Screenshot
+## 📝 Suggested Captions
 
 ### Screenshot 1
-**"Interface principal do ChronoMark mostrando bookmarks organizados com tags inteligentes e sincronização em tempo real."**
+“ChronoMark main interface showing bookmarks organized with smart tags and real-time sync.”
 
 ### Screenshot 2
-**"Sistema avançado de tags permitindo organização flexível e busca rápida dos seus bookmarks favoritos."**
+“Advanced tagging system enabling flexible organization and quick search of your favorite bookmarks.”
 
 ### Screenshot 3
-**"Configurações de privacidade e sincronização segura com Google Drive - seus dados ficam apenas com você."**
+“Privacy-focused settings and secure Google Drive sync — your data stays with you.”
 
-## 🔒 Privacidade nos Screenshots
+## 🔒 Privacy in Screenshots
 
-- ✅ URLs parcialmente mascaradas (ex: `https://aitm**.com/`)
-- ✅ Nenhum dado pessoal real exposto
-- ✅ Exemplos representativos das funcionalidades
-- ✅ Foco nas funcionalidades, não nos dados
+- ✅ Partially masked URLs (e.g., `https://aitm**.com/`)  
+- ✅ No real personal data shown  
+- ✅ Representative examples of features  
+- ✅ Focus on features, not data
 
-## 📊 Especificações Técnicas
+## 📊 Technical Specs
 
-- **Resolução**: 1280x800px (16:10) e 640x400px
-- **Formato**: PNG com transparência
-- **Qualidade**: 96 DPI
-- **Tamanho**: ~60-110KB por screenshot
-- **Cores**: Esquema escuro moderno
-- **Fonte**: Arial/Sans-serif para compatibilidade
+- Resolution: 1280×800 (16:10) and 640×400  
+- Format: PNG with transparency  
+- Quality: 96 DPI  
+- Size: ~60–110 KB per image  
+- Colors: Modern dark theme  
+- Font: Arial/Sans-serif for compatibility
 
 ---
 
-**Próximo passo**: Use `make package` para criar o arquivo ZIP final e publique na Chrome Web Store!
+Next step: run `make package` to generate the final ZIP and publish it to the Chrome Web Store!

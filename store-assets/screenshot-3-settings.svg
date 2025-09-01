@@ -77,20 +77,20 @@
   
   <!-- Feature Callouts -->
   <rect x="950" y="150" width="280" height="140" rx="8" fill="#2d3748" stroke="#4fd1c7" stroke-width="2"/>
-  <text x="970" y="180" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4fd1c7">🔄 Sincronização Automática</text>
-  <text x="970" y="205" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Backup automático no Google Drive</text>
-  <text x="970" y="225" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Sincronização a cada hora</text>
-  <text x="970" y="245" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Seus dados ficam seguros</text>
-  <text x="970" y="265" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Acesso de qualquer dispositivo</text>
+  <text x="970" y="180" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4fd1c7">🔄 Automatic Sync</text>
+  <text x="970" y="205" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Automatic backup to Google Drive</text>
+  <text x="970" y="225" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Hourly synchronization</text>
+  <text x="970" y="245" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Your data stays secure</text>
+  <text x="970" y="265" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Access from any device</text>
   
   <rect x="950" y="310" width="280" height="120" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
-  <text x="970" y="340" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#68d391">🔒 Privacidade Total</text>
-  <text x="970" y="365" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Dados apenas no SEU Google Drive</text>
-  <text x="970" y="385" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Nenhum servidor próprio</text>
-  <text x="970" y="405" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Você controla seus dados</text>
+  <text x="970" y="340" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#68d391">🔒 Full Privacy</text>
+  <text x="970" y="365" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Data only in YOUR Google Drive</text>
+  <text x="970" y="385" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• No proprietary servers</text>
+  <text x="970" y="405" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• You control your data</text>
   
   <rect x="950" y="450" width="280" height="100" rx="8" fill="#2d3748" stroke="#ed8936" stroke-width="2"/>
-  <text x="970" y="480" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ed8936">🤖 Import Inteligente</text>
-  <text x="970" y="505" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Importa bookmarks do Chrome</text>
-  <text x="970" y="525" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Tags automáticas com IA</text>
+  <text x="970" y="480" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ed8936">🤖 Smart Import</text>
+  <text x="970" y="505" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Imports bookmarks from Chrome</text>
+  <text x="970" y="525" font-family="Arial, sans-serif" font-size="12" fill="#e2e8f0">• Automatic tags with AI</text>
 </svg>

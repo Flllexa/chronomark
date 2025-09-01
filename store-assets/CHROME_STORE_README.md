@@ -1,32 +1,32 @@
 # 🔖 ChronoMark - Smart Bookmark Manager
 
-**Organize, sincronize e encontre seus bookmarks com inteligência artificial**
+Organize, sync, and find your bookmarks with the help of smart tagging and a modern interface.
 
-## ✨ Principais Funcionalidades
+## ✨ Key Features
 
-- 🏷️ **Sistema de Tags Inteligente** - Organize bookmarks por categorias personalizadas
-- ☁️ **Sincronização Google Drive** - Seus dados seguros e acessíveis em qualquer lugar
-- 🔍 **Busca Avançada** - Encontre qualquer bookmark instantaneamente
-- 🤖 **IA Integrada** - Sugestões automáticas de tags e organização
-- 📊 **Estatísticas Detalhadas** - Acompanhe seus hábitos de navegação
-- 🔒 **Privacidade Total** - Seus dados ficam apenas com você
+- 🏷️ Intelligent Tag System — Organize bookmarks with flexible, multi-tag categories
+- ☁️ Google Drive Sync — Keep your data safe and available everywhere
+- 🔍 Advanced Search — Instantly find any bookmark by title, URL, or tag
+- 🤖 AI Assistance — Automatic tag and organization suggestions (optional)
+- 📊 Useful Stats — Understand your browsing habits
+- 🔒 Privacy First — Your data stays with you
 
-## 🚀 Por que ChronoMark?
+## 🚀 Why ChronoMark?
 
-Cansado de perder bookmarks importantes? ChronoMark transforma o caos dos seus favoritos em uma biblioteca organizada e inteligente.
+Tired of losing important bookmarks? ChronoMark turns chaos into a clean, searchable, and intelligent library.
 
-✅ **Tags Ilimitadas** vs Apenas pastas
-✅ **Sincronização Google Drive** vs Limitada
-✅ **Busca com IA** vs Busca básica
-✅ **Interface Moderna** vs Interface básica
+✅ Unlimited tags (not just folders)
+✅ Google Drive synchronization
+✅ Fast, real-time search
+✅ Clean and modern interface
 
-## 🔒 Privacidade e Segurança
+## 🔒 Privacy & Security
 
-- Seus dados ficam apenas com você
-- Sincronização opcional com Google Drive
-- Nenhum dado é enviado para servidores externos
-- Código aberto e auditável
+- Your data stays on your device and/or your personal Google Drive
+- Optional Google Drive sync
+- No data is sent to third‑party servers
+- Open source and auditable
 
 ---
 
-*Transforme seus bookmarks em uma ferramenta poderosa de produtividade!*
+Turn your bookmarks into a powerful productivity tool!

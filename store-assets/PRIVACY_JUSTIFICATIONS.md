@@ -1,115 +1,115 @@
-# Justificativas de Privacidade - ChronoMark
+# Privacy Justifications — ChronoMark
 
-## Descrição de Propósito Único (Single Purpose Description)
+## Single Purpose Description
 
-**ChronoMark é um gerenciador inteligente de bookmarks que permite aos usuários organizar, sincronizar e encontrar seus favoritos usando tags personalizadas e inteligência artificial.**
+ChronoMark is an intelligent bookmark manager that helps users organize, synchronize, and find their favorites using custom tags and (optional) AI assistance.
 
-O propósito único da extensão é melhorar a experiência de gerenciamento de bookmarks através de:
-- Organização por tags inteligentes
-- Sincronização segura com Google Drive
-- Busca avançada com IA
-- Interface moderna e intuitiva
-
----
-
-## Justificativas de Permissões
-
-### 1. **bookmarks** - Permissão de Bookmarks
-**Justificativa**: Esta permissão é essencial para o funcionamento principal da extensão. Permite:
-- Ler bookmarks existentes do Chrome para importação
-- Criar novos bookmarks organizados por tags
-- Atualizar bookmarks com metadados adicionais
-- Sincronizar bookmarks entre dispositivos
-
-Sem esta permissão, a extensão não pode cumprir seu propósito principal de gerenciar bookmarks.
-
-### 2. **storage** - Armazenamento Local
-**Justificativa**: Necessária para:
-- Armazenar configurações do usuário (preferências de tema, configurações de sincronização)
-- Cache local de tags e metadados dos bookmarks
-- Armazenar tokens de autenticação do Google Drive (criptografados)
-- Manter histórico de sincronização para evitar duplicatas
-
-Todos os dados são armazenados localmente no dispositivo do usuário.
-
-### 3. **identity** - Identidade do Usuário
-**Justificativa**: Utilizada exclusivamente para:
-- Autenticação OAuth2 com Google Drive para sincronização opcional
-- Obter token de acesso seguro para API do Google Drive
-- Identificar o usuário para sincronização entre dispositivos
-
-Nenhum dado de identidade é coletado ou armazenado permanentemente. Apenas tokens temporários são utilizados.
-
-### 4. **host permission (https://www.googleapis.com/*)** - Acesso a APIs do Google
-**Justificativa**: Necessária para:
-- Comunicação segura com Google Drive API para sincronização
-- Upload/download de arquivos de backup dos bookmarks
-- Verificação de autenticação OAuth2
-
-Apenas endpoints específicos da API do Google são acessados, nunca outros sites.
-
-### 5. **alarms** - Alarmes/Agendamento
-**Justificativa**: Utilizada para:
-- Sincronização automática periódica com Google Drive
-- Limpeza de cache temporário
-- Verificação de integridade dos dados
-
-Nenhum alarme é usado para rastreamento ou coleta de dados.
-
-### 6. **tabs** - Acesso a Abas
-**Justificativa**: Necessária para:
-- Detectar quando o usuário visita um site já marcado como bookmark
-- Sugerir tags baseadas no conteúdo da página atual
-- Facilitar a adição rápida de bookmarks da página ativa
-
-Apenas metadados básicos (URL, título) são acessados, nunca o conteúdo da página.
-
-### 7. **remote code** - Código Remoto
-**Justificativa**: Utilizada para:
-- Carregar bibliotecas de IA (Google Gemini) para sugestões de tags
-- Atualizações de segurança da API do Google Drive
-- Carregamento dinâmico de componentes de interface
-
-Todo código remoto é carregado apenas de fontes confiáveis (Google APIs) e é usado exclusivamente para funcionalidades declaradas.
+The sole purpose of the extension is to improve the bookmark management experience by providing:
+- Organization via smart tags
+- Optional and secure Google Drive synchronization
+- Fast search
+- A modern, intuitive interface
 
 ---
 
-## Conformidade com Políticas de Privacidade
+## Permission Justifications
 
-### Coleta de Dados
-- ✅ **Nenhum dado pessoal é coletado** além do necessário para funcionamento
-- ✅ **Dados ficam no dispositivo do usuário** ou no Google Drive pessoal
-- ✅ **Nenhum rastreamento** de atividade de navegação
-- ✅ **Nenhum compartilhamento** com terceiros
+### 1) bookmarks — Bookmark Access
+Required for the core functionality of the extension. Allows:
+- Reading existing Chrome bookmarks for import
+- Creating new bookmarks organized with tags
+- Updating bookmarks with additional metadata
+- Synchronizing bookmarks across devices
 
-### Uso de Dados
-- ✅ Dados são usados **apenas para funcionalidades declaradas**
-- ✅ **Sincronização opcional** - usuário controla quando ativar
-- ✅ **Transparência total** - código aberto disponível
-- ✅ **Controle do usuário** - pode desativar qualquer funcionalidade
+Without this permission the extension cannot fulfill its main purpose.
 
-### Segurança
-- ✅ **Criptografia** de tokens de autenticação
-- ✅ **HTTPS** para todas as comunicações
-- ✅ **OAuth2** padrão do Google para autenticação
-- ✅ **Armazenamento local seguro** usando Chrome Storage API
+### 2) storage — Local Storage
+Used to:
+- Store user settings (theme, sync preferences)
+- Cache tags and bookmark metadata
+- Store Google Drive authentication tokens (encrypted)
+- Keep sync history to prevent duplicates
+
+All data is stored locally on the user’s device.
+
+### 3) identity — User Identity
+Used exclusively to:
+- Perform OAuth2 authentication with Google Drive (optional sync)
+- Obtain a secure access token for Google Drive API
+- Identify the user to sync across devices
+
+No personal identity data is permanently collected; only temporary tokens are used.
+
+### 4) host permission (https://www.googleapis.com/*) — Google APIs
+Required to:
+- Communicate securely with Google Drive API for synchronization
+- Upload/download backup files with bookmarks
+- Verify OAuth2 authentication
+
+Only specific Google API endpoints are accessed.
+
+### 5) alarms — Scheduling
+Used for:
+- Periodic automatic synchronization with Google Drive
+- Clearing temporary caches
+- Data integrity checks
+
+No alarms are used for tracking.
+
+### 6) tabs — Tab Access
+Required to:
+- Detect when the user visits a site that already exists as a bookmark
+- Suggest tags based on the current page metadata
+- Enable quick-add from the active tab
+
+Only basic metadata (URL, title) is accessed — never page content.
+
+### 7) remote code — Remote Code
+Used to:
+- Load AI libraries (e.g., Google Gemini) for tag suggestions (optional)
+- Security updates for Google Drive API usage
+- Lazy-load UI components when applicable
+
+All remote code is loaded only from trusted sources (e.g., Google APIs) and strictly for declared features.
 
 ---
 
-## Certificação de Conformidade
+## Policy Compliance
 
-**Certifico que o ChronoMark está em total conformidade com as Políticas do Programa de Desenvolvedores da Chrome Web Store:**
+### Data Collection
+- ✅ No personal data is collected beyond what is necessary to operate
+- ✅ Data stays on the user’s device and/or personal Google Drive
+- ✅ No browsing activity tracking
+- ✅ No sharing with third parties
 
-1. ✅ Todas as permissões são justificadas e necessárias
-2. ✅ Nenhum dado é coletado desnecessariamente
-3. ✅ Privacidade do usuário é respeitada
-4. ✅ Funcionalidades são transparentes e documentadas
-5. ✅ Código é auditável e seguro
-6. ✅ Conformidade com LGPD e GDPR
+### Data Usage
+- ✅ Data is used only for the declared features
+- ✅ Sync is optional — user controlled
+- ✅ Full transparency — open-source code
+- ✅ User control — features can be disabled
+
+### Security
+- ✅ Authentication tokens are encrypted
+- ✅ HTTPS used for all communications
+- ✅ Standard Google OAuth2 flow
+- ✅ Secure storage via Chrome Storage APIs
 
 ---
 
-**Data**: Janeiro 2025  
-**Desenvolvedor**: ChronoMark Team  
-**Versão**: 1.0.0  
-**Contato**: suporte@chronomark.com
+## Compliance Certification
+
+We certify that ChronoMark is fully compliant with the Chrome Web Store Developer Program Policies:
+
+1. ✅ All permissions are justified and necessary  
+2. ✅ No unnecessary data collection  
+3. ✅ User privacy is respected  
+4. ✅ Features are transparent and documented  
+5. ✅ Code is auditable and secure  
+6. ✅ Compliance with GDPR and LGPD
+
+---
+
+**Date**: January 2025  
+**Developer**: ChronoMark Team  
+**Version**: 1.0.0  
+**Contact**: support@chronomark.com

@@ -1,195 +1,195 @@
-# ✅ Checklist de Publicação - Chrome Web Store
+# ✅ Publication Checklist - Chrome Web Store
 
-## 🚨 Problemas Identificados e Soluções
+## 🚨 Identified Issues and Fixes
 
-Baseado nos erros de publicação, siga este guia passo a passo:
+Based on the Chrome Web Store publishing errors, follow this step-by-step guide to resolve them and complete your submission.
 
 ---
 
-## 1. 📧 **Configurar Email de Contato**
+## 1) 📧 Configure Contact Email
 
-### ❌ Problema:
+### ❌ Problem
 - "You must provide a contact email before you can publish any item"
 - "You must verify your contact email before you can publish any item"
 
-### ✅ Solução:
-1. Acesse [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole/)
-2. Vá para **Account tab**
-3. Adicione seu email de contato
-4. **Verifique o email** (check your inbox)
-5. Clique no link de verificação recebido
+### ✅ Solution
+1. Open the Chrome Web Store Developer Console: https://chrome.google.com/webstore/devconsole/
+2. Go to the Account tab
+3. Add your contact email
+4. Verify the email (check your inbox)
+5. Click the verification link you receive
 
 ---
 
-## 2. 🔒 **Preencher Privacy Practices Tab**
+## 2) 🔒 Fill the Privacy Practices Tab
 
-### ❌ Problemas:
-- Justificativas para todas as permissões são obrigatórias
-- Descrição de propósito único é obrigatória
-- Certificação de conformidade é obrigatória
+### ❌ Problems
+- Justifications for all permissions are required
+- Single purpose description is required
+- Certification of compliance is required
 
-### ✅ Solução - Copie e Cole as Informações Abaixo:
+### ✅ Solution — Copy and paste the info below
 
-#### **Single Purpose Description:**
+#### Single Purpose Description
 ```
-ChronoMark é um gerenciador inteligente de bookmarks que permite aos usuários organizar, sincronizar e encontrar seus favoritos usando tags personalizadas e inteligência artificial. O propósito único é melhorar a experiência de gerenciamento de bookmarks através de organização por tags inteligentes, sincronização segura com Google Drive, busca avançada com IA e interface moderna.
-```
-
-#### **Justification for alarms:**
-```
-Utilizada para sincronização automática periódica com Google Drive, limpeza de cache temporário e verificação de integridade dos dados. Nenhum alarme é usado para rastreamento ou coleta de dados.
+ChronoMark is a smart bookmark manager that helps users organize, sync, and find favorites using custom tags and AI-powered features. Its single purpose is to improve the bookmark management experience through smart tag organization, secure Google Drive synchronization, advanced search with AI, and a modern interface.
 ```
 
-#### **Justification for bookmarks:**
+#### Justification for alarms
 ```
-Essencial para o funcionamento principal da extensão. Permite ler bookmarks existentes do Chrome para importação, criar novos bookmarks organizados por tags, atualizar bookmarks com metadados adicionais e sincronizar bookmarks entre dispositivos. Sem esta permissão, a extensão não pode cumprir seu propósito principal.
-```
-
-#### **Justification for host permission use:**
-```
-Necessária para comunicação segura com Google Drive API para sincronização opcional, upload/download de arquivos de backup dos bookmarks e verificação de autenticação OAuth2. Apenas endpoints específicos da API do Google (googleapis.com) são acessados, nunca outros sites.
+Used for periodic automatic synchronization with Google Drive, temporary cache cleanup, and data integrity checks. No alarms are used for tracking or data collection.
 ```
 
-#### **Justification for identity:**
+#### Justification for bookmarks
 ```
-Utilizada exclusivamente para autenticação OAuth2 com Google Drive para sincronização opcional, obter token de acesso seguro para API do Google Drive e identificar o usuário para sincronização entre dispositivos. Nenhum dado de identidade é coletado ou armazenado permanentemente. Apenas tokens temporários são utilizados.
-```
-
-#### **Justification for remote code use:**
-```
-Utilizada para carregar bibliotecas de IA (Google Gemini) para sugestões de tags, atualizações de segurança da API do Google Drive e carregamento dinâmico de componentes de interface. Todo código remoto é carregado apenas de fontes confiáveis (Google APIs) e é usado exclusivamente para funcionalidades declaradas.
+Essential for the extension’s core functionality. Allows reading existing Chrome bookmarks for import, creating new bookmarks organized by tags, updating bookmarks with additional metadata, and syncing bookmarks across devices. Without this permission, the extension cannot fulfill its primary purpose.
 ```
 
-#### **Justification for storage:**
+#### Justification for host permission use
 ```
-Necessária para armazenar configurações do usuário (preferências de tema, configurações de sincronização), cache local de tags e metadados dos bookmarks, armazenar tokens de autenticação do Google Drive (criptografados) e manter histórico de sincronização para evitar duplicatas. Todos os dados são armazenados localmente no dispositivo do usuário.
+Required for secure communication with the Google Drive API for optional synchronization, uploading/downloading bookmark backup files, and validating OAuth2 authentication. Only specific Google API endpoints (googleapis.com) are accessed — never arbitrary websites.
 ```
 
-#### **Justification for tabs:**
+#### Justification for identity
 ```
-Necessária para detectar quando o usuário visita um site já marcado como bookmark, sugerir tags baseadas no conteúdo da página atual e facilitar a adição rápida de bookmarks da página ativa. Apenas metadados básicos (URL, título) são acessados, nunca o conteúdo da página.
+Used exclusively for OAuth2 authentication with Google Drive for optional synchronization, obtaining a secure access token, and identifying the user for cross-device sync. No personal identity data is collected or stored permanently. Only temporary tokens are used.
+```
+
+#### Justification for remote code use
+```
+Used to load AI libraries (Google Gemini) for tag suggestions, Google Drive API security updates, and dynamic UI components. All remote code is loaded only from trusted sources (Google APIs) and strictly for declared functionality.
+```
+
+#### Justification for storage
+```
+Required to store user settings (theme preferences, sync settings), local cache of tags and bookmark metadata, encrypted Google Drive authentication tokens, and a sync history to avoid duplicates. All data is stored locally on the user’s device.
+```
+
+#### Justification for tabs
+```
+Required to detect when the user visits a site already bookmarked, to suggest tags based on the current page, and to facilitate quick bookmarking of the active tab. Only basic metadata (URL, title) is accessed — never the page content.
 ```
 
 ---
 
-## 3. ✅ **Certificação de Conformidade**
+## 3) ✅ Certification of Compliance
 
-### ❌ Problema:
+### ❌ Problem
 - "To publish your item, you must certify that your data usage complies with our Developer Program Policies"
 
-### ✅ Solução:
-1. Na **Privacy practices tab**
-2. Marque a checkbox de certificação
-3. Confirme que:
-   - ✅ Nenhum dado pessoal é coletado desnecessariamente
-   - ✅ Dados ficam no dispositivo do usuário ou Google Drive pessoal
-   - ✅ Nenhum rastreamento de atividade de navegação
-   - ✅ Nenhum compartilhamento com terceiros
-   - ✅ Conformidade com LGPD e GDPR
+### ✅ Solution
+1. In the Privacy practices tab
+2. Check the certification checkbox
+3. Confirm that:
+   - No unnecessary personal data is collected
+   - Data remains on the user’s device or personal Google Drive
+   - No browsing activity tracking
+   - No third-party sharing
+   - Compliance with GDPR/LGPD
 
 ---
 
-## 4. 💾 **Salvar Rascunho**
+## 4) 💾 Save Draft
 
-### ✅ Ação:
-1. Após preencher todas as informações
-2. Clique em **"Save Draft"**
-3. Verifique se todos os campos estão preenchidos
-4. Aguarde confirmação de salvamento
-
----
-
-## 5. 🚀 **Publicar**
-
-### ✅ Passos Finais:
-1. Revise todas as informações
-2. Confirme que todos os ❌ viraram ✅
-3. Clique em **"Submit for Review"**
-4. Aguarde aprovação (1-3 dias úteis)
+### ✅ Action
+1. After filling out all information
+2. Click "Save Draft"
+3. Ensure all fields are filled
+4. Wait for confirmation that your draft was saved
 
 ---
 
-## 6. 🧪 **Preencher Instruções de Teste**
+## 5) 🚀 Submit for Review
 
-### ❌ Problema:
-- Chrome Web Store solicita instruções de teste para funcionalidades que requerem login/configuração
+### ✅ Final Steps
+1. Review all information
+2. Confirm all ❌ have become ✅
+3. Click "Submit for Review"
+4. Wait for approval (1–3 business days typical)
 
-### ✅ Solução:
-1. Na aba **"Test instructions"** da extensão
-2. Cole o texto abaixo:
+---
+
+## 6) 🧪 Fill Test Instructions
+
+### ❌ Problem
+- The Chrome Web Store requires test instructions for features that need login/setup
+
+### ✅ Solution
+1. In your item’s Test instructions tab
+2. Paste the content below:
 
 ```
-🧪 INSTRUÇÕES DE TESTE - ChronoMark Extension
+🧪 TEST INSTRUCTIONS — ChronoMark Extension
 
-🔐 CONTA DE TESTE:
+🔐 TEST ACCOUNT:
 • Email: chronomark.test@gmail.com
-• Senha: ChromeTest2024!
-• Google Drive: Configurado com permissões OAuth
+• Password: ChromeTest2024!
+• Google Drive: OAuth-scoped for testing
 
-🚀 CONFIGURAÇÃO INICIAL:
-1. Instalar extensão em modo desenvolvedor
-2. Clicar no ícone ChronoMark na barra de ferramentas
-3. Interface principal deve abrir com lista de bookmarks
+🚀 INITIAL SETUP:
+1. Install the extension in developer mode
+2. Click the ChronoMark icon in the toolbar
+3. The main interface should open with the bookmark list
 
-🧪 TESTES PRINCIPAIS:
-1. GERENCIAMENTO BÁSICO:
-   - Adicionar bookmark: Clicar "+", preencher título/URL/tags
-   - Editar bookmark: Clicar em bookmark existente, modificar
-   - Buscar: Digitar na barra de pesquisa, verificar filtragem
+🧪 CORE TESTS:
+1) BASIC MANAGEMENT:
+   - Add: Click "+", fill title/URL/tags
+   - Edit: Click an existing bookmark, modify
+   - Search: Type into the search bar and verify filtering
 
-2. SISTEMA DE TAGS:
-   - Criar bookmark com múltiplas tags
-   - Clicar em tag para filtrar bookmarks
-   - Settings → Manage Tags para renomear/deletar
+2) TAG SYSTEM:
+   - Create bookmarks with multiple tags
+   - Click a tag to filter bookmarks
+   - Settings → Manage Tags to rename/delete
 
-3. SINCRONIZAÇÃO (OPCIONAL):
-   - Settings → Automatic Sync → Ativar
-   - Login com conta de teste
-   - Verificar status "Last synced" atualizado
+3) SYNC (OPTIONAL):
+   - Settings → Automatic Sync → Enable
+   - Sign in with the test account
+   - Verify "Last synced" is updated
 
-4. IMPORTAÇÃO:
+4) IMPORT:
    - Settings → Import from Chrome
-   - Verificar importação de bookmarks existentes
+   - Verify existing Chrome bookmarks are imported
 
-⏱️ TEMPO ESTIMADO: 15-20 minutos
-🎯 FUNCIONALIDADES ESSENCIAIS: Todas testáveis sem configuração complexa
-📞 SUPORTE: chronomark.support@gmail.com
+⏱️ ESTIMATED TIME: 15–20 minutes
+🎯 ESSENTIAL FEATURES: Testable without complex setup
+📞 SUPPORT: chronomark.support@gmail.com
 ```
 
 ---
 
-## 📋 **Checklist Final**
+## 📋 Final Checklist
 
-- [ ] ✅ Email de contato adicionado
-- [ ] ✅ Email de contato verificado
-- [ ] ✅ Single purpose description preenchida
-- [ ] ✅ Justificativa para alarms
-- [ ] ✅ Justificativa para bookmarks
-- [ ] ✅ Justificativa para host permissions
-- [ ] ✅ Justificativa para identity
-- [ ] ✅ Justificativa para remote code
-- [ ] ✅ Justificativa para storage
-- [ ] ✅ Justificativa para tabs
-- [ ] ✅ Certificação de conformidade marcada
-- [ ] ✅ Instruções de teste preenchidas
-- [ ] ✅ Rascunho salvo
-- [ ] ✅ Submetido para revisão
+- [ ] Contact email added
+- [ ] Contact email verified
+- [ ] Single purpose description filled
+- [ ] Justification for alarms
+- [ ] Justification for bookmarks
+- [ ] Justification for host permissions
+- [ ] Justification for identity
+- [ ] Justification for remote code
+- [ ] Justification for storage
+- [ ] Justification for tabs
+- [ ] Certification of compliance checked
+- [ ] Test instructions filled
+- [ ] Draft saved
+- [ ] Submitted for review
 
 ---
 
-## 🆘 **Comandos Úteis**
+## 🆘 Useful Commands
 
 ```bash
-# Ver justificativas organizadas
+# View organized privacy justifications
 make privacy-justifications
 
-# Ver informações da loja
+# View store information
 make store-info
 
-# Guia completo de publicação
+# Full publishing guide
 make store-help
 ```
 
 ---
 
-**🎯 Após seguir todos os passos, sua extensão estará pronta para publicação!**
+🎯 After completing all steps, your extension will be ready for publication!

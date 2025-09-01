@@ -1,4 +1,4 @@
-.PHONY: install test build clean dist package help oauth-help oauth-test oauth-setup oauth-extension-id oauth-debug oauth-troubleshoot oauth-fix-redirect oauth-fix-client-id oauth-update-client-id validate-store prepare-store-assets store-help examples huggingface-setup huggingface-start huggingface-stop gemini-setup
+.PHONY: install test build clean dist package help oauth-help oauth-test oauth-setup oauth-extension-id oauth-debug oauth-troubleshoot oauth-fix-redirect oauth-fix-client-id oauth-update-client-id validate-store prepare-store-assets store-help examples huggingface-setup huggingface-start huggingface-stop gemini-setup store-preview
 
 # Default target
 all: install build
@@ -563,7 +563,7 @@ store-info:
 	@echo "   🔒 Política Privacidade: PRIVACY_POLICY.md"
 	@echo "   📦 Pacote: chronomark-extension.zip"
 	@echo ""
-	@echo "🏷️  Permissões necessárias:"
+	@echo "📷  Permissões necessárias:"
 	@echo "   • bookmarks - Gerenciar bookmarks do usuário"
 	@echo "   • storage - Armazenar configurações locais"
 	@echo "   • identity - Autenticação OAuth com Google"
@@ -729,3 +729,308 @@ help:
 	@echo "  make package         - Criar arquivo .zip para Chrome Web Store"
 	@echo "  make store-info      - Informações para listagem"
 	@echo "  make store-help      - Guia completo de publicação"
+
+# Preview Chrome Web Store assets locally
+store-preview:
+	@echo "Starting local preview server for store-assets at http://localhost:8081/"
+	@echo "Press Ctrl+C to stop the server"
+	@cd store-assets && python3 -m http.server 8081
+	@echo ""
+	@echo "📁 Screenshots disponíveis em store-assets/"
+	@ls -la store-assets/screenshot-*.png 2>/dev/null || echo "⚠️  Nenhum PNG encontrado ainda"
+
+convert-screenshots-small:
+	@echo "🖼️  Convertendo screenshots SVG para PNG (640x400)..."
+	@echo ""
+	@if command -v inkscape >/dev/null 2>&1; then \
+		echo "✅ Inkscape encontrado, convertendo..."; \
+		for svg in store-assets/screenshot-*.svg; do \
+			if [ -f "$$svg" ]; then \
+				png="$${svg%.svg}-small.png"; \
+				echo "📸 Convertendo $$svg -> $$png (640x400)"; \
+				inkscape --export-type=png --export-width=640 --export-height=400 --export-filename="$$png" "$$svg"; \
+			fi; \
+		done; \
+		echo "✅ Screenshots convertidos para PNG (640x400)"; \
+	else \
+		echo "❌ Inkscape não encontrado. Execute 'make convert-screenshots' primeiro"; \
+	fi
+	@echo ""
+	@echo "📁 Screenshots pequenos disponíveis em store-assets/"
+	@ls -la store-assets/screenshot-*-small.png 2>/dev/null || echo "⚠️  Nenhum PNG pequeno encontrado ainda"
+
+generate-store-readme:
+	@echo "📝 Gerando README otimizado para Chrome Web Store..."
+	@echo ""
+	@echo "# 🔖 ChronoMark - Smart Bookmark Manager" > store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "**Organize, sincronize e encontre seus bookmarks com inteligência artificial**" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "## ✨ Principais Funcionalidades" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🏷️ **Sistema de Tags Inteligente** - Organize bookmarks por categorias personalizadas" >> store-assets/CHROME_STORE_README.md
+	@echo "- ☁️ **Sincronização Google Drive** - Seus dados seguros e acessíveis em qualquer lugar" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🔍 **Busca Avançada** - Encontre qualquer bookmark instantaneamente" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🤖 **IA Integrada** - Sugestões automáticas de tags e organização" >> store-assets/CHROME_STORE_README.md
+	@echo "- 📊 **Estatísticas Detalhadas** - Acompanhe seus hábitos de navegação" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🔒 **Privacidade Total** - Seus dados ficam apenas com você" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "## 🚀 Por que ChronoMark?" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "Cansado de perder bookmarks importantes? ChronoMark transforma o caos dos seus favoritos em uma biblioteca organizada e inteligente." >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Tags Ilimitadas** vs Apenas pastas" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Sincronização Google Drive** vs Limitada" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Busca com IA** vs Busca básica" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Interface Moderna** vs Interface básica" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "## 🔒 Privacidade e Segurança" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "- Seus dados ficam apenas com você" >> store-assets/CHROME_STORE_README.md
+	@echo "- Sincronização opcional com Google Drive" >> store-assets/CHROME_STORE_README.md
+	@echo "- Nenhum dado é enviado para servidores externos" >> store-assets/CHROME_STORE_README.md
+	@echo "- Código aberto e auditável" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "---" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "*Transforme seus bookmarks em uma ferramenta poderosa de produtividade!*" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ README otimizado criado em store-assets/CHROME_STORE_README.md"
+
+store-help:
+	@echo "🏪 GUIA DE PUBLICAÇÃO NA CHROME WEB STORE"
+	@echo ""
+	@echo "📋 Comandos disponíveis:"
+	@echo "   make validate-store     - Validar extensão antes da publicação"
+	@echo "   make prepare-store-assets - Preparar screenshots e assets"
+	@echo "   make package           - Criar arquivo ZIP para upload"
+	@echo "   make store-info        - Mostrar informações para listagem"
+	@echo "   make store-help        - Mostrar esta ajuda"
+	@echo ""
+	@echo "📖 Documentação completa: CHROME_STORE_PUBLISHING.md"
+	@echo ""
+	@echo "🚀 Processo rápido:"
+	@echo "   1. make validate-store"
+	@echo "   2. make prepare-store-assets (criar screenshots)"
+	@echo "   3. make package"
+	@echo "   4. Acesse: https://chrome.google.com/webstore/devconsole/"
+	@echo "   5. Upload do chronomark-extension.zip"
+	@echo ""
+	@echo "💰 Taxa: $5 USD (única vez)"
+	@echo "⏱️  Revisão: 1-3 dias úteis"
+
+privacy-justifications:
+	@echo "🔒 JUSTIFICATIVAS DE PRIVACIDADE - CHROME WEB STORE"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "📝 PROPÓSITO ÚNICO:"
+	@echo "ChronoMark é um gerenciador inteligente de bookmarks que permite"
+	@echo "organizar, sincronizar e encontrar favoritos usando tags e IA."
+	@echo ""
+	@echo "🔑 JUSTIFICATIVAS DE PERMISSÕES:"
+	@echo ""
+	@echo "📚 BOOKMARKS:"
+	@echo "• Ler/criar/atualizar bookmarks do Chrome"
+	@echo "• Importar bookmarks existentes"
+	@echo "• Sincronizar entre dispositivos"
+	@echo ""
+	@echo "💾 STORAGE:"
+	@echo "• Armazenar configurações do usuário"
+	@echo "• Cache de tags e metadados"
+	@echo "• Tokens de autenticação (criptografados)"
+	@echo ""
+	@echo "🆔 IDENTITY:"
+	@echo "• Autenticação OAuth2 com Google Drive"
+	@echo "• Tokens temporários para sincronização"
+	@echo "• Nenhum dado permanente coletado"
+	@echo ""
+	@echo "🌐 HOST PERMISSIONS (googleapis.com):"
+	@echo "• Comunicação com Google Drive API"
+	@echo "• Upload/download de backups"
+	@echo "• Apenas endpoints específicos do Google"
+	@echo ""
+	@echo "⏰ ALARMS:"
+	@echo "• Sincronização automática periódica"
+	@echo "• Limpeza de cache temporário"
+	@echo "• Verificação de integridade"
+	@echo ""
+	@echo "📑 TABS:"
+	@echo "• Detectar sites já marcados"
+	@echo "• Sugerir tags baseadas na página"
+	@echo "• Facilitar adição rápida de bookmarks"
+	@echo ""
+	@echo "💻 REMOTE CODE:"
+	@echo "• Bibliotecas de IA (Google Gemini)"
+	@echo "• Atualizações de segurança da API"
+	@echo "• Componentes de interface dinâmicos"
+	@echo ""
+	@echo "✅ CONFORMIDADE:"
+	@echo "• Nenhum dado pessoal desnecessário coletado"
+	@echo "• Dados ficam no dispositivo/Google Drive pessoal"
+	@echo "• Código aberto e auditável"
+	@echo "• Conformidade com LGPD/GDPR"
+	@echo ""
+	@echo "📄 Detalhes completos: store-assets/PRIVACY_JUSTIFICATIONS.md"
+
+# Checklist de publicação para Chrome Web Store
+publication-checklist:
+	@echo "✅ CHECKLIST DE PUBLICAÇÃO - CHROME WEB STORE"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "🚨 PROBLEMAS IDENTIFICADOS:"
+	@echo "• Email de contato não configurado/verificado"
+	@echo "• Justificativas de permissões em falta"
+	@echo "• Descrição de propósito único em falta"
+	@echo "• Certificação de conformidade pendente"
+	@echo ""
+	@echo "📋 PASSOS PARA RESOLVER:"
+	@echo "1. 📧 Configurar email no Account tab"
+	@echo "2. ✉️  Verificar email (check inbox)"
+	@echo "3. 🔒 Preencher Privacy practices tab"
+	@echo "4. ✅ Marcar certificação de conformidade"
+	@echo "5. 💾 Salvar rascunho (Save Draft)"
+	@echo "6. 🚀 Submeter para revisão"
+	@echo ""
+	@echo "📄 Guia completo: store-assets/PUBLICATION_CHECKLIST.md"
+	@echo "🔒 Justificativas: make privacy-justifications"
+
+# Instruções de teste para Chrome Web Store
+test-instructions:
+	@echo "🧪 INSTRUÇÕES DE TESTE - CHROME WEB STORE"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "🔐 CONTA DE TESTE:"
+	@echo "• Email: chronomark.test@gmail.com"
+	@echo "• Senha: ChromeTest2024!"
+	@echo "• Google Drive: Configurado com OAuth"
+	@echo ""
+	@echo "🧪 TESTES PRINCIPAIS:"
+	@echo "1. 📚 Gerenciamento básico de bookmarks"
+	@echo "2. 🏷️  Sistema de tags e filtragem"
+	@echo "3. 🔄 Sincronização Google Drive (opcional)"
+	@echo "4. 🎨 Interface e usabilidade"
+	@echo ""
+	@echo "⏱️  TEMPO ESTIMADO: 15-20 minutos"
+	@echo "🎯 CRITÉRIOS: Funcionalidades essenciais + UX"
+	@echo ""
+	@echo "📄 Instruções completas: store-assets/TEST_INSTRUCTIONS.md"
+
+# Como testar extensão aguardando aprovação
+test-pending:
+	@echo "🧪 TESTAR EXTENSÃO AGUARDANDO APROVAÇÃO"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "📋 STATUS: Extensão submetida para revisão"
+	@echo ""
+	@echo "🔧 MÉTODOS DE TESTE:"
+	@echo "1. 💻 TESTE LOCAL (Recomendado):"
+	@echo "   • make package → Instalar modo desenvolvedor"
+	@echo "   • Controle total + teste imediato"
+	@echo ""
+	@echo "2. 🌐 LINK DE TESTE (Chrome Web Store):"
+	@echo "   • Developer Console → Preview link"
+	@echo "   • Limitado durante revisão"
+	@echo ""
+	@echo "3. 👥 COMPARTILHAR PACOTE:"
+	@echo "   • Enviar .zip para testadores"
+	@echo "   • Instalação manual"
+	@echo ""
+	@echo "⏳ TEMPO DE APROVAÇÃO: 1-7 dias úteis"
+	@echo "📧 Monitorar emails da Google para updates"
+	@echo ""
+	@echo "📄 Guia completo: store-assets/TESTING_PENDING_EXTENSION.md"
+
+# Configurar integração com IA
+ai-setup:
+	@echo "🤖 CONFIGURAÇÃO DE IA - CHRONOMARK"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "📋 MÉTODOS DISPONÍVEIS:"
+	@echo "1. 🤖 GOOGLE GEMINI (Recomendado):"
+	@echo "   • Usa autenticação do usuário via Chrome identity API"
+	@echo "   • Sem servidor backend necessário"
+	@echo "   • Tokens OAuth seguros"
+	@echo "   • Exemplo: BookmarkFormWithGemini.tsx"
+	@echo ""
+	@echo "2. 🔒 PROXY BACKEND:"
+	@echo "   • Chaves seguras no servidor"
+	@echo "   • Controle total sobre uso e limites"
+	@echo "   • Múltiplos provedores de IA"
+	@echo ""
+	@echo "3. 🆓 APIS GRATUITAS:"
+	@echo "   • HuggingFace Inference API"
+	@echo "   • Groq (gratuito com limite)"
+	@echo "   • Sem chaves expostas na extensão"
+	@echo ""
+	@echo "4. 🧠 IA LOCAL (WebLLM):"
+	@echo "   • Processamento no navegador"
+	@echo "   • Sem dependências externas"
+	@echo "   • Privacidade total"
+	@echo ""
+	@echo "5. 🎯 REGRAS INTELIGENTES (Implementado):"
+	@echo "   • Sistema baseado em domínios e palavras-chave"
+	@echo "   • Sem APIs ou chaves necessárias"
+	@echo "   • Performance máxima"
+	@echo ""
+	@echo "💡 RECOMENDAÇÃO: Começar com Gemini + Regras como fallback"
+	@echo "🔒 SEGURANÇA: Nunca expor chaves no código da extensão"
+	@echo ""
+	@echo "📄 Guias completos:"
+	@echo "   • AI_INTEGRATION_GUIDE.md"
+	@echo "   • examples/README-Gemini.md"
+	@echo "   • examples/README-HuggingFace.md"
+	@echo ""
+	@echo "📝 Exemplos práticos:"
+	@echo "   • examples/BookmarkFormWithAI.tsx (regras locais)"
+	@echo "   • examples/BookmarkFormWithGemini.tsx (Gemini AI)"
+	@echo "   • examples/BookmarkFormWithHuggingFace.tsx (HuggingFace)"
+	@echo ""
+	@echo "Quick Start Commands:"
+	@echo "  make gemini-setup       - Setup Gemini integration"
+	@echo "  make huggingface-setup  - Setup Hugging Face integration"
+	@echo "  make huggingface-start  - Start Hugging Face proxy server"
+
+store-info:
+	@echo "📋 INFORMAÇÕES PARA CHROME WEB STORE"
+	@echo ""
+	@echo "📦 Nome: ChronoMark - Smart Bookmark Manager"
+	@echo "📋 Categoria: Productivity"
+	@echo "🌍 Idioma: Português (Brasil)"
+	@echo ""
+	@echo "📄 Descrição Curta:"
+	@echo "Organize seus bookmarks com tags inteligentes e sincronização com Google Drive"
+	@echo ""
+	@echo "🔗 Links importantes:"
+	@echo "   📖 Documentação: store-assets/STORE_LISTING.md"
+	@echo "   🔒 Política Privacidade: PRIVACY_POLICY.md"
+	@echo "   📦 Pacote: chronomark-extension.zip"
+	@echo ""
+	@echo "📷  Permissões necessárias:"
+	@echo "   • bookmarks - Gerenciar bookmarks do usuário"
+	@echo "   • storage - Armazenar configurações locais"
+	@echo "   • identity - Autenticação OAuth com Google"
+	@echo "   • googleapis.com - Sincronização com Google Drive"
+	@echo ""
+	@echo "📸 Screenshots necessários: 1-5 imagens (1280x800px)"
+	@echo "💡 Veja store-assets/STORE_LISTING.md para detalhes completos"
+
+# Hugging Face Integration Commands
+huggingface-setup:
+	@echo "🤖 Hugging Face Integration Setup"
+	@echo "================================="
+	@echo ""
+	@echo "📋 Setup Steps:"
+	@echo "1. 📁 Navigate to examples directory: cd examples"
+	@echo "2. 📦 Install dependencies: npm install"
+	@echo "3. 🔑 Copy environment file: cp .env.example .env"
+	@echo "4. ✏️  Edit .env with your Hugging Face API key"
+	@echo "5. 🚀 Start proxy server: make huggingface-start"
+	@echo ""
+	@echo "🔑 Get API Key:"
+	@echo "   1. Visit: https://huggingface.co/settings/tokens"
+	@echo "   2. Create new token with 'Read' permissions"
+	@echo "   3. Copy token to .env file"
+	@echo ""
+	@echo "📖 Full guide: examples/README-HuggingFace.md"
+
+huggingface-start:
+	@echo "🚀 Starting Hugging Face Proxy Server..

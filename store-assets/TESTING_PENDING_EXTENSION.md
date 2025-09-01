@@ -1,172 +1,148 @@
-# 🧪 Como Testar Extensão Aguardando Aprovação
+# 🧪 How to Test an Extension Pending Approval
 
-## 📋 **Status: Extensão Submetida para Revisão**
+## 📋 Status: Extension Submitted for Review
 
-Quando sua extensão está "aguardando aprovação" na Chrome Web Store, você tem algumas opções para continuar testando:
+When your extension is “pending review” in the Chrome Web Store, you still have several ways to continue testing.
 
 ---
 
-## 🔧 **Método 1: Teste Local (Recomendado)**
+## 🔧 Method 1: Local Testing (Recommended)
 
-### ✅ **Vantagens:**
-- Teste imediato
-- Controle total sobre atualizações
-- Sem limitações de funcionalidades
+### ✅ Advantages
+- Immediate testing  
+- Full control over updates  
+- No feature limitations
 
-### 📋 **Passos:**
-1. **Manter Código Local Atualizado**:
+### 📋 Steps
+1. Keep Local Code Updated:
    ```bash
-   # Gerar pacote atualizado
+   # Generate an updated package
    make package
    ```
-
-2. **Instalar em Modo Desenvolvedor**:
-   - Chrome → Extensões → Modo Desenvolvedor (ON)
-   - "Carregar sem compactação"
-   - Selecionar pasta da extensão
-
-3. **Testar Funcionalidades**:
-   - Usar `make test-instructions` para guia
-   - Testar todas as funcionalidades principais
-   - Verificar OAuth e sincronização
+2. Install in Developer Mode:  
+   Chrome → Extensions → Developer Mode (ON) → “Load unpacked” → Select the folder
+3. Test Features:  
+   Use `make test-instructions` as a guide and verify OAuth and sync
 
 ---
 
-## 🌐 **Método 2: Link de Teste da Chrome Web Store**
+## 🌐 Method 2: Chrome Web Store Test Link
 
-### ⚠️ **Limitações:**
-- Disponível apenas durante revisão
-- Link privado (não público)
-- Funcionalidades podem estar limitadas
+### ⚠️ Limitations
+- Available only during review  
+- Private link (not public)  
+- Some features may be limited
 
-### 📋 **Como Acessar:**
-1. **Chrome Web Store Developer Console**:
-   - Acesse [console.developers.google.com](https://chrome.google.com/webstore/devconsole/)
-   - Encontre sua extensão
-
-2. **Link de Teste**:
-   - Status: "Pending Review" ou "In Review"
-   - Procure por "Test Link" ou "Preview"
-   - Link formato: `chrome.google.com/webstore/detail/[ID]?authuser=0`
-
-3. **Instalar via Link**:
-   - Abrir link no Chrome
-   - Clicar "Adicionar ao Chrome" (se disponível)
-   - ⚠️ Pode não funcionar se ainda em revisão
+### 📋 How to Access
+1. Developer Console:  
+   Open https://chrome.google.com/webstore/devconsole/ and locate your item
+2. Test Link:  
+   Look for “Test Link” or “Preview” when status is “Pending Review” or “In Review”  
+   Link format: `chrome.google.com/webstore/detail/[ID]?authuser=0`
+3. Install via Link:  
+   Open in Chrome and click “Add to Chrome” (if available)
 
 ---
 
-## 👥 **Método 3: Teste com Usuários Confiáveis**
+## 👥 Method 3: Trusted Testers
 
-### 📋 **Compartilhar para Teste:**
-1. **Gerar Pacote de Teste**:
+### 📋 Share for Testing
+1. Generate Test Package:
    ```bash
    make package
-   # Arquivo: chronomark-extension.zip
+   # Output: chronomark-extension.zip
    ```
-
-2. **Instruções para Testadores**:
-   - Enviar arquivo .zip
-   - Instruções de instalação manual
-   - Usar `make test-instructions` como guia
-
-3. **Coleta de Feedback**:
-   - Criar formulário de feedback
-   - Documentar bugs encontrados
-   - Preparar atualizações se necessário
+2. Send Instructions:  
+   Provide the ZIP file and manual installation steps.  
+   Reference `make test-instructions` for guidance.
+3. Collect Feedback:  
+   Create a simple feedback form, track bugs, and prepare follow-ups.
 
 ---
 
-## 📊 **Durante o Período de Revisão**
+## 📊 During the Review Period
 
-### ⏳ **Tempo de Aprovação:**
-- **Primeira submissão**: 1-7 dias úteis
-- **Atualizações**: 1-3 dias úteis
-- **Extensões complexas**: Até 14 dias
+### ⏳ Approval Timeframes
+- First submission: 1–7 business days  
+- Updates: 1–3 business days  
+- Complex extensions: up to 14 days
 
-### 📧 **Acompanhar Status:**
-1. **Email de Notificação**:
-   - Google envia updates por email
-   - Verificar spam/promoções
+### 📧 Monitor Status
+1. Email Notifications:  
+   Google will send updates via email (check spam/promo tabs)
+2. Developer Console:  
+   Check status regularly; respond to any required changes
 
-2. **Developer Console**:
-   - Verificar status regularmente
-   - Possíveis solicitações de correção
-
-### 🔄 **Se Rejeitada:**
-1. **Ler Feedback Detalhado**
-2. **Corrigir Problemas Identificados**
-3. **Resubmeter Nova Versão**
-4. **Continuar Testando Localmente**
+### 🔄 If Rejected
+1. Read the detailed feedback  
+2. Fix identified issues  
+3. Resubmit a new version  
+4. Continue local testing
 
 ---
 
-## 🛠️ **Comandos Úteis Durante Teste**
+## 🛠️ Helpful Commands During Testing
 
 ```bash
-# Gerar pacote para distribuição
+# Build a distributable package
 make package
 
-# Ver instruções de teste
-make test-instructions
+# View test instructions
+dmake test-instructions
 
-# Verificar justificativas de privacidade
+# Review privacy justifications
 make privacy-justifications
 
-# Checklist de publicação
+# Publication checklist
 make publication-checklist
 
-# Informações da loja
+# Store information
 make store-info
 ```
 
 ---
 
-## 🚨 **Problemas Comuns e Soluções**
+## 🚨 Common Issues and Fixes
 
-### ❌ **"Extensão não aparece na loja"**
-- **Causa**: Ainda em revisão
-- **Solução**: Aguardar aprovação ou testar localmente
+### ❌ “Extension doesn’t appear in the store”
+- Cause: still under review  
+- Fix: wait for approval or test locally
 
-### ❌ **"Link de teste não funciona"**
-- **Causa**: Extensão ainda não processada
-- **Solução**: Usar instalação manual local
+### ❌ “Test link does not work”
+- Cause: item not yet processed  
+- Fix: use manual local installation
 
-### ❌ **"Funcionalidades não funcionam"**
-- **Causa**: Restrições durante revisão
-- **Solução**: Testar versão local completa
-
-### ❌ **"OAuth não funciona"**
-- **Causa**: URLs de callback não aprovadas
-- **Solução**: Verificar configuração OAuth local
+### ❌ “OAuth does not work”
+- Cause: callback URLs not approved  
+- Fix: verify local OAuth configuration
 
 ---
 
-## 📋 **Checklist de Teste Durante Revisão**
+## 📋 Review Checklist
 
-- [ ] ✅ Teste local funcionando 100%
-- [ ] ✅ Todas as funcionalidades principais testadas
-- [ ] ✅ OAuth e sincronização funcionando
-- [ ] ✅ Interface responsiva e sem bugs
-- [ ] ✅ Performance adequada com muitos bookmarks
-- [ ] ✅ Importação do Chrome funcionando
-- [ ] ✅ Sistema de tags operacional
-- [ ] ✅ Busca em tempo real funcionando
-- [ ] ✅ Configurações salvando corretamente
-- [ ] ✅ Sem erros no console do Chrome
-
----
-
-## 📞 **Próximos Passos**
-
-1. **Continuar desenvolvimento local**
-2. **Preparar correções se necessário**
-3. **Aguardar feedback da Google**
-4. **Planejar estratégia de lançamento**
-5. **Preparar documentação de usuário**
+- [ ] 100% local testing passes  
+- [ ] All core features tested  
+- [ ] OAuth and sync verified  
+- [ ] Responsive UI and no visual bugs  
+- [ ] Good performance with many bookmarks  
+- [ ] Chrome import working  
+- [ ] Tag system operational  
+- [ ] Real-time search functional  
+- [ ] Settings persisted correctly  
+- [ ] No errors in the Chrome console
 
 ---
 
-**⏱️ Recomendação: Use teste local como método principal durante revisão**
-**🔧 Mantenha código sempre atualizado e testado**
-**📧 Monitore emails da Google para updates**
+## 📞 Next Steps
+
+1. Continue local development  
+2. Prepare fixes if needed  
+3. Wait for Google’s feedback  
+4. Plan the launch strategy  
+5. Prepare end-user documentation
+
+---
+
+⏱️ Recommendation: use local testing as the primary method during review  
+🔧 Keep the code updated and tested  
+📧 Monitor Google emails for updates
