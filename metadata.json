@@ -1,0 +1,5 @@
+{
+  "name": "ChronoMark - Tag & Sync Bookmarks",
+  "description": "A Chrome extension to save, tag, and search your favorite websites. All bookmarks are stored locally and can be synchronized with your Google Drive account.",
+  "requestFramePermissions": []
+}

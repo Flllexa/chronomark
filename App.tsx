@@ -1,0 +1,183 @@
+
+// FIX: Moved the triple-slash directive to be the absolute first line in the file.
+/// <reference types="chrome" />
+
+import React, { useState, useMemo, useEffect } from 'react';
+import { BookmarkForm } from './components/BookmarkForm';
+import { BookmarkList } from './components/BookmarkList';
+import { SearchBar } from './components/SearchBar';
+import { SyncStatus } from './components/SyncStatus';
+import { Settings } from './components/Settings';
+import { useBookmarks } from './hooks/useBookmarks';
+import type { Bookmark, CurrentTab } from './types';
+import { AddIcon, SettingsIcon } from './components/icons';
+import { SortDropdown, type SortOrder } from './components/SortDropdown';
+
+const App: React.FC = () => {
+    const { 
+        bookmarks, 
+        addBookmark, 
+        deleteBookmark, 
+        updateBookmark,
+        syncWithGoogleDrive,
+        syncStatus,
+        isAuthenticated,
+        settings,
+        updateSettings,
+        importStatus,
+        importFromChrome,
+        allTags,
+        tagsWithCounts,
+        renameTag,
+        deleteTag,
+    } = useBookmarks();
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortOrder, setSortOrder] = useState<SortOrder>('date_desc');
+    const [isAdding, setIsAdding] = useState(false);
+    const [showSettings, setShowSettings] = useState(false);
+    const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
+    const [currentTab, setCurrentTab] = useState<CurrentTab | null>(null);
+
+    useEffect(() => {
+        if (isAdding) {
+             if (typeof chrome !== 'undefined' && chrome.tabs) {
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
+                    if (tabs[0] && tabs[0].url && tabs[0].title) {
+                        setCurrentTab({ url: tabs[0].url, title: tabs[0].title });
+                    }
+                });
+            } else {
+                // Fallback for development outside extension
+                setCurrentTab({ url: 'http://example.com', title: 'Example Page' });
+            }
+        }
+    }, [isAdding]);
+
+    const sortedAndFilteredBookmarks = useMemo(() => {
+        const filtered = bookmarks.filter(bookmark =>
+            bookmark.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            bookmark.url.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            bookmark.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+
+        return filtered.sort((a, b) => {
+            switch (sortOrder) {
+                case 'title_asc':
+                    return a.title.localeCompare(b.title);
+                case 'title_desc':
+                    return b.title.localeCompare(a.title);
+                case 'date_asc':
+                    return a.createdAt - b.createdAt;
+                case 'date_desc':
+                default:
+                    return b.createdAt - a.createdAt;
+            }
+        });
+    }, [bookmarks, searchTerm, sortOrder]);
+
+    // FIX: Corrected the type of the bookmark parameter to match the `addBookmark` function signature.
+    const handleSaveBookmark = (bookmark: Omit<Bookmark, 'id' | 'createdAt' | 'updatedAt'>) => {
+        addBookmark(bookmark);
+        setIsAdding(false);
+    };
+
+    const handleUpdateBookmark = (bookmark: Bookmark) => {
+        updateBookmark(bookmark);
+        setEditingBookmark(null);
+    }
+
+    const handleStartEditing = (bookmark: Bookmark) => {
+        setIsAdding(false);
+        setShowSettings(false);
+        setEditingBookmark(bookmark);
+    };
+
+    const handleCancel = () => {
+        setIsAdding(false);
+        setEditingBookmark(null);
+    };
+
+    const renderMainView = () => {
+        if (isAdding || editingBookmark) {
+            return (
+                <BookmarkForm
+                    onSave={handleSaveBookmark}
+                    onUpdate={handleUpdateBookmark}
+                    onCancel={handleCancel}
+                    initialData={editingBookmark || currentTab}
+                    allTags={allTags}
+                />
+            );
+        }
+
+        if (showSettings) {
+            return (
+                <Settings 
+                    settings={settings}
+                    onUpdateSettings={updateSettings}
+                    onClose={() => setShowSettings(false)}
+                    importStatus={importStatus}
+                    onImport={importFromChrome}
+                    tagsWithCounts={tagsWithCounts}
+                    onRenameTag={renameTag}
+                    onDeleteTag={deleteTag}
+                />
+            );
+        }
+
+        return (
+            <>
+                <div className="main-controls">
+                    <div className="search-bar-container">
+                        <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
+                    </div>
+                    <SortDropdown sortOrder={sortOrder} onSortChange={setSortOrder} />
+                </div>
+                <BookmarkList
+                    bookmarks={sortedAndFilteredBookmarks}
+                    onDelete={deleteBookmark}
+                    onEdit={handleStartEditing}
+                />
+                <button
+                    onClick={() => {
+                        setIsAdding(true);
+                        setEditingBookmark(null);
+                        setShowSettings(false);
+                    }}
+                    className="add-bookmark-btn"
+                    title="Add current tab"
+                >
+                    <AddIcon className="icon" />
+                </button>
+            </>
+        );
+    };
+
+    return (
+        <div className="app-container">
+            <header className="app-header">
+                <h1>ChronoMark</h1>
+                <div className="header-controls">
+                    <SyncStatus
+                        status={syncStatus}
+                        isAuthenticated={isAuthenticated}
+                        onSync={syncWithGoogleDrive}
+                    />
+                    <button onClick={() => {
+                        setShowSettings(!showSettings);
+                        setIsAdding(false);
+                        setEditingBookmark(null);
+                    }} className="settings-btn" title="Settings">
+                        <SettingsIcon className="icon" />
+                    </button>
+                </div>
+            </header>
+            <main>
+                {renderMainView()}
+            </main>
+        </div>
+    );
+};
+
+export default App;
