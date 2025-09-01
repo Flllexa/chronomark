@@ -318,6 +318,43 @@ convert-screenshots-small:
 	@echo "📁 Screenshots pequenos disponíveis em store-assets/"
 	@ls -la store-assets/screenshot-*-small.png 2>/dev/null || echo "⚠️  Nenhum PNG pequeno encontrado ainda"
 
+generate-store-readme:
+	@echo "📝 Gerando README otimizado para Chrome Web Store..."
+	@echo ""
+	@echo "# 🔖 ChronoMark - Smart Bookmark Manager" > store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "**Organize, sincronize e encontre seus bookmarks com inteligência artificial**" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "## ✨ Principais Funcionalidades" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🏷️ **Sistema de Tags Inteligente** - Organize bookmarks por categorias personalizadas" >> store-assets/CHROME_STORE_README.md
+	@echo "- ☁️ **Sincronização Google Drive** - Seus dados seguros e acessíveis em qualquer lugar" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🔍 **Busca Avançada** - Encontre qualquer bookmark instantaneamente" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🤖 **IA Integrada** - Sugestões automáticas de tags e organização" >> store-assets/CHROME_STORE_README.md
+	@echo "- 📊 **Estatísticas Detalhadas** - Acompanhe seus hábitos de navegação" >> store-assets/CHROME_STORE_README.md
+	@echo "- 🔒 **Privacidade Total** - Seus dados ficam apenas com você" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "## 🚀 Por que ChronoMark?" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "Cansado de perder bookmarks importantes? ChronoMark transforma o caos dos seus favoritos em uma biblioteca organizada e inteligente." >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Tags Ilimitadas** vs Apenas pastas" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Sincronização Google Drive** vs Limitada" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Busca com IA** vs Busca básica" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ **Interface Moderna** vs Interface básica" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "## 🔒 Privacidade e Segurança" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "- Seus dados ficam apenas com você" >> store-assets/CHROME_STORE_README.md
+	@echo "- Sincronização opcional com Google Drive" >> store-assets/CHROME_STORE_README.md
+	@echo "- Nenhum dado é enviado para servidores externos" >> store-assets/CHROME_STORE_README.md
+	@echo "- Código aberto e auditável" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "---" >> store-assets/CHROME_STORE_README.md
+	@echo "" >> store-assets/CHROME_STORE_README.md
+	@echo "*Transforme seus bookmarks em uma ferramenta poderosa de produtividade!*" >> store-assets/CHROME_STORE_README.md
+	@echo "✅ README otimizado criado em store-assets/CHROME_STORE_README.md"
+
 store-help:
 	@echo "🏪 GUIA DE PUBLICAÇÃO NA CHROME WEB STORE"
 	@echo ""
@@ -340,8 +377,83 @@ store-help:
 	@echo "💰 Taxa: $5 USD (única vez)"
 	@echo "⏱️  Revisão: 1-3 dias úteis"
 
+privacy-justifications:
+	@echo "🔒 JUSTIFICATIVAS DE PRIVACIDADE - CHROME WEB STORE"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "📝 PROPÓSITO ÚNICO:"
+	@echo "ChronoMark é um gerenciador inteligente de bookmarks que permite"
+	@echo "organizar, sincronizar e encontrar favoritos usando tags e IA."
+	@echo ""
+	@echo "🔑 JUSTIFICATIVAS DE PERMISSÕES:"
+	@echo ""
+	@echo "📚 BOOKMARKS:"
+	@echo "• Ler/criar/atualizar bookmarks do Chrome"
+	@echo "• Importar bookmarks existentes"
+	@echo "• Sincronizar entre dispositivos"
+	@echo ""
+	@echo "💾 STORAGE:"
+	@echo "• Armazenar configurações do usuário"
+	@echo "• Cache de tags e metadados"
+	@echo "• Tokens de autenticação (criptografados)"
+	@echo ""
+	@echo "🆔 IDENTITY:"
+	@echo "• Autenticação OAuth2 com Google Drive"
+	@echo "• Tokens temporários para sincronização"
+	@echo "• Nenhum dado permanente coletado"
+	@echo ""
+	@echo "🌐 HOST PERMISSIONS (googleapis.com):"
+	@echo "• Comunicação com Google Drive API"
+	@echo "• Upload/download de backups"
+	@echo "• Apenas endpoints específicos do Google"
+	@echo ""
+	@echo "⏰ ALARMS:"
+	@echo "• Sincronização automática periódica"
+	@echo "• Limpeza de cache temporário"
+	@echo "• Verificação de integridade"
+	@echo ""
+	@echo "📑 TABS:"
+	@echo "• Detectar sites já marcados"
+	@echo "• Sugerir tags baseadas na página"
+	@echo "• Facilitar adição rápida de bookmarks"
+	@echo ""
+	@echo "💻 REMOTE CODE:"
+	@echo "• Bibliotecas de IA (Google Gemini)"
+	@echo "• Atualizações de segurança da API"
+	@echo "• Componentes de interface dinâmicos"
+	@echo ""
+	@echo "✅ CONFORMIDADE:"
+	@echo "• Nenhum dado pessoal desnecessário coletado"
+	@echo "• Dados ficam no dispositivo/Google Drive pessoal"
+	@echo "• Código aberto e auditável"
+	@echo "• Conformidade com LGPD/GDPR"
+	@echo ""
+	@echo "📄 Detalhes completos: store-assets/PRIVACY_JUSTIFICATIONS.md"
+
+# Checklist de publicação para Chrome Web Store
+publication-checklist:
+	@echo "✅ CHECKLIST DE PUBLICAÇÃO - CHROME WEB STORE"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "🚨 PROBLEMAS IDENTIFICADOS:"
+	@echo "• Email de contato não configurado/verificado"
+	@echo "• Justificativas de permissões em falta"
+	@echo "• Descrição de propósito único em falta"
+	@echo "• Certificação de conformidade pendente"
+	@echo ""
+	@echo "📋 PASSOS PARA RESOLVER:"
+	@echo "1. 📧 Configurar email no Account tab"
+	@echo "2. ✉️  Verificar email (check inbox)"
+	@echo "3. 🔒 Preencher Privacy practices tab"
+	@echo "4. ✅ Marcar certificação de conformidade"
+	@echo "5. 💾 Salvar rascunho (Save Draft)"
+	@echo "6. 🚀 Submeter para revisão"
+	@echo ""
+	@echo "📄 Guia completo: store-assets/PUBLICATION_CHECKLIST.md"
+	@echo "🔒 Justificativas: make privacy-justifications"
+
 store-info:
-	@echo "📝 INFORMAÇÕES PARA CHROME WEB STORE"
+	@echo "📋 INFORMAÇÕES PARA CHROME WEB STORE"
 	@echo ""
 	@echo "📦 Nome: ChronoMark - Smart Bookmark Manager"
 	@echo "📋 Categoria: Productivity"
@@ -391,6 +503,9 @@ help:
 	@echo "  make prepare-store-assets - Preparar screenshots e assets"
 	@echo "  make convert-screenshots    # Converter screenshots SVG para PNG (1280x800)"
 	@echo "  make convert-screenshots-small # Converter screenshots SVG para PNG (640x400)"
+	@echo "  make generate-store-readme  # Gerar README otimizado para Chrome Web Store"
+	@echo "  make privacy-justifications # Justificativas de privacidade para Chrome Web Store"
+	@echo "  make publication-checklist  # Checklist para resolver problemas de publicação"
 	@echo "  make package         - Criar arquivo .zip para Chrome Web Store"
 	@echo "  make store-info      - Informações para listagem"
 	@echo "  make store-help      - Guia completo de publicação"
