@@ -340,9 +340,9 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                     </button>
                     <button type="submit" className="btn btn-primary">
                         {isEditing || isUrlDuplicate ? (
-                            <EditIcon className="w-4 h-4 mr-2" />
+                            <EditIcon className="btn-icon" />
                         ) : (
-                            <AddIcon className="w-4 h-4 mr-2" />
+                            <AddIcon className="btn-icon" />
                         )}
                         {isEditing || isUrlDuplicate ? 'Update' : 'Save'}
                     </button>
