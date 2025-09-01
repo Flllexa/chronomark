@@ -71,7 +71,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     // Auto-generate AI suggestions when title and URL are available
     useEffect(() => {
         const autoGenerateAiSuggestions = async () => {
-            if (geminiStatus.available && title && url && !isGeneratingTags && !isEditing && !hasGeneratedSuggestions) {
+            if (geminiStatus.available && title && url && !isGeneratingTags && !hasGeneratedSuggestions) {
                 setIsGeneratingTags(true);
                 setAiSuggestions([]);
                 
