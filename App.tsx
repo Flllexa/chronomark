@@ -135,12 +135,13 @@ const App: React.FC = () => {
 
     const renderMainView = () => {
         if (isAdding || editingBookmark) {
+            const initialData = editingBookmark ? editingBookmark : currentTab;
             return (
                 <BookmarkForm
                     onSave={handleSaveBookmark}
                     onUpdate={handleUpdateBookmark}
                     onCancel={handleCancel}
-                    initialData={editingBookmark || currentTab}
+                    initialData={initialData}
                     allTags={allTags}
                     existingBookmarks={bookmarks}
                 />
@@ -180,13 +181,19 @@ const App: React.FC = () => {
                 />
                 <button
                     onClick={() => {
-                        // Keep behavior intact: open the form; it will auto-switch to edit if duplicate.
-                        setIsAdding(true);
-                        setEditingBookmark(null);
+                        if (existingBookmarkForCurrentTab) {
+                            // Edit existing bookmark
+                            setEditingBookmark(existingBookmarkForCurrentTab);
+                            setIsAdding(false);
+                        } else {
+                            // Add new bookmark
+                            setIsAdding(true);
+                            setEditingBookmark(null);
+                        }
                         setShowSettings(false);
                     }}
                     className="add-bookmark-btn"
-                    title={existingBookmarkForCurrentTab ? 'Edit current tab bookmark' : 'Add current tab'}
+                    title={existingBookmarkForCurrentTab ? `Edit bookmark: ${existingBookmarkForCurrentTab.title}` : 'Add current tab'}
                 >
                     {/* Show Edit icon if the current tab already exists */}
                     {existingBookmarkForCurrentTab ? (
@@ -194,6 +201,7 @@ const App: React.FC = () => {
                     ) : (
                         <AddIcon className="icon" />
                     )}
+
                 </button>
             </div>
         );

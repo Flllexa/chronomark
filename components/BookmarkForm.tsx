@@ -75,6 +75,8 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
         });
     }, [url, existingBookmarks, isEditing, initialData?.id]);
     
+
+    
     const isUrlDuplicate = !!existingBookmark;
 
     useEffect(() => {
@@ -254,16 +256,8 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         
-        // If URL already exists and we're not editing, edit the existing bookmark
-        if (isUrlDuplicate && !isEditing && onUpdate && existingBookmark) {
-            onUpdate({
-                ...existingBookmark,
-                title,
-                tags: Array.isArray(tags) ? tags : [],
-                updatedAt: Date.now(),
-            });
-        } else if (isEditing && onUpdate && initialData?.id && initialData.createdAt !== undefined) {
-            // FIX: Added `updatedAt` to satisfy the `Bookmark` type requirement for the `onUpdate` handler.
+        // If we're editing a specific bookmark (not just a URL duplicate)
+        if (isEditing && onUpdate && initialData?.id && initialData.createdAt !== undefined) {
             onUpdate({
                 id: initialData.id,
                 createdAt: initialData.createdAt,
@@ -272,7 +266,16 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                 tags: Array.isArray(tags) ? tags : [],
                 updatedAt: Date.now(),
             });
+        } else if (isUrlDuplicate && !isEditing && onUpdate && existingBookmark) {
+            // If URL already exists and we're not editing, edit the existing bookmark
+            onUpdate({
+                ...existingBookmark,
+                title,
+                tags: Array.isArray(tags) ? tags : [],
+                updatedAt: Date.now(),
+            });
         } else {
+            // Save new bookmark
             onSave({ title, url, tags: Array.isArray(tags) ? tags : [] });
         }
     };
@@ -280,7 +283,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     return (
         <div ref={formContainerRef}>
             <form onSubmit={handleSubmit} className="bookmark-form animate-fade-in">
-                <h2>{isEditing || isUrlDuplicate ? 'Edit Bookmark' : 'Save Bookmark'}</h2>
+                <h2>{isEditing ? 'Edit Bookmark' : isUrlDuplicate ? 'Edit Existing Bookmark' : 'Save Bookmark'}</h2>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input
@@ -380,12 +383,14 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                         Cancel
                     </button>
                     <button type="submit" className="btn btn-primary">
-                        {isEditing || isUrlDuplicate ? (
+                        {isEditing ? (
+                            <EditIcon className="btn-icon" />
+                        ) : isUrlDuplicate ? (
                             <EditIcon className="btn-icon" />
                         ) : (
                             <AddIcon className="btn-icon" />
                         )}
-                        {isEditing || isUrlDuplicate ? 'Update' : 'Save'}
+                        {isEditing ? 'Update' : isUrlDuplicate ? 'Update Existing' : 'Save'}
                     </button>
                 </div>
             </form>
