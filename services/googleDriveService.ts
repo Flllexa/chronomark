@@ -21,7 +21,7 @@ const isEdge = (): boolean => {
 
 // Check if browser supports chrome.identity API
 const supportsIdentityAPI = (): boolean => {
-    return typeof chrome !== 'undefined' && chrome.identity;
+    return typeof chrome !== 'undefined' && !!chrome.identity;
 };
 
 // Check if browser supports getAuthToken (Chrome style)
@@ -37,7 +37,7 @@ const getAuthTokenEdge = (interactive: boolean): Promise<string | undefined> => 
             return resolve(undefined);
         }
 
-        const clientId = '214396245139-vpq9cr8hqh4tivh03nfos6lmeosrnsdn.apps.googleusercontent.com';
+        const clientId = '214396245139-gqr3jjsrand4a0920kogdr2poikuo9rr.apps.googleusercontent.com';
         const scopes = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
         
         // For extensions, we need to use the exact redirect URI that's registered
