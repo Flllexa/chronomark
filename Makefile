@@ -600,6 +600,25 @@ huggingface-start:
 	fi
 	@cd examples && npm run dev
 
+# Create 1280x800 images with original screenshots centered on black background
+create-centered-screenshots:
+	@echo "🖼️  Creating 1280x800 images with centered screenshots on black background..."
+	@echo ""
+	@if command -v convert >/dev/null 2>&1; then \
+		echo "✅ ImageMagick found, processing screenshots..."; \
+		convert -size 1280x800 xc:black store-assets/screenshot1.png -gravity center -composite store-assets/screenshot1-centered.png; \
+		convert -size 1280x800 xc:black store-assets/screenshot2.png -gravity center -composite store-assets/screenshot2-centered.png; \
+		convert -size 1280x800 xc:black store-assets/screenshot3.png -gravity center -composite store-assets/screenshot3-centered.png; \
+		convert -size 1280x800 xc:black store-assets/screenshot4.png -gravity center -composite store-assets/screenshot4-centered.png; \
+		echo ""; \
+		echo "✅ Centered screenshots created successfully in 1280x800 format!"; \
+	else \
+		echo "❌ ImageMagick not found. Install with: sudo apt install imagemagick"; \
+	fi
+	@echo ""
+	@echo "📁 Centered screenshots available in store-assets/"
+	@ls -la store-assets/screenshot*-centered.png 2>/dev/null || echo "⚠️  No centered screenshots found yet"
+
 huggingface-stop:
 	@echo "🛑 Stopping Hugging Face Proxy Server..."
 	@pkill -f "node.*huggingface-proxy-backend" || echo "No server running"
