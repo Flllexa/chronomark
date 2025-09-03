@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
             --text-gray-200: #e2e8f0;
             --text-gray-300: #d1d5db;
             --text-gray-400: #9ca3af;
-            
+
             --cyan-200: #a5f3fc;
             --cyan-300: #67e8f9;
             --cyan-400: #22d3ee;
@@ -50,7 +51,7 @@
 
         body {
             width: 400px;
-            height: 600px;
+            max-height: 600px;
             overflow: hidden;
             margin: 0;
             background-color: var(--bg-slate-900);
@@ -58,7 +59,28 @@
             font-family: sans-serif;
         }
 
-        button, input, select {
+        body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        button,
+        input,
+        select {
             font-family: inherit;
             color: inherit;
         }
@@ -70,19 +92,41 @@
             padding: 0;
         }
 
-        input:focus, select:focus, button:focus-visible {
+        input:focus,
+        select:focus,
+        button:focus-visible {
             outline: 2px solid var(--ring-cyan-500);
             outline-offset: 2px;
         }
-        
+
         .app-container {
-            height: 100vh;
-            min-height: 600px;
+            height: 600px;
+            max-height: 600px;
             display: flex;
             flex-direction: column;
             color: var(--text-gray-100);
             position: relative;
-            overflow: hidden; /* Prevent app-level scrolling */
+            overflow: hidden;
+            /* Prevent app-level scrolling */
+        }
+
+        .app-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .app-container::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        .app-container::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        .app-container::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
         }
 
         .app-header {
@@ -100,7 +144,7 @@
             font-weight: bold;
             color: var(--cyan-400);
         }
-        
+
         .header-controls {
             display: flex;
             align-items: center;
@@ -115,50 +159,53 @@
         .header-controls .settings-btn:hover {
             color: var(--cyan-400);
         }
-        
+
         main {
             flex-grow: 1;
-            overflow-x: hidden;
-            overflow-y: hidden; /* Always enable vertical scrolling for main panel */
+            overflow: hidden;
+            /* Remove scrolling from main, let bookmark-list handle it */
             padding: 1rem;
-            padding-bottom: 5rem; /* Space for floating button */
+            padding-bottom: 5rem;
+            /* Space for floating button */
             position: relative;
-            scrollbar-width: thin;
-            scrollbar-color: #475569 #1e293b;
-            min-height: 500px;
+            min-height: 485px;
             max-width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         main::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-        
+
         main::-webkit-scrollbar-track {
             background: #1e293b;
             border-radius: 4px;
         }
-        
+
         main::-webkit-scrollbar-thumb {
             background: #475569;
             border-radius: 4px;
         }
-        
+
         main::-webkit-scrollbar-thumb:hover {
             background: #64748b;
         }
-        
+
         /* Home View - Remove height constraint to allow natural content flow */
         .home-view {
             display: flex;
             flex-direction: column;
-            overflow: visible; /* Allow content to flow naturally */
+            overflow: visible;
+            /* Allow content to flow naturally */
             max-width: 100%;
             position: relative;
             z-index: 1;
-            min-height: 0; /* Allow flex shrinking */
+            min-height: 0;
+            /* Allow flex shrinking */
         }
-        
+
 
 
         .main-controls {
@@ -171,7 +218,7 @@
         .main-controls .search-bar-container {
             flex-grow: 1;
         }
-        
+
         .add-bookmark-btn {
             position: fixed;
             bottom: 1.5rem;
@@ -195,7 +242,7 @@
             width: 1.5rem;
             height: 1.5rem;
         }
-        
+
         /* Form */
         .bookmark-form {
             padding: 0.5rem;
@@ -213,33 +260,33 @@
             position: relative;
             justify-content: space-between;
         }
-        
+
         .bookmark-form::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-        
+
         .bookmark-form::-webkit-scrollbar-track {
             background: #1e293b;
             border-radius: 4px;
         }
-        
+
         .bookmark-form::-webkit-scrollbar-thumb {
             background: #475569;
             border-radius: 4px;
         }
-        
+
         .bookmark-form::-webkit-scrollbar-thumb:hover {
             background: #64748b;
         }
-        
+
         .bookmark-form h2 {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--cyan-400);
             margin: 0 0 0.5rem 0;
         }
-        
+
         .form-group label {
             display: block;
             font-size: 0.875rem;
@@ -247,12 +294,12 @@
             color: var(--text-gray-300);
             margin-bottom: 0.25rem;
         }
-        
+
         .form-group {
             position: relative;
             margin-bottom: 0.5rem;
         }
-        
+
         .form-input {
             width: 100%;
             background-color: var(--bg-slate-700);
@@ -261,13 +308,13 @@
             padding: 0.375rem;
             box-sizing: border-box;
         }
-        
+
         .form-input-readonly {
             background-color: var(--bg-slate-800);
             color: var(--text-gray-400);
             cursor: not-allowed;
         }
-        
+
         .url-duplicate-notice {
             display: flex;
             align-items: center;
@@ -280,16 +327,16 @@
             font-size: 0.875rem;
             color: var(--yellow-400);
         }
-        
+
         .duplicate-icon {
             font-size: 1rem;
             flex-shrink: 0;
         }
-        
+
         .tag-input-container {
             position: relative;
         }
-        
+
         .tag-input-wrapper {
             background-color: var(--bg-slate-700);
             border: 1px solid var(--border-slate-600);
@@ -300,66 +347,66 @@
             gap: 0.375rem;
             align-items: center;
         }
-        
+
         .tag-input-wrapper input {
             flex-grow: 1;
             background: transparent;
             outline: none;
             border: none;
         }
-        
+
         /* Ensure suggestions are visible when they might overflow the form */
         .bookmark-form:has(.tag-suggestions) {
             overflow: visible;
         }
-        
+
         .tag-input-container:has(.tag-suggestions) {
             overflow: visible;
         }
-        
 
-        
+
+
         /* Custom scrollbar for AI suggestions */
         .ai-suggestions-list::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         .ai-suggestions-list::-webkit-scrollbar-track {
             background: var(--bg-slate-700);
             border-radius: 3px;
         }
-        
+
         .ai-suggestions-list::-webkit-scrollbar-thumb {
             background: var(--bg-slate-500);
             border-radius: 3px;
         }
-        
+
         .ai-suggestions-list::-webkit-scrollbar-thumb:hover {
             background: var(--bg-slate-400);
         }
-        
 
-        
+
+
         /* Additional spacing and positioning improvements */
         .form-group {
             position: relative;
             margin-bottom: 1rem;
         }
-        
+
         /* Ensure the form has enough bottom margin for suggestions */
         .bookmark-form .form-group:last-of-type {
             margin-bottom: 0.75rem;
         }
-        
+
         /* Improve tag input container positioning */
         .tag-input-container {
             position: relative;
             z-index: 1;
             margin-bottom: 0.25rem;
         }
-        
 
-        
+
+
         .form-actions {
             display: flex;
             justify-content: flex-end;
@@ -379,15 +426,16 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .btn svg {
             width: 1rem;
             height: 1rem;
         }
-        
+
         .btn-secondary {
             background-color: var(--bg-slate-600);
         }
+
         .btn-secondary:hover {
             background-color: #475569;
         }
@@ -395,29 +443,54 @@
         .btn-primary {
             background-color: var(--cyan-600);
         }
+
         .btn-primary:hover {
             background-color: var(--cyan-500);
         }
-        
+
         .btn-icon {
             width: 1rem;
             height: 1rem;
             margin-right: 0.5rem;
         }
-        
+
         /* Bookmark List */
         .bookmark-list {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
+            max-height: calc(100% - 120px);
+            /* Adjust for header and controls */
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: #475569 #1e293b;
         }
-        
+
+        .bookmark-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .bookmark-list::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        .bookmark-list::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        .bookmark-list::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
         .bookmark-list-empty {
             text-align: center;
             color: var(--text-gray-400);
             margin-top: 2rem;
         }
-        
+
         /* Bookmark Item */
         .bookmark-item {
             padding: 0.5rem 0.75rem;
@@ -425,15 +498,18 @@
             box-shadow: var(--shadow-md);
             transition: background-color 0.2s ease-in-out;
             background-color: var(--bg-slate-800);
-            height: 100px; /* Further reduced height for better spacing */
+            height: 100px;
+            /* Further reduced height for better spacing */
             display: flex;
             flex-direction: column;
             position: relative;
             max-width: 100%;
-            margin-bottom: 0.5rem; /* Add spacing between items */
-            z-index: 1; /* Ensure items are visible */
+            margin-bottom: 0.5rem;
+            /* Add spacing between items */
+            z-index: 1;
+            /* Ensure items are visible */
         }
-        
+
         .bookmark-item:hover {
             background-color: var(--bg-slate-700-50);
         }
@@ -447,7 +523,7 @@
             gap: 0.5rem;
             min-height: 0;
         }
-        
+
         .bookmark-item-content {
             flex-grow: 1;
             min-width: 0;
@@ -455,7 +531,7 @@
             max-width: 100%;
             overflow: hidden;
         }
-        
+
         .bookmark-item-content h3 {
             font-size: 1rem;
             font-weight: 600;
@@ -482,17 +558,21 @@
             max-width: 100%;
             width: 100%;
         }
+
         .bookmark-item-content a:hover {
             color: var(--cyan-300);
         }
+
         .bookmark-item-content a.unsafe-url {
             color: var(--red-400);
             cursor: not-allowed;
             text-decoration: line-through;
         }
+
         .bookmark-item-content a.unsafe-url:hover {
             color: var(--red-400);
         }
+
         .bookmark-item-content a span {
             white-space: nowrap;
             overflow: hidden;
@@ -501,6 +581,7 @@
             flex: 1;
             min-width: 0;
         }
+
         .bookmark-item-content a .icon {
             width: 0.75rem;
             height: 0.75rem;
@@ -516,9 +597,11 @@
             flex-shrink: 0;
             margin-left: 0.25rem;
         }
+
         .bookmark-item:hover .bookmark-item-actions {
             opacity: 1;
         }
+
         .bookmark-item-actions button {
             padding: 0.25rem;
             color: var(--text-gray-300);
@@ -528,8 +611,15 @@
             align-items: center;
             justify-content: center;
         }
-        .bookmark-item-actions button:hover { color: var(--cyan-400); }
-        .bookmark-item-actions .delete-btn:hover { color: var(--red-400); }
+
+        .bookmark-item-actions button:hover {
+            color: var(--cyan-400);
+        }
+
+        .bookmark-item-actions .delete-btn:hover {
+            color: var(--red-400);
+        }
+
         .bookmark-item-actions .icon {
             width: 0.875rem;
             height: 0.875rem;
@@ -655,6 +745,7 @@
         .search-bar {
             position: relative;
         }
+
         .search-bar input {
             width: 100%;
             background-color: var(--bg-slate-800);
@@ -663,6 +754,7 @@
             padding: 0.5rem 0.5rem 0.5rem 2.5rem;
             box-sizing: border-box;
         }
+
         .search-bar .icon-wrapper {
             position: absolute;
             top: 0;
@@ -673,16 +765,18 @@
             align-items: center;
             pointer-events: none;
         }
+
         .search-bar .icon {
             width: 1.25rem;
             height: 1.25rem;
             color: var(--text-gray-400);
         }
-        
+
         /* Sort Dropdown */
         .sort-dropdown {
             position: relative;
         }
+
         .sort-dropdown select {
             appearance: none;
             background-color: var(--bg-slate-800);
@@ -692,6 +786,7 @@
             font-size: 0.875rem;
             cursor: pointer;
         }
+
         .sort-dropdown .icon-wrapper {
             position: absolute;
             top: 0;
@@ -702,12 +797,13 @@
             align-items: center;
             pointer-events: none;
         }
+
         .sort-dropdown .icon {
             width: 1rem;
             height: 1rem;
             color: var(--text-gray-400);
         }
-        
+
         /* Tag */
         .tag {
             display: inline-flex;
@@ -720,35 +816,60 @@
             color: var(--cyan-200);
             line-height: 1.2;
         }
+
         .tag button {
             margin-left: 0.375rem;
             color: var(--cyan-200);
             transition: color 0.2s;
         }
+
         .tag button:hover {
             color: var(--text-white);
         }
+
         .tag button .icon {
             width: 0.75rem;
             height: 0.75rem;
         }
-        
+
         /* Sync Status */
         .sync-status {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
+
         .sync-status-text {
             text-align: right;
             font-size: 0.75rem;
             color: var(--text-gray-400);
         }
-        .sync-status-text.syncing { color: var(--cyan-400); font-size: 0.875rem; }
-        .sync-status-text.success { color: var(--green-400); font-size: 0.875rem; }
-        .sync-status-text.error { color: var(--red-400); font-size: 0.875rem; }
-        .sync-status-text span { display: flex; align-items: center; gap: 0.25rem; }
-        .sync-status-text .icon { width: 1rem; height: 1rem; }
+
+        .sync-status-text.syncing {
+            color: var(--cyan-400);
+            font-size: 0.875rem;
+        }
+
+        .sync-status-text.success {
+            color: var(--green-400);
+            font-size: 0.875rem;
+        }
+
+        .sync-status-text.error {
+            color: var(--red-400);
+            font-size: 0.875rem;
+        }
+
+        .sync-status-text span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .sync-status-text .icon {
+            width: 1rem;
+            height: 1rem;
+        }
 
         .sync-btn {
             padding: 0.5rem;
@@ -758,14 +879,34 @@
             display: flex;
             align-items: center;
         }
-        .sync-btn:hover { background-color: var(--cyan-500); }
-        .sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .sync-btn .icon { width: 1.25rem; height: 1.25rem; }
-        .sync-btn .icon.spinning { animation: spin 1s linear infinite; }
-        
+
+        .sync-btn:hover {
+            background-color: var(--cyan-500);
+        }
+
+        .sync-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .sync-btn .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .sync-btn .icon.spinning {
+            animation: spin 1s linear infinite;
+        }
+
         /* Synced state styling */
-        .sync-btn.synced { background-color: var(--green-400); }
-        .sync-btn.synced:hover { background-color: var(--green-400); opacity: 0.8; }
+        .sync-btn.synced {
+            background-color: var(--green-400);
+        }
+
+        .sync-btn.synced:hover {
+            background-color: var(--green-400);
+            opacity: 0.8;
+        }
 
         .login-btn {
             padding: 0.375rem 0.75rem;
@@ -777,9 +918,20 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .login-btn:hover { background-color: var(--bg-slate-600); }
-        .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .login-btn .icon { width: 1rem; height: 1rem; }
+
+        .login-btn:hover {
+            background-color: var(--bg-slate-600);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .login-btn .icon {
+            width: 1rem;
+            height: 1rem;
+        }
 
         /* Settings */
         .settings-view {
@@ -792,51 +944,63 @@
             scrollbar-width: thin;
             scrollbar-color: #475569 #1e293b;
         }
-        
+
         .settings-view::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-        
+
         .settings-view::-webkit-scrollbar-track {
             background: #1e293b;
             border-radius: 4px;
         }
-        
+
         .settings-view::-webkit-scrollbar-thumb {
             background: #475569;
             border-radius: 4px;
         }
-        
+
         .settings-view::-webkit-scrollbar-thumb:hover {
             background: #64748b;
         }
+
         .settings-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
         }
+
         .settings-header h2 {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--cyan-400);
             margin: 0;
         }
+
         .settings-header .close-btn {
             padding: 0.25rem;
             border-radius: 9999px;
             color: var(--text-gray-400);
             transition: color 0.2s, background-color 0.2s;
         }
+
         .settings-header .close-btn:hover {
             color: var(--text-white);
             background-color: var(--bg-slate-700);
         }
-        .settings-header .close-btn .icon { width: 1.25rem; height: 1.25rem; }
 
-        .settings-body { display: flex; flex-direction: column; gap: 1rem; }
-        
+        .settings-header .close-btn .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .settings-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
         .setting-item {
             display: flex;
             align-items: center;
@@ -845,15 +1009,33 @@
             background-color: var(--bg-slate-800);
             border-radius: 0.375rem;
         }
+
         .setting-item.clickable {
             cursor: pointer;
             transition: background-color 0.2s;
         }
-        .setting-item.clickable:hover { background-color: var(--bg-slate-700-50); }
 
-        .setting-item h3 { font-weight: 500; color: var(--text-gray-100); margin: 0; }
-        .setting-item p { font-size: 0.875rem; color: var(--text-gray-400); margin: 0; }
-        .setting-item .icon { width: 1.5rem; height: 1.5rem; color: var(--text-gray-400); }
+        .setting-item.clickable:hover {
+            background-color: var(--bg-slate-700-50);
+        }
+
+        .setting-item h3 {
+            font-weight: 500;
+            color: var(--text-gray-100);
+            margin: 0;
+        }
+
+        .setting-item p {
+            font-size: 0.875rem;
+            color: var(--text-gray-400);
+            margin: 0;
+        }
+
+        .setting-item .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: var(--text-gray-400);
+        }
 
         .drive-folder-info {
             display: flex;
@@ -866,6 +1048,7 @@
             font-size: 0.875rem;
             color: var(--text-gray-300);
         }
+
         .drive-folder-info .icon {
             width: 1rem;
             height: 1rem;
@@ -877,26 +1060,29 @@
             padding-top: 1rem;
             border-top: 1px solid var(--border-slate-700);
         }
-        
+
         .import-btn {
             font-weight: 600;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
             font-size: 0.875rem;
         }
-        .import-btn:disabled { cursor: wait; }
-        
+
+        .import-btn:disabled {
+            cursor: wait;
+        }
+
         .import-section {
             flex: 1;
         }
-        
+
         .import-header {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 0.25rem;
         }
-        
+
         .info-icon {
             display: inline-flex;
             align-items: center;
@@ -910,17 +1096,17 @@
             cursor: help;
             transition: all 0.2s;
         }
-        
+
         .info-icon:hover {
             background-color: var(--bg-slate-500);
             transform: scale(1.1);
         }
-        
+
         .import-btn.disabled-with-reason {
             opacity: 0.6;
             cursor: not-allowed;
         }
-        
+
         .import-btn.disabled-with-reason:hover {
             background-color: var(--bg-slate-700);
             transform: none;
@@ -934,6 +1120,7 @@
             font-size: 0.875rem;
             color: var(--text-gray-300);
         }
+
         .import-status .progress-title {
             display: block;
             font-size: 0.75rem;
@@ -943,22 +1130,39 @@
             text-overflow: ellipsis;
             margin-top: 0.25rem;
         }
-        .import-status.success { color: var(--green-400); }
-        .import-status.error { color: var(--red-400); }
+
+        .import-status.success {
+            color: var(--green-400);
+        }
+
+        .import-status.error {
+            color: var(--red-400);
+        }
 
         /* Tag Management */
-        .tag-management-header { display: flex; align-items: center; gap: 0.75rem; }
+        .tag-management-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
         .tag-management-header .back-btn {
             padding: 0.25rem;
             border-radius: 9999px;
             color: var(--text-gray-400);
             transition: color 0.2s, background-color 0.2s;
         }
+
         .tag-management-header .back-btn:hover {
             color: var(--text-white);
             background-color: var(--bg-slate-700);
         }
-        .tag-management-header .icon { width: 1.25rem; height: 1.25rem; }
+
+        .tag-management-header .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
         .tag-management-list {
             max-height: 400px;
             overflow-y: auto;
@@ -967,8 +1171,13 @@
             flex-direction: column;
             gap: 0.5rem;
         }
-        .tag-management-empty { color: var(--text-gray-400); text-align: center; padding: 1rem 0; }
-        
+
+        .tag-management-empty {
+            color: var(--text-gray-400);
+            text-align: center;
+            padding: 1rem 0;
+        }
+
         .tag-management-item {
             display: flex;
             align-items: center;
@@ -978,10 +1187,28 @@
             background-color: var(--bg-slate-700-50);
             border-radius: 0.375rem;
         }
-        .tag-management-item-content { flex-grow: 1; min-width: 0; }
-        .tag-management-item-content p { margin: 0; }
-        .tag-management-item-content .tag-name { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .tag-management-item-content .tag-count { font-size: 0.75rem; color: var(--text-gray-400); }
+
+        .tag-management-item-content {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .tag-management-item-content p {
+            margin: 0;
+        }
+
+        .tag-management-item-content .tag-name {
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tag-management-item-content .tag-count {
+            font-size: 0.75rem;
+            color: var(--text-gray-400);
+        }
+
         .tag-management-item-content input {
             width: 100%;
             background-color: var(--bg-slate-600);
@@ -989,18 +1216,45 @@
             padding: 0.25rem;
             border: none;
         }
-        .tag-management-item-actions { display: flex; align-items: center; gap: 0.25rem; flex-shrink: 0; }
+
+        .tag-management-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            flex-shrink: 0;
+        }
+
         .tag-management-item-actions button {
             padding: 0.375rem;
             color: var(--text-gray-300);
             transition: color 0.2s;
         }
-        .tag-management-item-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
-        .tag-management-item-actions button.save-btn:hover { color: var(--green-400); }
-        .tag-management-item-actions button.cancel-btn:hover { color: var(--red-400); }
-        .tag-management-item-actions button.edit-btn:hover { color: var(--cyan-400); }
-        .tag-management-item-actions button.delete-btn:hover { color: var(--red-400); }
-        .tag-management-item-actions button .icon { width: 1rem; height: 1rem; }
+
+        .tag-management-item-actions button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .tag-management-item-actions button.save-btn:hover {
+            color: var(--green-400);
+        }
+
+        .tag-management-item-actions button.cancel-btn:hover {
+            color: var(--red-400);
+        }
+
+        .tag-management-item-actions button.edit-btn:hover {
+            color: var(--cyan-400);
+        }
+
+        .tag-management-item-actions button.delete-btn:hover {
+            color: var(--red-400);
+        }
+
+        .tag-management-item-actions button .icon {
+            width: 1rem;
+            height: 1rem;
+        }
 
         /* Toggle Switch */
         .toggle-switch {
@@ -1013,8 +1267,15 @@
             border: 2px solid transparent;
             transition: background-color 0.2s ease-in-out;
         }
-        .toggle-switch.checked { background-color: var(--cyan-500); }
-        .toggle-switch.unchecked { background-color: var(--bg-slate-600); }
+
+        .toggle-switch.checked {
+            background-color: var(--cyan-500);
+        }
+
+        .toggle-switch.unchecked {
+            background-color: var(--bg-slate-600);
+        }
+
         .toggle-switch-handle {
             pointer-events: none;
             display: inline-block;
@@ -1026,61 +1287,93 @@
             box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             transition: transform 0.2s ease-in-out;
         }
+
         .toggle-switch.checked .toggle-switch-handle {
             transform: translateX(1.25rem);
         }
 
         /* Animations */
         @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
+
         .animate-fade-in {
             animation: fadeIn 0.3s ease-out;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         /* Modal Styles */
         .modal-backdrop {
             backdrop-filter: blur(4px);
             animation: modalFadeIn 0.2s ease-out;
         }
+
         @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         .modal-content {
             animation: modalSlideIn 0.3s ease-out;
         }
+
         @keyframes modalSlideIn {
-            from { opacity: 0; transform: scale(0.95) translateY(-10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
-        
+
         /* Virtualized List Container - Allow natural content flow */
         .virtualized-list-container {
             flex: 1;
             overflow: visible;
             position: relative;
-            min-height: 0; /* Allow flex shrinking */
+            min-height: 0;
+            /* Allow flex shrinking */
         }
-        
+
         /* Virtualized List Styles - Remove internal scrolling */
         .advanced-virtualized-list {
             max-width: 100%;
             position: relative;
             z-index: 1;
-            overflow: visible; /* Remove internal scrolling */
+            overflow: visible;
+            /* Remove internal scrolling */
         }
 
         .virtualized-items-container {
             max-width: 100%;
             position: relative;
         }
-        
+
         /* AI Suggestions Styles */
         .ai-suggestions-section {
             margin-top: 0.5rem;
@@ -1092,7 +1385,7 @@
             position: relative;
             overflow: visible;
         }
-        
+
         .ai-suggestions-section::before {
             content: '';
             position: absolute;
@@ -1102,7 +1395,7 @@
             height: 2px;
             background: linear-gradient(90deg, var(--cyan-500), var(--blue-500), var(--purple-500));
         }
-        
+
         .ai-status {
             display: flex;
             align-items: center;
@@ -1115,25 +1408,25 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .ai-status.available {
             color: var(--green-400);
             background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1));
             border: 1px solid rgba(34, 197, 94, 0.3);
         }
-        
+
         .ai-status.unavailable {
             color: var(--red-400);
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
-        
+
         .ai-status .icon {
             width: 1.125rem;
             height: 1.125rem;
             filter: drop-shadow(0 0 4px currentColor);
         }
-        
+
         .generate-ai-btn {
             width: 100%;
             padding: 0.75rem 1rem;
@@ -1154,7 +1447,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .generate-ai-btn::before {
             content: '';
             position: absolute;
@@ -1165,34 +1458,34 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
         }
-        
+
         .generate-ai-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, var(--cyan-500), var(--cyan-600));
             transform: translateY(-2px);
             box-shadow: 0 4px 16px rgba(6, 182, 212, 0.4);
         }
-        
+
         .generate-ai-btn:hover:not(:disabled)::before {
             left: 100%;
         }
-        
+
         .generate-ai-btn:active:not(:disabled) {
             transform: translateY(0);
             box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
         }
-        
+
         .generate-ai-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
-        
+
         .generate-ai-btn .icon {
             width: 1rem;
             height: 1rem;
         }
-        
+
         .ai-suggestions-list {
             display: flex;
             flex-wrap: wrap;
@@ -1203,7 +1496,7 @@
             overflow-x: hidden;
             padding: 0.25rem;
         }
-        
+
         .ai-suggestion-item {
             display: flex;
             align-items: center;
@@ -1217,7 +1510,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .ai-suggestion-item::before {
             content: '';
             position: absolute;
@@ -1229,34 +1522,34 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
+
         .ai-suggestion-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-color: var(--cyan-500);
         }
-        
+
         .ai-suggestion-item:hover::before {
             opacity: 1;
         }
-        
+
         .ai-suggestion-item:active {
             transform: translateY(0);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
-        
+
         .ai-suggestion-content {
             display: flex;
             flex-direction: column;
             gap: 0.25rem;
             flex-grow: 1;
         }
-        
+
         .ai-suggestion-tag {
             font-weight: 500;
             color: var(--text-white);
         }
-        
+
         .ai-suggestion-meta {
             display: flex;
             align-items: center;
@@ -1264,29 +1557,29 @@
             font-size: 0.75rem;
             color: var(--text-gray-400);
         }
-        
+
         .ai-confidence {
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
-        
+
         .ai-confidence .icon {
             width: 0.75rem;
             height: 0.75rem;
         }
-        
+
         .ai-source {
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
-        
+
         .ai-source .icon {
             width: 0.75rem;
             height: 0.75rem;
         }
-        
+
         .add-ai-suggestion-btn {
             padding: 0.5rem;
             background: linear-gradient(135deg, var(--cyan-600), var(--cyan-700));
@@ -1303,7 +1596,7 @@
             min-width: 2.5rem;
             min-height: 2.5rem;
         }
-        
+
         .ai-suggestion-btn {
             padding: 0.25rem 0.5rem;
             background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
@@ -1318,18 +1611,18 @@
             margin: 0.125rem;
             white-space: nowrap;
         }
-        
+
         .ai-suggestion-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(147, 51, 234, 0.3);
             background: linear-gradient(135deg, var(--purple-500), var(--purple-600));
         }
-        
+
         .ai-suggestion-btn:active {
             transform: translateY(0);
             box-shadow: 0 1px 2px rgba(147, 51, 234, 0.2);
         }
-        
+
         .ai-generating-status {
             margin: 6px 0;
             padding: 6px 8px;
@@ -1343,14 +1636,14 @@
             font-size: 12px;
             font-weight: 500;
         }
-        
+
         .ai-suggestions-title {
             margin: 0 0 8px 0;
             color: var(--text-white);
             font-size: 14px;
             font-weight: 600;
         }
-        
+
         .ai-suggestions-info {
             margin: 8px 0 0 0;
             padding: 6px;
@@ -1361,12 +1654,12 @@
             line-height: 1.3;
             border-left: 3px solid var(--green-400);
         }
-        
+
         /* Ensure AI suggestions section has proper spacing */
         .ai-suggestions-section {
             margin-bottom: 0.5rem;
         }
-        
+
         /* Improve AI suggestions list scrolling */
         .ai-suggestions-list {
             max-height: 6rem;
@@ -1375,30 +1668,30 @@
             padding: 0.25rem;
             margin-bottom: 0.25rem;
         }
-        
+
         /* Final positioning improvements for the form */
         .bookmark-form {
             position: relative;
             z-index: 1;
         }
-        
+
         /* Ensure the form content has proper spacing */
-        .bookmark-form > *:not(.form-actions) {
+        .bookmark-form>*:not(.form-actions) {
             flex-shrink: 0;
         }
-        
+
         /* Make form actions stick to bottom */
         .bookmark-form .form-actions {
             margin-top: auto;
             flex-shrink: 0;
         }
-        
+
         /* Ensure tag suggestions are always visible and properly positioned */
         .tag-input-container:has(.tag-suggestions) {
             position: relative;
             z-index: 10;
         }
-        
+
         /* Prevent suggestions from being cut off by any container */
         .tag-suggestions {
             position: absolute;
@@ -1415,14 +1708,14 @@
             left: 0;
             right: 0;
         }
-        
+
         /* Style the tag suggestions list */
         .tag-suggestions ul {
             list-style: none;
             padding: 0.125rem 0;
             margin: 0;
         }
-        
+
         .tag-suggestions li {
             padding: 0.375rem 0.5rem;
             font-size: 0.875rem;
@@ -1430,54 +1723,56 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
         }
-        
+
         .tag-suggestions li:hover {
             background-color: var(--bg-slate-500);
         }
-        
+
         /* Custom scrollbar for tag suggestions */
         .tag-suggestions::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         .tag-suggestions::-webkit-scrollbar-track {
             background: var(--bg-slate-700);
             border-radius: 3px;
         }
-        
+
         .tag-suggestions::-webkit-scrollbar-thumb {
             background: var(--bg-slate-500);
             border-radius: 3px;
         }
-        
+
         .tag-suggestions::-webkit-scrollbar-thumb:hover {
             background: var(--bg-slate-400);
         }
-        
+
         .add-ai-suggestion-btn:hover {
             background: linear-gradient(135deg, var(--cyan-500), var(--cyan-600));
             transform: translateY(-1px) scale(1.05);
             box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
         }
-        
+
         .add-ai-suggestion-btn:active {
             transform: translateY(0) scale(1);
             box-shadow: 0 2px 6px rgba(6, 182, 212, 0.25);
         }
-        
+
         .add-ai-suggestion-btn .icon {
             width: 1.125rem;
             height: 1.125rem;
             transition: transform 0.2s ease;
         }
-        
+
         .add-ai-suggestion-btn:hover .icon {
             transform: rotate(90deg);
         }
     </style>
 </head>
+
 <body class="bg-slate-900 text-white">
     <div id="root"></div>
     <script type="module" src="./index.js"></script>
 </body>
+
 </html>
