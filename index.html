@@ -119,7 +119,7 @@
         main {
             flex-grow: 1;
             overflow-x: hidden;
-            overflow-y: hidden; /* Remove vertical scrolling by default */
+            overflow-y: auto; /* Always enable vertical scrolling for main panel */
             padding: 1rem;
             padding-bottom: 5rem; /* Space for floating button */
             position: relative;
@@ -127,13 +127,6 @@
             scrollbar-color: #475569 #1e293b;
             min-height: 500px;
             max-width: 100%;
-        }
-
-        /* For forms and settings, enable scrolling */
-        main:has(.bookmark-form), main:has(.settings-view) {
-            overflow-y: auto;
-            min-height: 500px;
-            position: relative;
         }
 
         main::-webkit-scrollbar {
@@ -155,12 +148,11 @@
             background: #64748b;
         }
         
-        /* Home View - Let AdvancedVirtualizedList handle all scrolling */
+        /* Home View - Remove height constraint to allow natural content flow */
         .home-view {
-            height: calc(100vh - 140px); /* Full height minus header and padding */
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* No scrolling at this level */
+            overflow: visible; /* Allow content to flow naturally */
             max-width: 100%;
             position: relative;
             z-index: 1;
@@ -1068,44 +1060,24 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
         
-        /* Virtualized List Container */
+        /* Virtualized List Container - Allow natural content flow */
         .virtualized-list-container {
             flex: 1;
-            height: 100%;
-            overflow: hidden;
+            overflow: visible;
             position: relative;
             min-height: 0; /* Allow flex shrinking */
         }
         
-        /* Virtualized List Styles */
+        /* Virtualized List Styles - Remove internal scrolling */
         .advanced-virtualized-list {
-            scrollbar-width: thin;
-            scrollbar-color: #475569 #1e293b;
             max-width: 100%;
-            height: 100% !important; /* Use full container height */
             position: relative;
             z-index: 1;
-            overflow-y: auto; /* Enable scrolling only for the list */
-            overflow-x: hidden; /* Hide horizontal scrollbar */
-        }
-        .advanced-virtualized-list::-webkit-scrollbar {
-            width: 8px;
-        }
-        .advanced-virtualized-list::-webkit-scrollbar-track {
-            background: #1e293b;
-            border-radius: 4px;
-        }
-        .advanced-virtualized-list::-webkit-scrollbar-thumb {
-            background: #475569;
-            border-radius: 4px;
-        }
-        .advanced-virtualized-list::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+            overflow: visible; /* Remove internal scrolling */
         }
 
         .virtualized-items-container {
             max-width: 100%;
-            height: 100%;
             position: relative;
         }
         
