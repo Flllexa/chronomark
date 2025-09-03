@@ -65,17 +65,17 @@
         }
 
         body::-webkit-scrollbar-track {
-            background: #1e293b;
+            background: #0f172a;
             border-radius: 4px;
         }
 
         body::-webkit-scrollbar-thumb {
-            background: #475569;
+            background: #334155;
             border-radius: 4px;
         }
 
         body::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+            background: #475569;
         }
 
         button,
@@ -116,17 +116,17 @@
         }
 
         .app-container::-webkit-scrollbar-track {
-            background: #1e293b;
+            background: #0f172a;
             border-radius: 4px;
         }
 
         .app-container::-webkit-scrollbar-thumb {
-            background: #475569;
+            background: #334155;
             border-radius: 4px;
         }
 
         .app-container::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+            background: #475569;
         }
 
         .app-header {
@@ -180,17 +180,17 @@
         }
 
         main::-webkit-scrollbar-track {
-            background: #1e293b;
+            background: #0f172a;
             border-radius: 4px;
         }
 
         main::-webkit-scrollbar-thumb {
-            background: #475569;
+            background: #334155;
             border-radius: 4px;
         }
 
         main::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+            background: #475569;
         }
 
         /* Home View - Remove height constraint to allow natural content flow */
@@ -256,7 +256,7 @@
             overflow-x: auto;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: #475569 #1e293b;
+            scrollbar-color: #334155 #0f172a;
             position: relative;
             justify-content: space-between;
         }
@@ -387,6 +387,54 @@
 
 
 
+        /* Custom scrollbar for virtualized bookmark list */
+        .virtualized-bookmark-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .virtualized-bookmark-list::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+
+        .virtualized-bookmark-list::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .virtualized-bookmark-list::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .virtualized-bookmark-list {
+            scrollbar-width: thin;
+            scrollbar-color: #334155 #0f172a;
+        }
+
+        /* Custom scrollbar for advanced virtualized list */
+        .advanced-virtualized-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .advanced-virtualized-list::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+
+        .advanced-virtualized-list::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .advanced-virtualized-list::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .advanced-virtualized-list {
+            scrollbar-width: thin;
+            scrollbar-color: #334155 #0f172a;
+        }
+
         /* Additional spacing and positioning improvements */
         .form-group {
             position: relative;
@@ -470,19 +518,19 @@
         .bookmark-list::-webkit-scrollbar {
             width: 8px;
         }
-
+        
         .bookmark-list::-webkit-scrollbar-track {
-            background: #1e293b;
+            background: #0f172a;
             border-radius: 4px;
         }
-
+        
         .bookmark-list::-webkit-scrollbar-thumb {
-            background: #475569;
+            background: #334155;
             border-radius: 4px;
         }
-
+        
         .bookmark-list::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+            background: #475569;
         }
 
         .bookmark-list-empty {
