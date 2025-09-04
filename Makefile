@@ -13,6 +13,8 @@ test:
 
 # Build the project (outputs to dist folder)
 build:
+	@echo "📋 Using development manifest..."
+	cp manifest-development.json manifest.json
 	npm run build
 	npm run dist
 	@echo "Build completed - files available in dist/ folder"
@@ -27,7 +29,12 @@ dist:
 	npm run dist
 
 # Package the extension for distribution
-package: build
+package:
+	@echo "📋 Using production manifest..."
+	cp manifest-production.json manifest.json
+	npm run build
+	npm run dist
+	@echo "Build completed with production manifest - files available in dist/ folder"
 	@echo "📦 Criando pacote para Chrome Web Store..."
 	@mkdir -p dist
 	@echo "📋 Verificando arquivos obrigatórios..."
@@ -83,7 +90,7 @@ oauth-setup:
 	@echo "OAuth Setup Steps:"
 	@echo "1. Go to Google Cloud Console: https://console.cloud.google.com/"
 	@echo "2. Navigate to APIs & Services > Credentials"
-	@echo "3. Find OAuth 2.0 Client ID: nbimliadaeimcfkngknobflgnkneiddl.apps.googleusercontent.com"
+	@echo "3. Find OAuth 2.0 Client ID: <ID>.apps.googleusercontent.com"
 	@echo "4. IMPORTANTE: Selecione 'Chrome Extension' como tipo de aplicação"
 	@echo "5. No campo 'Application ID', cole o Extension ID da extensão"
 	@echo ""

@@ -6,6 +6,12 @@ import { SYNC_FILE_NAME, GOOGLE_API_BASE_URL, GOOGLE_API_UPLOAD_URL } from '../c
 
 const FILE_ID_KEY = 'googleDriveFileId';
 
+// Get client ID dynamically from manifest
+const getClientId = (): string => {
+    const manifest = chrome.runtime.getManifest();
+    return manifest.oauth2?.client_id || '';
+};
+
 // Custom error for authentication issues
 export class GoogleAuthError extends Error {
     constructor(message: string) {
@@ -37,7 +43,7 @@ const getAuthTokenEdge = (interactive: boolean): Promise<string | undefined> => 
             return resolve(undefined);
         }
 
-        const clientId = '214396245139-gqr3jjsrand4a0920kogdr2poikuo9rr.apps.googleusercontent.com';
+        const clientId = getClientId();
         const scopes = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
         
         // For extensions, we need to use the exact redirect URI that's registered

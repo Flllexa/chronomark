@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "ChronoMark - Tag & Sync Bookmarks",
+  "version": "1.0.3",
+  "description": "Save, tag, and sync bookmarks with Google Drive.",
+  "permissions": [
+    "tabs",
+    "identity",
+    "storage",
+    "alarms",
+    "bookmarks"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/*",
+    "https://accounts.google.com/*",
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "oauth2": {
+    "client_id": "214396245139-svi3a16n68dc0pm5gm8lmn1uslp0sr6b.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/generative-language.tuning",
+      "https://www.googleapis.com/auth/generative-language.retriever"
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

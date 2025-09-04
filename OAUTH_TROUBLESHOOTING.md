@@ -6,7 +6,7 @@ Você está recebendo "Error 400: redirect_uri_mismatch" mesmo com as configura�
 ## Checklist de Verificação
 
 ### 1. ✅ Verificar Client ID
-- Client ID atual no manifest.json: `nbimliadaeimcfkngknobflgnkneiddl.apps.googleusercontent.com`
+- Client ID atual no manifest.json: `<ID>.apps.googleusercontent.com`
 - ✅ Este valor está correto
 
 ### 2. 🔍 Verificar Extension ID
