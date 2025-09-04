@@ -1,6 +1,6 @@
 /**
- * Exemplo de integração do SmartTaggingService no BookmarkForm
- * Este arquivo mostra como adicionar sugestões de IA ao formulário existente
+ * Example of SmartTaggingService integration in BookmarkForm
+ * This file shows how to add AI suggestions to the existing form
  */
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
@@ -29,7 +29,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
     const [tagInput, setTagInput] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
     
-    // Estados para IA
+    // AI states
     const [aiSuggestions, setAiSuggestions] = useState<TagSuggestion[]>([]);
     const [showAiSuggestions, setShowAiSuggestions] = useState(false);
     const [isGeneratingTags, setIsGeneratingTags] = useState(false);
@@ -47,7 +47,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
         }
     }, [initialData]);
 
-    // Auto-gerar sugestões quando título e URL estão preenchidos
+    // Auto-generate suggestions when title and URL are filled
     useEffect(() => {
         if (title && url && !isEditing) {
             generateAISuggestions();
@@ -77,7 +77,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
     }, [showSuggestions, tagInput, allTags, tags]);
 
     /**
-     * Gera sugestões de tags usando IA
+     * Generate tag suggestions using AI
      */
     const generateAISuggestions = async () => {
         if (!title || !url) return;
@@ -85,10 +85,10 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
         setIsGeneratingTags(true);
         
         try {
-            // Usar o sistema de regras inteligentes
+            // Use the smart rules system
             const suggestions = SmartTaggingService.suggestTags(title, url);
             
-            // Filtrar tags que já estão adicionadas
+            // Filter tags that are already added
             const newSuggestions = suggestions.filter(suggestion => 
                 !tags.includes(suggestion.tag)
             );
@@ -97,25 +97,25 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
             setShowAiSuggestions(newSuggestions.length > 0);
             
         } catch (error) {
-            console.error('Erro ao gerar sugestões de IA:', error);
+            console.error('Error generating AI suggestions:', error);
         } finally {
             setIsGeneratingTags(false);
         }
     };
 
     /**
-     * Adiciona uma tag sugerida pela IA
+     * Add a tag suggested by AI
      */
     const addAISuggestion = (suggestion: TagSuggestion) => {
         if (!tags.includes(suggestion.tag)) {
             setTags(prev => [...prev, suggestion.tag]);
             
-            // Remove a sugestão da lista
+            // Remove the suggestion from the list
             setAiSuggestions(prev => 
                 prev.filter(s => s.tag !== suggestion.tag)
             );
             
-            // Esconde as sugestões se não há mais nenhuma
+            // Hide suggestions if there are no more
             if (aiSuggestions.length <= 1) {
                 setShowAiSuggestions(false);
             }
@@ -123,7 +123,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
     };
 
     /**
-     * Adiciona todas as sugestões de IA
+     * Add all AI suggestions
      */
     const addAllAISuggestions = () => {
         const newTags = aiSuggestions
@@ -152,7 +152,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
         const value = e.target.value;
         setTagInput(value);
         setShowSuggestions(value.length > 0);
-        setShowAiSuggestions(false); // Esconde sugestões de IA quando digitando
+        setShowAiSuggestions(false); // Hide AI suggestions when typing
     };
 
     const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -188,16 +188,16 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
     };
 
     /**
-     * Obtém a cor da badge baseada na confiança
+     * Get badge color based on confidence
      */
     const getConfidenceColor = (confidence: number): string => {
-        if (confidence >= 0.8) return '#10b981'; // Verde
-        if (confidence >= 0.6) return '#f59e0b'; // Amarelo
-        return '#6b7280'; // Cinza
+        if (confidence >= 0.8) return '#10b981'; // Green
+        if (confidence >= 0.6) return '#f59e0b'; // Yellow
+        return '#6b7280'; // Gray
     };
 
     /**
-     * Obtém o ícone baseado na fonte da sugestão
+     * Get icon based on suggestion source
      */
     const getSourceIcon = (source: TagSuggestion['source']): string => {
         switch (source) {
@@ -213,13 +213,13 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
         <div className="bookmark-form-container" ref={formContainerRef}>
             <form onSubmit={handleSubmit} className="bookmark-form">
                 <div className="form-group">
-                    <label htmlFor="title">Título</label>
+                    <label htmlFor="title">Title</label>
                     <input
                         id="title"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Título do bookmark"
+                        placeholder="Bookmark title"
                         required
                     />
                 </div>
@@ -231,7 +231,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
                         type="url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
-                        placeholder="https://exemplo.com"
+                        placeholder="https://example.com"
                         required
                     />
                 </div>
@@ -239,7 +239,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
                 <div className="form-group">
                     <label htmlFor="tags">Tags</label>
                     
-                    {/* Tags já adicionadas */}
+                    {/* Already added tags */}
                     <div className="tags-container">
                         {tags.map(tag => (
                             <Tag
@@ -250,7 +250,7 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
                         ))}
                     </div>
 
-                    {/* Input para adicionar tags */}
+                    {/* Input to add tags */}
                     <input
                         ref={tagInputRef}
                         id="tags"
@@ -262,10 +262,10 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
                             if (tagInput) setShowSuggestions(true);
                             if (aiSuggestions.length > 0) setShowAiSuggestions(true);
                         }}
-                        placeholder="Digite uma tag e pressione Enter"
+                        placeholder="Type a tag and press Enter"
                     />
 
-                    {/* Botão para gerar sugestões de IA */}
+                    {/* Button to generate AI suggestions */}
                     <div className="ai-controls">
                         <button
                             type="button"
@@ -274,24 +274,24 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
                             className="ai-suggest-button"
                         >
                             {isGeneratingTags ? (
-                                <>⏳ Gerando...</>
+                                <>⏳ Generating...</>
                             ) : (
-                                <>🤖 Sugerir Tags com IA</>
+                                <>🤖 Suggest Tags with AI</>
                             )}
                         </button>
                     </div>
 
-                    {/* Sugestões de IA */}
+                    {/* AI suggestions */}
                     {showAiSuggestions && aiSuggestions.length > 0 && (
                         <div className="ai-suggestions">
                             <div className="ai-suggestions-header">
-                                <span>🤖 Sugestões de IA:</span>
+                                <span>🤖 AI Suggestions:</span>
                                 <button
                                     type="button"
                                     onClick={addAllAISuggestions}
                                     className="add-all-button"
                                 >
-                                    Adicionar Todas
+                                    Add All
                                 </button>
                             </div>
                             <div className="ai-suggestions-list">
@@ -325,10 +325,10 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
                         </div>
                     )}
 
-                    {/* Sugestões baseadas em tags existentes */}
+                    {/* Suggestions based on existing tags */}
                     {showSuggestions && filteredSuggestions.length > 0 && (
                         <div className="tag-suggestions">
-                            <div className="suggestions-header">📋 Tags existentes:</div>
+                            <div className="suggestions-header">📋 Existing tags:</div>
                             <div className="suggestions-list">
                                 {filteredSuggestions.map(tag => (
                                     <div
@@ -346,10 +346,10 @@ export const BookmarkFormWithAI: React.FC<BookmarkFormWithAIProps> = ({
 
                 <div className="form-actions">
                     <button type="button" onClick={onCancel} className="cancel-button">
-                        Cancelar
+                        Cancel
                     </button>
                     <button type="submit" className="save-button">
-                        {isEditing ? 'Atualizar' : 'Salvar'}
+                        {isEditing ? 'Update' : 'Save'}
                     </button>
                 </div>
             </form>
