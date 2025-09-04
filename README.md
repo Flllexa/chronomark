@@ -106,12 +106,19 @@ make oauth-test     # Test configuration
 <div align="center">
 
 ### Main Interface
+![Screenshot 1](store-assets/screenshot1.png)
 *Organize your bookmarks with smart tags*
 
-### Tagging System
+### Bookmark Management
+![Screenshot 2](store-assets/screenshot2.png)
 *Add and manage custom tags*
 
-### Google Drive Synchronization
+### Settings & Configuration
+![Screenshot 3](store-assets/screenshot3.png)
+*Configure synchronization and preferences*
+
+### Advanced Features
+![Screenshot 4](store-assets/screenshot4.png)
 *Your data, safe in the cloud*
 
 </div>
