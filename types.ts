@@ -40,3 +40,11 @@ export interface TagWithCount {
     name: string;
     count: number;
 }
+
+export interface BookmarkStats {
+    today: number;
+    thisWeek: number;
+    thisMonth: number;
+    total: number;
+    totalTags: number;
+}

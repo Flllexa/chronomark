@@ -28,6 +28,7 @@ const App: React.FC = () => {
         importFromChrome,
         allTags,
         tagsWithCounts,
+        bookmarkStats,
         renameTag,
         deleteTag,
     } = useBookmarks();
@@ -181,6 +182,7 @@ const App: React.FC = () => {
                     importStatus={importStatus}
                     onImport={importFromChrome}
                     tagsWithCounts={tagsWithCounts}
+                    bookmarkStats={bookmarkStats}
                     onRenameTag={renameTag}
                     onDeleteTag={deleteTag}
                     hasExistingBookmarks={bookmarks.length > 0}

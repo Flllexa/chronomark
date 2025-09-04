@@ -2,7 +2,7 @@
 /// <reference types="chrome" />
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import type { Bookmark, SyncStatus, Settings, ImportStatus, TagWithCount } from '../types';
+import type { Bookmark, SyncStatus, Settings, ImportStatus, TagWithCount, BookmarkStats } from '../types';
 import * as dbService from '../services/dbService';
 import * as googleDriveService from '../services/googleDriveService';
 import { GoogleAuthError } from '../services/googleDriveService';
@@ -227,6 +227,29 @@ export const useBookmarks = () => {
             .sort((a, b) => a.name.localeCompare(b.name));
     }, [bookmarks]);
 
+    // Calculate bookmark statistics
+    const bookmarkStats = useMemo((): BookmarkStats => {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const thisWeek = new Date(today);
+        thisWeek.setDate(today.getDate() - today.getDay()); // Start of week (Sunday)
+        const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+        const todayCount = bookmarks.filter(b => new Date(b.createdAt) >= today).length;
+        const thisWeekCount = bookmarks.filter(b => new Date(b.createdAt) >= thisWeek).length;
+        const thisMonthCount = bookmarks.filter(b => new Date(b.createdAt) >= thisMonth).length;
+        const totalCount = bookmarks.length;
+        const totalTagsCount = allTags.length;
+
+        return {
+            today: todayCount,
+            thisWeek: thisWeekCount,
+            thisMonth: thisMonthCount,
+            total: totalCount,
+            totalTags: totalTagsCount
+        };
+    }, [bookmarks, allTags]);
+
     const importFromChrome = useCallback(async () => {
         setImportStatus({ status: 'scanning', message: 'Finding Chrome bookmarks...' });
         try {
@@ -328,6 +351,7 @@ export const useBookmarks = () => {
         importFromChrome,
         allTags,
         tagsWithCounts,
+        bookmarkStats,
         renameTag,
         deleteTag,
     };

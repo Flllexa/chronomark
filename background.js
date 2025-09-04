@@ -64,15 +64,96 @@
 
   // services/googleDriveService.ts
   var FILE_ID_KEY = "googleDriveFileId";
+  var getClientId = () => {
+    const manifest = chrome.runtime.getManifest();
+    return manifest.oauth2?.client_id || "";
+  };
   var GoogleAuthError = class extends Error {
     constructor(message) {
       super(message);
       this.name = "GoogleAuthError";
     }
   };
+  var isEdge = () => {
+    return typeof navigator !== "undefined" && navigator.userAgent.includes("Edg/");
+  };
+  var supportsIdentityAPI = () => {
+    return typeof chrome !== "undefined" && !!chrome.identity;
+  };
+  var supportsGetAuthToken = () => {
+    return supportsIdentityAPI() && !isEdge();
+  };
+  var getAuthTokenEdge = (interactive) => {
+    return new Promise((resolve, reject) => {
+      if (!interactive) {
+        return resolve(void 0);
+      }
+      const clientId = getClientId();
+      const scopes = "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+      let redirectUri;
+      try {
+        redirectUri = chrome.identity.getRedirectURL();
+        console.log("Using chrome.identity.getRedirectURL():", redirectUri);
+      } catch (error) {
+        console.log("getRedirectURL failed, using manual format");
+        redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`;
+      }
+      if (!redirectUri || redirectUri.includes("undefined")) {
+        redirectUri = "urn:ietf:wg:oauth:2.0:oob";
+        console.log("Using out-of-band redirect");
+      }
+      console.log("Edge OAuth - Redirect URI:", redirectUri);
+      console.log("Edge OAuth - Extension ID:", chrome.runtime.id);
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&access_type=online&include_granted_scopes=true&prompt=consent`;
+      console.log("Edge OAuth - Auth URL:", authUrl);
+      chrome.identity.launchWebAuthFlow(
+        {
+          url: authUrl,
+          interactive: true
+        },
+        (responseUrl) => {
+          console.log("Edge OAuth - Response URL:", responseUrl);
+          console.log("Edge OAuth - Runtime error:", chrome.runtime.lastError);
+          if (chrome.runtime.lastError) {
+            return reject(new Error(`OAuth Error: ${chrome.runtime.lastError.message}`));
+          }
+          if (!responseUrl) {
+            return reject(new Error("Authorization was cancelled or no response received"));
+          }
+          let accessToken = null;
+          if (responseUrl.includes("#")) {
+            const urlFragment = responseUrl.split("#")[1];
+            if (urlFragment) {
+              const params = new URLSearchParams(urlFragment);
+              accessToken = params.get("access_token");
+            }
+          }
+          if (!accessToken && responseUrl.includes("?")) {
+            const urlQuery = responseUrl.split("?")[1];
+            if (urlQuery) {
+              const params = new URLSearchParams(urlQuery);
+              accessToken = params.get("access_token");
+            }
+          }
+          if (!accessToken) {
+            const accessTokenMatch = responseUrl.match(/access_token=([^&]+)/);
+            if (accessTokenMatch) {
+              accessToken = decodeURIComponent(accessTokenMatch[1]);
+            }
+          }
+          if (!accessToken) {
+            console.log("Edge OAuth - Full response URL for debugging:", responseUrl);
+            return reject(new Error("No access token found in OAuth response"));
+          }
+          console.log("Edge OAuth - Success! Token received");
+          resolve(accessToken);
+        }
+      );
+    });
+  };
   var handleApiResponse = async (response) => {
     if (response.status === 401 || response.status === 403) {
-      if (typeof chrome !== "undefined" && chrome.identity) {
+      if (supportsGetAuthToken()) {
         const clearToken = () => {
           return new Promise((resolve) => {
             chrome.identity.getAuthToken({ interactive: false }, (token) => {
@@ -97,11 +178,14 @@
   };
   var getAuthToken = (interactive) => {
     return new Promise((resolve, reject) => {
-      if (typeof chrome === "undefined" || !chrome.identity) {
+      if (!supportsIdentityAPI()) {
         if (interactive) {
           console.warn("Chrome identity API not available. This is expected when running outside of a Chrome extension. Sync features will be disabled.");
         }
         return resolve(void 0);
+      }
+      if (isEdge()) {
+        return getAuthTokenEdge(interactive).then(resolve).catch(reject);
       }
       chrome.identity.getAuthToken({ interactive }, (token) => {
         if (chrome.runtime && chrome.runtime.lastError) {

@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import type { Settings as SettingsType, ImportStatus, TagWithCount } from '../types';
+import type { Settings as SettingsType, ImportStatus, TagWithCount, BookmarkStats } from '../types';
 import { CloseIcon, TagIcon, CloudCheckIcon } from './icons';
 import { ToggleSwitch } from './ToggleSwitch';
 import { TagManagement } from './TagManagement';
@@ -13,6 +13,7 @@ interface SettingsProps {
     importStatus: ImportStatus;
     onImport: () => void;
     tagsWithCounts: TagWithCount[];
+    bookmarkStats: BookmarkStats;
     onRenameTag: (oldName: string, newName: string) => Promise<void>;
     onDeleteTag: (tagName: string) => Promise<void>;
     hasExistingBookmarks: boolean;
@@ -27,6 +28,7 @@ export const Settings: React.FC<SettingsProps> = ({
     importStatus, 
     onImport,
     tagsWithCounts,
+    bookmarkStats,
     onRenameTag,
     onDeleteTag,
     hasExistingBookmarks
@@ -138,6 +140,35 @@ export const Settings: React.FC<SettingsProps> = ({
                         <div className="drive-folder-info">
                             <CloudCheckIcon className="icon" />
                             <span>{driveFolderInfo}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="setting-item">
+                    <div>
+                        <h3>Statistics</h3>
+                        <p>Your bookmark activity overview:</p>
+                        <div className="stats-grid">
+                            <div className="stat-item">
+                                <span className="stat-number">{bookmarkStats.today}</span>
+                                <span className="stat-label">Today</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">{bookmarkStats.thisWeek}</span>
+                                <span className="stat-label">This Week</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">{bookmarkStats.thisMonth}</span>
+                                <span className="stat-label">This Month</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">{bookmarkStats.total}</span>
+                                <span className="stat-label">Total Bookmarks</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">{bookmarkStats.totalTags}</span>
+                                <span className="stat-label">Total Tags</span>
+                            </div>
                         </div>
                     </div>
                 </div>

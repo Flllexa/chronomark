@@ -1084,7 +1084,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState8(initialState) {
+          function useState9(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1887,7 +1887,7 @@
           exports.useMemo = useMemo5;
           exports.useReducer = useReducer;
           exports.useRef = useRef4;
-          exports.useState = useState8;
+          exports.useState = useState9;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2383,9 +2383,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React7 = require_react();
+          var React8 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React7.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React8.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -2434,7 +2434,7 @@
           var HostPortal = 4;
           var HostComponent = 5;
           var HostText = 6;
-          var Fragment4 = 7;
+          var Fragment3 = 7;
           var Mode = 8;
           var ContextConsumer = 9;
           var ContextProvider = 10;
@@ -3591,7 +3591,7 @@
                 return "DehydratedFragment";
               case ForwardRef:
                 return getWrappedName$1(type, type.render, "ForwardRef");
-              case Fragment4:
+              case Fragment3:
                 return "Fragment";
               case HostComponent:
                 return type;
@@ -3992,7 +3992,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React7.Children.forEach(props.children, function(child) {
+                  React8.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -12020,7 +12020,7 @@
               }
             }
             function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-              if (current2 === null || current2.tag !== Fragment4) {
+              if (current2 === null || current2.tag !== Fragment3) {
                 var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
                 created.return = returnFiber;
                 return created;
@@ -12423,7 +12423,7 @@
                 if (child.key === key) {
                   var elementType = element.type;
                   if (elementType === REACT_FRAGMENT_TYPE) {
-                    if (child.tag === Fragment4) {
+                    if (child.tag === Fragment3) {
                       deleteRemainingChildren(returnFiber, child.sibling);
                       var existing = useFiber(child, element.props.children);
                       existing.return = returnFiber;
@@ -17899,7 +17899,7 @@
                 var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
                 return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
               }
-              case Fragment4:
+              case Fragment3:
                 return updateFragment(current2, workInProgress2, renderLanes2);
               case Mode:
                 return updateMode(current2, workInProgress2, renderLanes2);
@@ -18171,7 +18171,7 @@
               case SimpleMemoComponent:
               case FunctionComponent:
               case ForwardRef:
-              case Fragment4:
+              case Fragment3:
               case Mode:
               case Profiler:
               case ContextConsumer:
@@ -22432,7 +22432,7 @@
             return fiber;
           }
           function createFiberFromFragment(elements, mode, lanes, key) {
-            var fiber = createFiber(Fragment4, elements, key, mode);
+            var fiber = createFiber(Fragment3, elements, key, mode);
             fiber.lanes = lanes;
             return fiber;
           }
@@ -23588,7 +23588,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React7 = require_react();
+          var React8 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -23614,7 +23614,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React7.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React8.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -24487,11 +24487,11 @@
   });
 
   // index.tsx
-  var import_react8 = __toESM(require_react());
+  var import_react9 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // App.tsx
-  var import_react7 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
 
   // components/BookmarkForm.tsx
   var import_react = __toESM(require_react());
@@ -24506,7 +24506,10 @@
   var LinkIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" }) });
   var SearchIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" }) });
   var CloseIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M6 18L18 6M6 6l12 12" }) });
-  var SettingsIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M10.343 3.94c.09-.542.56-1.007 1.11-.95.542.057 1.007.56 1.065 1.11.058.542-.21 1.055-.648 1.343-.438.288-1.023.23-1.428-.12-1.113-.974-1.549-2.502-.1-3.374zM12 21.75a2.25 2.25 0 01-2.25-2.25v-3.375c0-.98-1.007-1.636-1.897-1.253-.263.106-.525.228-.795.368-1.113.578-2.502.23-3.374-.1-1.343-.493-2.617-1.766-3.11-3.11-.873-2.165-.183-4.717 1.732-5.934 1.258-.813 2.76-1.157 4.223-.966.331.028.66.078.983.143 1.023.208 2.04.103 2.94-.372.48-.255.855-.715.95-1.232.09-.542.56-1.007 1.11-.95.542.057 1.007.56 1.065 1.11.058.542-.21 1.055-.648 1.343-.438.288-1.023.23-1.428-.12-1.113-.974-1.549-2.502-.1-3.374zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" }) });
+  var SettingsIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a6.759 6.759 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" })
+  ] });
   var GoogleIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 48 48", className, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { fill: "#FFC107", d: "M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { fill: "#FF3D00", d: "M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" }),
@@ -24541,24 +24544,345 @@
     ] });
   };
 
+  // services/geminiService.ts
+  var GeminiService = class _GeminiService {
+    constructor() {
+      this.baseUrl = "https://generativelanguage.googleapis.com/v1beta";
+      this.defaultConfig = {
+        model: "gemini-1.5-flash",
+        maxTokens: 100,
+        temperature: 0.7,
+        topP: 0.8,
+        topK: 40
+      };
+    }
+    static getInstance() {
+      if (!_GeminiService.instance) {
+        _GeminiService.instance = new _GeminiService();
+      }
+      return _GeminiService.instance;
+    }
+    /**
+     * Get OAuth token from Chrome identity API
+     */
+    async getAuthToken() {
+      return new Promise((resolve, reject) => {
+        if (!chrome.identity) {
+          reject(new Error("Chrome identity API not available"));
+          return;
+        }
+        chrome.identity.getAuthToken({ interactive: false }, (token) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error(`Auth error: ${chrome.runtime.lastError.message}`));
+            return;
+          }
+          if (!token) {
+            reject(new Error("No auth token available"));
+            return;
+          }
+          resolve(token);
+        });
+      });
+    }
+    /**
+     * Make authenticated request to Gemini API
+     */
+    async makeGeminiRequest(prompt, config = {}) {
+      const token = await this.getAuthToken();
+      const finalConfig = { ...this.defaultConfig, ...config };
+      const requestBody = {
+        contents: [{
+          parts: [{
+            text: prompt
+          }]
+        }],
+        generationConfig: {
+          maxOutputTokens: finalConfig.maxTokens,
+          temperature: finalConfig.temperature,
+          topP: finalConfig.topP,
+          topK: finalConfig.topK
+        },
+        safetySettings: [
+          {
+            category: "HARM_CATEGORY_HARASSMENT",
+            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+          },
+          {
+            category: "HARM_CATEGORY_HATE_SPEECH",
+            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+          },
+          {
+            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+          },
+          {
+            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+          }
+        ]
+      };
+      const response = await fetch(
+        `${this.baseUrl}/models/${finalConfig.model}:generateContent`,
+        {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(requestBody)
+        }
+      );
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Gemini API error: ${response.status} - ${errorText}`);
+      }
+      return response.json();
+    }
+    /**
+     * Generate bookmark tags using Gemini AI
+     */
+    async generateTags(title, url, config) {
+      try {
+        const prompt = this.createTagPrompt(title, url);
+        const response = await this.makeGeminiRequest(prompt, config);
+        if (!response.candidates || response.candidates.length === 0) {
+          throw new Error("No response from Gemini API");
+        }
+        const content = response.candidates[0].content;
+        if (!content.parts || content.parts.length === 0) {
+          throw new Error("Empty response from Gemini API");
+        }
+        const text = content.parts[0].text;
+        return this.parseTagResponse(text);
+      } catch (error) {
+        console.error("Gemini tag generation error:", error);
+        throw error;
+      }
+    }
+    /**
+     * Create optimized prompt for tag generation
+     */
+    createTagPrompt(title, url) {
+      const domain = this.extractDomain(url);
+      return `Analyze this bookmark and suggest 5-10 relevant tags:
+
+Title: "${title}"
+URL: ${url}
+Domain: ${domain}
+
+Rules:
+1. Generate concise, lowercase tags (1-3 words each)
+2. Focus on: technology, category, purpose, domain type
+3. Avoid generic words like "website", "page", "link"
+4. Consider the domain and title context
+5. Return ONLY a JSON array of strings
+
+Sample: ["javascript", "react", "tutorial", "frontend", "web-development"]
+
+Response:`;
+    }
+    /**
+     * Parse Gemini response into TagSuggestion format
+     */
+    parseTagResponse(text) {
+      try {
+        let cleanText = text.trim().replace(/```json\s*/g, "").replace(/```\s*/g, "").replace(/^Response:\s*/g, "");
+        console.log("Cleaned Gemini response:", cleanText);
+        let parsed;
+        try {
+          parsed = JSON.parse(cleanText);
+        } catch (parseError) {
+          console.warn("JSON parse failed, attempting manual extraction:", parseError);
+          const jsonMatch = cleanText.match(/\[.*\]/s);
+          if (jsonMatch) {
+            try {
+              parsed = JSON.parse(jsonMatch[0]);
+              console.log("Successfully extracted JSON manually");
+            } catch (manualError) {
+              console.error("Manual JSON extraction also failed:", manualError);
+              return this.extractTagsFromText(text);
+            }
+          } else {
+            console.error("No JSON array found in response");
+            return this.extractTagsFromText(text);
+          }
+        }
+        if (!Array.isArray(parsed)) {
+          console.warn("Gemini response is not an array:", parsed);
+          return this.extractTagsFromText(text);
+        }
+        return parsed.filter((item) => typeof item === "string").map((tag) => ({
+          tag: tag.toLowerCase().trim(),
+          confidence: 0.8,
+          source: "ai_gemini",
+          reason: "AI generated suggestion"
+        })).filter(
+          (suggestion) => suggestion.tag.length > 0 && suggestion.tag.length <= 30
+        );
+      } catch (error) {
+        console.error("Error parsing Gemini response:", error);
+        console.error("Raw response:", text);
+        return this.extractTagsFromText(text);
+      }
+    }
+    /**
+     * Fallback method to extract tags from plain text response
+     */
+    extractTagsFromText(text) {
+      const lines = text.split("\n").filter((line) => line.trim());
+      const tags = [];
+      for (const line of lines) {
+        const match = line.match(/(?:[-*]\s*|\d+\.\s*)?([a-zA-Z][a-zA-Z0-9-_]{1,29})/g);
+        if (match) {
+          for (const tagMatch of match) {
+            const tag = tagMatch.replace(/^(?:[-*]\s*|\d+\.\s*)/, "").toLowerCase().trim();
+            if (tag && tag.length > 1 && tag.length <= 30) {
+              tags.push({
+                tag,
+                confidence: 0.6,
+                source: "ai_gemini",
+                reason: "Extracted from AI response"
+              });
+            }
+          }
+        }
+      }
+      return tags.slice(0, 5);
+    }
+    /**
+     * Extract domain from URL
+     */
+    extractDomain(url) {
+      try {
+        const urlObj = new URL(url);
+        return urlObj.hostname.replace(/^www\./, "");
+      } catch {
+        return "unknown";
+      }
+    }
+    /**
+     * Check if user is authenticated and Gemini API is available
+     */
+    async checkAvailability() {
+      try {
+        if (!chrome.identity) {
+          return {
+            available: false,
+            reason: "Chrome identity API not available"
+          };
+        }
+        await this.getAuthToken();
+        return { available: true };
+      } catch (error) {
+        return {
+          available: false,
+          reason: error instanceof Error ? error.message : "Unknown error"
+        };
+      }
+    }
+    /**
+     * Get usage statistics (if available)
+     */
+    getUsageStats() {
+      const stats = localStorage.getItem("gemini_usage_stats");
+      if (stats) {
+        try {
+          return JSON.parse(stats);
+        } catch {
+        }
+      }
+      return {
+        requestCount: 0,
+        lastUsed: null
+      };
+    }
+    /**
+     * Update usage statistics
+     */
+    updateUsageStats() {
+      const stats = this.getUsageStats();
+      stats.requestCount += 1;
+      stats.lastUsed = Date.now();
+      try {
+        localStorage.setItem("gemini_usage_stats", JSON.stringify(stats));
+      } catch {
+      }
+    }
+  };
+  var geminiService = GeminiService.getInstance();
+  var geminiService_default = geminiService;
+
   // components/BookmarkForm.tsx
   var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-  var BookmarkForm = ({ onSave, onCancel, onUpdate, initialData, allTags = [] }) => {
+  var BookmarkForm = ({ onSave, onCancel, onUpdate, initialData, allTags = [], existingBookmarks = [] }) => {
     const [title, setTitle] = (0, import_react.useState)("");
     const [url, setUrl] = (0, import_react.useState)("");
-    const [tags, setTags] = (0, import_react.useState)([]);
+    const [tags, setTags] = (0, import_react.useState)(Array.isArray(initialData?.tags) ? initialData.tags : []);
     const [tagInput, setTagInput] = (0, import_react.useState)("");
     const [showSuggestions, setShowSuggestions] = (0, import_react.useState)(false);
+    const [geminiStatus, setGeminiStatus] = (0, import_react.useState)({ available: false });
+    const [isGeneratingTags, setIsGeneratingTags] = (0, import_react.useState)(false);
+    const [aiSuggestions, setAiSuggestions] = (0, import_react.useState)([]);
+    const [showAiSuggestions, setShowAiSuggestions] = (0, import_react.useState)(false);
+    const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = (0, import_react.useState)(false);
     const tagInputRef = (0, import_react.useRef)(null);
     const formContainerRef = (0, import_react.useRef)(null);
-    const isEditing = (0, import_react.useMemo)(() => !!(initialData && "id" in initialData && initialData.id), [initialData]);
+    const isEditing = (0, import_react.useMemo)(() => {
+      return !!(initialData && "id" in initialData && initialData.id);
+    }, [initialData]);
+    (0, import_react.useEffect)(() => {
+      if (isEditing && initialData && initialData.tags) {
+        setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
+        setHasGeneratedSuggestions(false);
+      }
+    }, [isEditing, initialData]);
+    (0, import_react.useEffect)(() => {
+      if (initialData && "id" in initialData && initialData.id && initialData.tags) {
+        setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
+        setHasGeneratedSuggestions(false);
+      }
+    }, []);
+    const existingBookmark = (0, import_react.useMemo)(() => {
+      if (!url) return null;
+      const normalizeUrl = (urlStr) => {
+        try {
+          const urlObj = new URL(urlStr);
+          return urlObj.href.toLowerCase().replace(/\/$/, "");
+        } catch {
+          return urlStr.toLowerCase().replace(/\/$/, "");
+        }
+      };
+      const normalizedUrl = normalizeUrl(url);
+      return existingBookmarks.find((bookmark) => {
+        const normalizedBookmarkUrl = normalizeUrl(bookmark.url);
+        return normalizedBookmarkUrl === normalizedUrl && (!isEditing || bookmark.id !== initialData?.id);
+      });
+    }, [url, existingBookmarks, isEditing, initialData?.id]);
+    const isUrlDuplicate = !!existingBookmark;
     (0, import_react.useEffect)(() => {
       if (initialData) {
         setTitle(initialData.title || "");
         setUrl(initialData.url || "");
-        setTags(initialData.tags || []);
+        setTags(Array.isArray(initialData.tags) ? initialData.tags : []);
+        setHasGeneratedSuggestions(false);
+      } else {
+        setTitle("");
+        setUrl("");
+        setTags([]);
       }
     }, [initialData]);
+    (0, import_react.useEffect)(() => {
+      if (initialData && initialData.tags && Array.isArray(initialData.tags)) {
+        setTags(initialData.tags);
+        setHasGeneratedSuggestions(false);
+      }
+    }, [initialData?.tags]);
+    (0, import_react.useEffect)(() => {
+      if (existingBookmark && !isEditing) {
+        setTitle(existingBookmark.title);
+        setTags(Array.isArray(existingBookmark.tags) ? existingBookmark.tags : []);
+      }
+    }, [existingBookmark, isEditing]);
     (0, import_react.useEffect)(() => {
       const handleClickOutside = (event) => {
         if (formContainerRef.current && !formContainerRef.current.contains(event.target)) {
@@ -24570,17 +24894,66 @@
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }, []);
+    (0, import_react.useEffect)(() => {
+      const checkGeminiStatus = async () => {
+        try {
+          const status = await geminiService_default.checkAvailability();
+          setGeminiStatus(status);
+        } catch (error) {
+          console.error("Error checking Gemini status:", error);
+          setGeminiStatus({ available: false, reason: "Error checking availability" });
+        }
+      };
+      checkGeminiStatus();
+    }, []);
+    (0, import_react.useEffect)(() => {
+      const autoGenerateAiSuggestions = async () => {
+        if (geminiStatus.available && title && url && !isGeneratingTags && !hasGeneratedSuggestions) {
+          setIsGeneratingTags(true);
+          setAiSuggestions([]);
+          try {
+            const suggestions = await geminiService_default.generateTags(title, url);
+            if (suggestions && suggestions.length > 0) {
+              const newSuggestions = suggestions.filter(
+                (suggestion) => !Array.isArray(tags) || !tags.includes(suggestion.tag)
+              );
+              setAiSuggestions(newSuggestions);
+              setShowAiSuggestions(true);
+              setHasGeneratedSuggestions(true);
+            }
+          } catch (error) {
+            console.error("Error auto-generating AI suggestions:", error);
+          } finally {
+            setIsGeneratingTags(false);
+          }
+        }
+      };
+      const timeoutId = setTimeout(autoGenerateAiSuggestions, 1e3);
+      return () => clearTimeout(timeoutId);
+    }, [title, url, geminiStatus.available, isGeneratingTags, hasGeneratedSuggestions, tags]);
+    (0, import_react.useEffect)(() => {
+      if (!title || !url) {
+        setHasGeneratedSuggestions(false);
+        setAiSuggestions([]);
+        setShowAiSuggestions(false);
+      }
+    }, [title, url]);
+    (0, import_react.useEffect)(() => {
+      if (title && url) {
+        setHasGeneratedSuggestions(false);
+      }
+    }, [title, url]);
     const filteredSuggestions = (0, import_react.useMemo)(() => {
       if (!showSuggestions) return [];
       const lowercasedInput = tagInput.toLowerCase();
       return allTags.filter(
-        (tag) => !tags.includes(tag) && tag.toLowerCase().includes(lowercasedInput)
+        (tag) => !Array.isArray(tags) || !tags.includes(tag) && tag.toLowerCase().includes(lowercasedInput)
       );
     }, [showSuggestions, tagInput, allTags, tags]);
     const handleAddTag = (tag) => {
       const newTag = tag.trim();
-      if (newTag && !tags.includes(newTag)) {
-        setTags([...tags, newTag]);
+      if (newTag && (!Array.isArray(tags) || !tags.includes(newTag))) {
+        setTags([...Array.isArray(tags) ? tags : [], newTag]);
       }
       setTagInput("");
       setShowSuggestions(false);
@@ -24596,8 +24969,42 @@
       tagInputRef.current?.focus();
     };
     const removeTag = (tagToRemove) => {
-      setTags(tags.filter((tag) => tag !== tagToRemove));
+      if (Array.isArray(tags)) {
+        setTags(tags.filter((tag) => tag !== tagToRemove));
+      }
     };
+    const generateAiSuggestions = async () => {
+      if (!geminiStatus.available || !title || !url) {
+        return;
+      }
+      setIsGeneratingTags(true);
+      setAiSuggestions([]);
+      try {
+        const suggestions = await geminiService_default.generateTags(title, url);
+        if (suggestions && suggestions.length > 0) {
+          const newSuggestions = suggestions.filter(
+            (suggestion) => !Array.isArray(tags) || !tags.includes(suggestion.tag)
+          );
+          setAiSuggestions(newSuggestions);
+          setShowAiSuggestions(true);
+        }
+      } catch (error) {
+        console.error("Error generating AI suggestions:", error);
+      } finally {
+        setIsGeneratingTags(false);
+      }
+    };
+    const addAiSuggestion = (suggestion) => {
+      if (!Array.isArray(tags) || !tags.includes(suggestion.tag)) {
+        setTags([...Array.isArray(tags) ? tags : [], suggestion.tag]);
+        setAiSuggestions(aiSuggestions.filter((s) => s.tag !== suggestion.tag));
+      }
+    };
+    const filteredAiSuggestions = (0, import_react.useMemo)(() => {
+      return aiSuggestions.filter(
+        (suggestion) => !Array.isArray(tags) || !tags.includes(suggestion.tag)
+      );
+    }, [aiSuggestions, tags]);
     const handleSubmit = (e) => {
       e.preventDefault();
       if (isEditing && onUpdate && initialData?.id && initialData.createdAt !== void 0) {
@@ -24606,15 +25013,22 @@
           createdAt: initialData.createdAt,
           title,
           url,
-          tags,
+          tags: Array.isArray(tags) ? tags : [],
+          updatedAt: Date.now()
+        });
+      } else if (isUrlDuplicate && !isEditing && onUpdate && existingBookmark) {
+        onUpdate({
+          ...existingBookmark,
+          title,
+          tags: Array.isArray(tags) ? tags : [],
           updatedAt: Date.now()
         });
       } else {
-        onSave({ title, url, tags });
+        onSave({ title, url, tags: Array.isArray(tags) ? tags : [] });
       }
     };
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { ref: formContainerRef, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("form", { onSubmit: handleSubmit, className: "bookmark-form animate-fade-in", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: isEditing ? "Edit Bookmark" : "Save Bookmark" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: isEditing ? "Edit Bookmark" : isUrlDuplicate ? "Edit Existing Bookmark" : "Save Bookmark" }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "form-group", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { htmlFor: "title", children: "Title" }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
@@ -24651,7 +25065,7 @@
               className: "tag-input-wrapper",
               onClick: () => tagInputRef.current?.focus(),
               children: [
-                tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Tag, { text: tag, onRemove: () => removeTag(tag) }, tag)),
+                Array.isArray(tags) && tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Tag, { text: tag, onRemove: () => removeTag(tag) }, tag)),
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                   "input",
                   {
@@ -24662,7 +25076,7 @@
                     onChange: (e) => setTagInput(e.target.value),
                     onKeyDown: handleTagInputKeyDown,
                     onFocus: () => setShowSuggestions(true),
-                    placeholder: tags.length === 0 ? "Add tags..." : "",
+                    placeholder: Array.isArray(tags) && tags.length === 0 ? "Add tags..." : "",
                     autoComplete: "off"
                   }
                 )
@@ -24680,17 +25094,42 @@
           )) }) })
         ] })
       ] }),
+      geminiStatus.available && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "ai-suggestions-section", children: [
+        isGeneratingTags && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "ai-generating-status", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "ai-generating-text", children: "\u{1F504} Gerando sugest\xF5es de tags..." }) }),
+        showAiSuggestions && filteredAiSuggestions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "ai-suggestions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("h4", { className: "ai-suggestions-title", children: [
+            "\u{1F3F7}\uFE0F Sugest\xF5es de Tags ",
+            isEditing ? "(Edi\xE7\xE3o)" : ""
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "ai-suggestions-list", children: filteredAiSuggestions.map((suggestion, index) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "button",
+            {
+              type: "button",
+              onClick: () => addAiSuggestion(suggestion),
+              className: "ai-suggestion-btn",
+              title: `Confian\xE7a: ${Math.round(suggestion.confidence * 100)}%`,
+              children: suggestion.tag
+            },
+            index
+          )) }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "ai-suggestions-info", children: "\u{1F4A1} Estas sugest\xF5es foram geradas automaticamente por intelig\xEAncia artificial com base no t\xEDtulo e URL do seu favorito. Clique nas tags para adicion\xE1-las." })
+        ] })
+      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "form-actions", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", onClick: onCancel, className: "btn btn-secondary", children: "Cancel" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "submit", className: "btn btn-primary", children: isEditing ? "Update" : "Save" })
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "submit", className: "btn btn-primary", children: [
+          isEditing ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(EditIcon, { className: "btn-icon" }) : isUrlDuplicate ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(EditIcon, { className: "btn-icon" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(AddIcon, { className: "btn-icon" }),
+          isEditing ? "Update" : isUrlDuplicate ? "Update Existing" : "Save"
+        ] })
       ] })
     ] }) });
   };
 
   // components/AdvancedVirtualizedList.tsx
-  var import_react2 = __toESM(require_react());
+  var import_react3 = __toESM(require_react());
 
   // components/BookmarkItem.tsx
+  var import_react2 = __toESM(require_react());
   var import_jsx_runtime4 = __toESM(require_jsx_runtime());
   var sanitizeUrl = (url) => {
     try {
@@ -24708,10 +25147,13 @@
     }
   };
   var BookmarkItem = ({ bookmark, onDelete, onEdit }) => {
+    const [showAllTags, setShowAllTags] = (0, import_react2.useState)(false);
     if (!bookmark || !bookmark.url || !bookmark.title) {
       return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "bookmark-item", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "bookmark-item-content", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { style: { color: "#ef4444", fontStyle: "italic" }, children: "Invalid bookmark data" }) }) });
     }
     const { safeUrl, isSafe } = sanitizeUrl(bookmark.url);
+    const hasMoreTags = bookmark.tags.length > 3;
+    const displayedTags = hasMoreTags ? bookmark.tags.slice(0, 3) : bookmark.tags;
     return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item", children: [
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item-header", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item-content", children: [
@@ -24737,7 +25179,40 @@
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { onClick: () => onDelete(bookmark.id), className: "delete-btn", title: "Delete", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(DeleteIcon, { className: "icon" }) })
         ] })
       ] }),
-      bookmark.tags.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "bookmark-item-tags", children: bookmark.tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Tag, { text: tag }, tag)) })
+      bookmark.tags.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "bookmark-item-tags", children: [
+        displayedTags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Tag, { text: tag }, tag)),
+        hasMoreTags && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+          "button",
+          {
+            className: "show-more-tags-btn",
+            onClick: () => setShowAllTags(true),
+            title: `Show all ${bookmark.tags.length} tags`,
+            children: [
+              "+",
+              bookmark.tags.length - 3
+            ]
+          }
+        )
+      ] }),
+      showAllTags && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "tags-modal-overlay", onClick: () => setShowAllTags(false), children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "tags-modal", onClick: (e) => e.stopPropagation(), children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "tags-modal-header", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("h3", { children: [
+            'All Tags for "',
+            bookmark.title,
+            '"'
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+            "button",
+            {
+              className: "close-modal-btn",
+              onClick: () => setShowAllTags(false),
+              title: "Close",
+              children: "\xD7"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "tags-modal-content", children: bookmark.tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Tag, { text: tag }, tag)) })
+      ] }) })
     ] });
   };
 
@@ -24750,12 +25225,12 @@
     containerHeight = 400,
     estimatedItemHeight = 120
   }) => {
-    const [scrollTop, setScrollTop] = (0, import_react2.useState)(0);
-    const [itemPositions, setItemPositions] = (0, import_react2.useState)([]);
-    const [measuredItems, setMeasuredItems] = (0, import_react2.useState)(/* @__PURE__ */ new Set());
-    const containerRef = (0, import_react2.useRef)(null);
-    const itemRefs = (0, import_react2.useRef)(/* @__PURE__ */ new Map());
-    const calculateItemPositions = (0, import_react2.useCallback)(() => {
+    const [scrollTop, setScrollTop] = (0, import_react3.useState)(0);
+    const [itemPositions, setItemPositions] = (0, import_react3.useState)([]);
+    const [measuredItems, setMeasuredItems] = (0, import_react3.useState)(/* @__PURE__ */ new Set());
+    const containerRef = (0, import_react3.useRef)(null);
+    const itemRefs = (0, import_react3.useRef)(/* @__PURE__ */ new Map());
+    const calculateItemPositions = (0, import_react3.useCallback)(() => {
       const positions = [];
       let currentTop = 0;
       bookmarks.forEach((bookmark) => {
@@ -24770,10 +25245,11 @@
       });
       setItemPositions(positions);
     }, [bookmarks, measuredItems, estimatedItemHeight]);
-    const visibleItems = (0, import_react2.useMemo)(() => {
+    const visibleItems = (0, import_react3.useMemo)(() => {
       if (itemPositions.length === 0) return [];
+      const actualContainerHeight = containerHeight || (containerRef.current?.clientHeight || 400);
       const startIndex = itemPositions.findIndex((pos) => pos.top + pos.height > scrollTop);
-      const endIndex = itemPositions.findIndex((pos) => pos.top > scrollTop + containerHeight);
+      const endIndex = itemPositions.findIndex((pos) => pos.top > scrollTop + actualContainerHeight);
       const start = Math.max(0, startIndex === -1 ? 0 : startIndex);
       const end = endIndex === -1 ? itemPositions.length : endIndex + 1;
       return itemPositions.slice(start, end).map((pos) => {
@@ -24781,40 +25257,47 @@
         return bookmark ? { ...pos, bookmark } : null;
       }).filter(Boolean);
     }, [itemPositions, scrollTop, containerHeight, bookmarks]);
-    const measureItem = (0, import_react2.useCallback)((id, element) => {
+    const measureItem = (0, import_react3.useCallback)((id, element) => {
       const height = element.offsetHeight;
       if (height > 0 && !measuredItems.has(id)) {
         setMeasuredItems((prev) => new Set(prev).add(id));
         itemRefs.current.set(id, element);
       }
     }, [measuredItems]);
-    const handleScroll = (0, import_react2.useCallback)((e) => {
+    const handleScroll = (0, import_react3.useCallback)((e) => {
       setScrollTop(e.currentTarget.scrollTop);
     }, []);
-    const handleItemRef = (0, import_react2.useCallback)((id) => (element) => {
+    const handleItemRef = (0, import_react3.useCallback)((id) => (element) => {
       if (element) {
         measureItem(id, element);
       }
     }, [measureItem]);
-    (0, import_react2.useEffect)(() => {
+    (0, import_react3.useEffect)(() => {
       calculateItemPositions();
     }, [calculateItemPositions]);
-    (0, import_react2.useEffect)(() => {
+    (0, import_react3.useEffect)(() => {
       if (containerRef.current) {
         setScrollTop(containerRef.current.scrollTop);
+        if (containerHeight === 0) {
+          const rect = containerRef.current.getBoundingClientRect();
+          if (rect.height > 0) {
+            setScrollTop(containerRef.current.scrollTop);
+          }
+        }
       }
-    }, [bookmarks]);
+    }, [bookmarks, containerHeight]);
     if (bookmarks.length === 0) {
       return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "bookmark-list-empty", children: "No bookmarks found." });
     }
     const totalHeight = itemPositions.length > 0 ? itemPositions[itemPositions.length - 1].top + itemPositions[itemPositions.length - 1].height : bookmarks.length * estimatedItemHeight;
+    const actualHeight = containerHeight || "100%";
     return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
       "div",
       {
         ref: containerRef,
         className: "advanced-virtualized-list",
         style: {
-          height: containerHeight,
+          height: actualHeight,
           overflowY: "auto",
           position: "relative"
         },
@@ -24952,7 +25435,7 @@
   };
 
   // components/Settings.tsx
-  var import_react5 = __toESM(require_react());
+  var import_react6 = __toESM(require_react());
 
   // components/ToggleSwitch.tsx
   var import_jsx_runtime8 = __toESM(require_jsx_runtime());
@@ -24980,12 +25463,12 @@
   };
 
   // components/TagManagementItem.tsx
-  var import_react4 = __toESM(require_react());
+  var import_react5 = __toESM(require_react());
 
   // hooks/useModal.ts
-  var import_react3 = __toESM(require_react());
+  var import_react4 = __toESM(require_react());
   var useModal = () => {
-    const [modalState, setModalState] = (0, import_react3.useState)({
+    const [modalState, setModalState] = (0, import_react4.useState)({
       isOpen: false,
       title: "",
       message: "",
@@ -24994,10 +25477,10 @@
       cancelText: "Cancel",
       showCancel: true
     });
-    const closeModal = (0, import_react3.useCallback)(() => {
+    const closeModal = (0, import_react4.useCallback)(() => {
       setModalState((prev) => ({ ...prev, isOpen: false }));
     }, []);
-    const showAlert = (0, import_react3.useCallback)((message, title = "Information", type = "info") => {
+    const showAlert = (0, import_react4.useCallback)((message, title = "Information", type = "info") => {
       return new Promise((resolve) => {
         setModalState({
           isOpen: true,
@@ -25012,7 +25495,7 @@
         });
       });
     }, []);
-    const showConfirm = (0, import_react3.useCallback)((message, title = "Confirmation", type = "warning") => {
+    const showConfirm = (0, import_react4.useCallback)((message, title = "Confirmation", type = "warning") => {
       return new Promise((resolve) => {
         setModalState({
           isOpen: true,
@@ -25027,7 +25510,7 @@
         });
       });
     }, []);
-    const showCustomModal = (0, import_react3.useCallback)((title, message, options = {}) => {
+    const showCustomModal = (0, import_react4.useCallback)((title, message, options = {}) => {
       setModalState({
         isOpen: true,
         title,
@@ -25226,13 +25709,13 @@
   // components/TagManagementItem.tsx
   var import_jsx_runtime10 = __toESM(require_jsx_runtime());
   var TagManagementItem = ({ tag, onRename, onDelete, allTagNames }) => {
-    const [isEditing, setIsEditing] = (0, import_react4.useState)(false);
-    const [tagName, setTagName] = (0, import_react4.useState)(tag.name);
-    const [isSaving, setIsSaving] = (0, import_react4.useState)(false);
-    const [isDeleting, setIsDeleting] = (0, import_react4.useState)(false);
-    const inputRef = (0, import_react4.useRef)(null);
+    const [isEditing, setIsEditing] = (0, import_react5.useState)(false);
+    const [tagName, setTagName] = (0, import_react5.useState)(tag.name);
+    const [isSaving, setIsSaving] = (0, import_react5.useState)(false);
+    const [isDeleting, setIsDeleting] = (0, import_react5.useState)(false);
+    const inputRef = (0, import_react5.useRef)(null);
     const { modalState, closeModal, showConfirm } = useModal();
-    (0, import_react4.useEffect)(() => {
+    (0, import_react5.useEffect)(() => {
       if (isEditing) {
         inputRef.current?.focus();
         inputRef.current?.select();
@@ -25377,13 +25860,15 @@
     importStatus,
     onImport,
     tagsWithCounts,
+    bookmarkStats,
     onRenameTag,
-    onDeleteTag
+    onDeleteTag,
+    hasExistingBookmarks
   }) => {
-    const [view, setView] = (0, import_react5.useState)("main");
-    const [driveFolderInfo, setDriveFolderInfo] = (0, import_react5.useState)("");
+    const [view, setView] = (0, import_react6.useState)("main");
+    const [driveFolderInfo, setDriveFolderInfo] = (0, import_react6.useState)("");
     const isImporting = importStatus.status !== "idle";
-    (0, import_react5.useEffect)(() => {
+    (0, import_react6.useEffect)(() => {
       const getDriveFolderInfo = async () => {
         if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
           try {
@@ -25486,6 +25971,32 @@
             /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { children: driveFolderInfo })
           ] })
         ] }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "setting-item", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Statistics" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Your bookmark activity overview:" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "stats-grid", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "stat-item", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-number", children: bookmarkStats.today }),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-label", children: "Today" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "stat-item", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-number", children: bookmarkStats.thisWeek }),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-label", children: "This Week" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "stat-item", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-number", children: bookmarkStats.thisMonth }),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-label", children: "This Month" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "stat-item", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-number", children: bookmarkStats.total }),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-label", children: "Total Bookmarks" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "stat-item", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-number", children: bookmarkStats.totalTags }),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "stat-label", children: "Total Tags" })
+            ] })
+          ] })
+        ] }) }),
         /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
           "div",
           {
@@ -25502,16 +26013,20 @@
         ),
         /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "settings-divider", children: [
           /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "setting-item", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Import Bookmarks" }),
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Import from Chrome and auto-tag with AI." })
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "import-section", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "import-header", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Import Bookmarks" }),
+                hasExistingBookmarks && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "info-icon", title: "Import is disabled because you already have bookmarks. This prevents duplicates and maintains your current organization.", children: "\u2139\uFE0F" })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: hasExistingBookmarks ? "Import is disabled to prevent duplicates since you already have bookmarks." : "Import from Chrome and auto-tag with AI." })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
               "button",
               {
                 onClick: onImport,
-                disabled: isImporting,
-                className: "btn btn-primary import-btn",
+                disabled: isImporting || hasExistingBookmarks,
+                className: `btn btn-primary import-btn ${hasExistingBookmarks ? "disabled-with-reason" : ""}`,
+                title: hasExistingBookmarks ? "Import disabled - you already have bookmarks" : "",
                 children: isImporting ? "Importing..." : "Import from Chrome"
               }
             )
@@ -25523,7 +26038,7 @@
   };
 
   // hooks/useBookmarks.ts
-  var import_react6 = __toESM(require_react());
+  var import_react7 = __toESM(require_react());
 
   // constants.ts
   var DB_NAME = "ChronoMarkDB";
@@ -25617,15 +26132,96 @@
 
   // services/googleDriveService.ts
   var FILE_ID_KEY = "googleDriveFileId";
+  var getClientId = () => {
+    const manifest = chrome.runtime.getManifest();
+    return manifest.oauth2?.client_id || "";
+  };
   var GoogleAuthError = class extends Error {
     constructor(message) {
       super(message);
       this.name = "GoogleAuthError";
     }
   };
+  var isEdge = () => {
+    return typeof navigator !== "undefined" && navigator.userAgent.includes("Edg/");
+  };
+  var supportsIdentityAPI = () => {
+    return typeof chrome !== "undefined" && !!chrome.identity;
+  };
+  var supportsGetAuthToken = () => {
+    return supportsIdentityAPI() && !isEdge();
+  };
+  var getAuthTokenEdge = (interactive) => {
+    return new Promise((resolve, reject) => {
+      if (!interactive) {
+        return resolve(void 0);
+      }
+      const clientId = getClientId();
+      const scopes = "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+      let redirectUri;
+      try {
+        redirectUri = chrome.identity.getRedirectURL();
+        console.log("Using chrome.identity.getRedirectURL():", redirectUri);
+      } catch (error) {
+        console.log("getRedirectURL failed, using manual format");
+        redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`;
+      }
+      if (!redirectUri || redirectUri.includes("undefined")) {
+        redirectUri = "urn:ietf:wg:oauth:2.0:oob";
+        console.log("Using out-of-band redirect");
+      }
+      console.log("Edge OAuth - Redirect URI:", redirectUri);
+      console.log("Edge OAuth - Extension ID:", chrome.runtime.id);
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&access_type=online&include_granted_scopes=true&prompt=consent`;
+      console.log("Edge OAuth - Auth URL:", authUrl);
+      chrome.identity.launchWebAuthFlow(
+        {
+          url: authUrl,
+          interactive: true
+        },
+        (responseUrl) => {
+          console.log("Edge OAuth - Response URL:", responseUrl);
+          console.log("Edge OAuth - Runtime error:", chrome.runtime.lastError);
+          if (chrome.runtime.lastError) {
+            return reject(new Error(`OAuth Error: ${chrome.runtime.lastError.message}`));
+          }
+          if (!responseUrl) {
+            return reject(new Error("Authorization was cancelled or no response received"));
+          }
+          let accessToken = null;
+          if (responseUrl.includes("#")) {
+            const urlFragment = responseUrl.split("#")[1];
+            if (urlFragment) {
+              const params = new URLSearchParams(urlFragment);
+              accessToken = params.get("access_token");
+            }
+          }
+          if (!accessToken && responseUrl.includes("?")) {
+            const urlQuery = responseUrl.split("?")[1];
+            if (urlQuery) {
+              const params = new URLSearchParams(urlQuery);
+              accessToken = params.get("access_token");
+            }
+          }
+          if (!accessToken) {
+            const accessTokenMatch = responseUrl.match(/access_token=([^&]+)/);
+            if (accessTokenMatch) {
+              accessToken = decodeURIComponent(accessTokenMatch[1]);
+            }
+          }
+          if (!accessToken) {
+            console.log("Edge OAuth - Full response URL for debugging:", responseUrl);
+            return reject(new Error("No access token found in OAuth response"));
+          }
+          console.log("Edge OAuth - Success! Token received");
+          resolve(accessToken);
+        }
+      );
+    });
+  };
   var handleApiResponse = async (response) => {
     if (response.status === 401 || response.status === 403) {
-      if (typeof chrome !== "undefined" && chrome.identity) {
+      if (supportsGetAuthToken()) {
         const clearToken = () => {
           return new Promise((resolve) => {
             chrome.identity.getAuthToken({ interactive: false }, (token) => {
@@ -25650,11 +26246,14 @@
   };
   var getAuthToken = (interactive) => {
     return new Promise((resolve, reject) => {
-      if (typeof chrome === "undefined" || !chrome.identity) {
+      if (!supportsIdentityAPI()) {
         if (interactive) {
           console.warn("Chrome identity API not available. This is expected when running outside of a Chrome extension. Sync features will be disabled.");
         }
         return resolve(void 0);
+      }
+      if (isEdge()) {
+        return getAuthTokenEdge(interactive).then(resolve).catch(reject);
       }
       chrome.identity.getAuthToken({ interactive }, (token) => {
         if (chrome.runtime && chrome.runtime.lastError) {
@@ -25669,8 +26268,19 @@
   };
   var clearAuthToken = () => {
     return new Promise((resolve) => {
-      if (typeof chrome === "undefined" || !chrome.identity) {
+      if (!supportsIdentityAPI()) {
         return resolve();
+      }
+      if (isEdge()) {
+        const storage2 = chrome.storage && chrome.storage.local ? chrome.storage.local : null;
+        if (storage2) {
+          storage2.remove(FILE_ID_KEY, () => {
+            resolve();
+          });
+        } else {
+          resolve();
+        }
+        return;
       }
       chrome.identity.getAuthToken({ interactive: false }, (token) => {
         if (chrome.runtime && chrome.runtime.lastError || !token) {
@@ -26014,12 +26624,12 @@
     return uniqueTags.slice(0, 3);
   };
   var useBookmarks = () => {
-    const [bookmarks, setBookmarks] = (0, import_react6.useState)([]);
-    const [syncStatus, setSyncStatus] = (0, import_react6.useState)({ status: "idle", lastSync: null });
-    const [isAuthenticated, setIsAuthenticated] = (0, import_react6.useState)(false);
-    const [settings, setSettings] = (0, import_react6.useState)({ autoSync: true });
-    const [importStatus, setImportStatus] = (0, import_react6.useState)({ status: "idle" });
-    const loadBookmarks = (0, import_react6.useCallback)(async () => {
+    const [bookmarks, setBookmarks] = (0, import_react7.useState)([]);
+    const [syncStatus, setSyncStatus] = (0, import_react7.useState)({ status: "idle", lastSync: null });
+    const [isAuthenticated, setIsAuthenticated] = (0, import_react7.useState)(false);
+    const [settings, setSettings] = (0, import_react7.useState)({ autoSync: true });
+    const [importStatus, setImportStatus] = (0, import_react7.useState)({ status: "idle" });
+    const loadBookmarks = (0, import_react7.useCallback)(async () => {
       try {
         await initDB();
         const localBookmarks = await getAllBookmarks();
@@ -26028,7 +26638,7 @@
         console.error("Failed to load bookmarks from DB:", error);
       }
     }, []);
-    const loadSettings = (0, import_react6.useCallback)(async () => {
+    const loadSettings = (0, import_react7.useCallback)(async () => {
       if (!storage) return;
       const result = await storage.get([SETTINGS_KEY, LAST_SYNC_KEY]);
       if (result[SETTINGS_KEY]) {
@@ -26038,7 +26648,7 @@
         setSyncStatus((prev) => ({ ...prev, lastSync: result[LAST_SYNC_KEY] }));
       }
     }, []);
-    const checkAuthStatus = (0, import_react6.useCallback)(async () => {
+    const checkAuthStatus = (0, import_react7.useCallback)(async () => {
       try {
         const token = await getAuthToken(false);
         if (token) {
@@ -26062,12 +26672,12 @@
         await clearAuthToken();
       }
     }, []);
-    (0, import_react6.useEffect)(() => {
+    (0, import_react7.useEffect)(() => {
       loadBookmarks();
       loadSettings();
       checkAuthStatus();
     }, [loadBookmarks, loadSettings, checkAuthStatus]);
-    const syncWithGoogleDrive = (0, import_react6.useCallback)(async () => {
+    const syncWithGoogleDrive = (0, import_react7.useCallback)(async () => {
       setSyncStatus((prev) => ({ ...prev, status: "syncing", message: "Authenticating..." }));
       try {
         console.log("Starting authentication process...");
@@ -26106,14 +26716,14 @@
         setIsAuthenticated(false);
       }
     }, [loadBookmarks]);
-    const updateSettings = (0, import_react6.useCallback)(async (newSettings) => {
+    const updateSettings = (0, import_react7.useCallback)(async (newSettings) => {
       const updatedSettings = { ...settings, ...newSettings };
       setSettings(updatedSettings);
       if (storage) {
         await storage.set({ [SETTINGS_KEY]: updatedSettings });
       }
     }, [settings]);
-    const addBookmark2 = (0, import_react6.useCallback)(async (bookmarkData) => {
+    const addBookmark2 = (0, import_react7.useCallback)(async (bookmarkData) => {
       const now = Date.now();
       const newBookmark = {
         ...bookmarkData,
@@ -26124,23 +26734,23 @@
       await addBookmark(newBookmark);
       await loadBookmarks();
     }, [loadBookmarks]);
-    const updateBookmark2 = (0, import_react6.useCallback)(async (bookmark) => {
+    const updateBookmark2 = (0, import_react7.useCallback)(async (bookmark) => {
       const bookmarkToUpdate = { ...bookmark, updatedAt: Date.now() };
       await updateBookmark(bookmarkToUpdate);
       await loadBookmarks();
     }, [loadBookmarks]);
-    const deleteBookmark2 = (0, import_react6.useCallback)(async (id) => {
+    const deleteBookmark2 = (0, import_react7.useCallback)(async (id) => {
       await deleteBookmark(id);
       await loadBookmarks();
     }, [loadBookmarks]);
-    const allTags = (0, import_react6.useMemo)(() => {
+    const allTags = (0, import_react7.useMemo)(() => {
       const tagSet = /* @__PURE__ */ new Set();
       bookmarks.forEach((bookmark) => {
         bookmark.tags.forEach((tag) => tagSet.add(tag));
       });
       return Array.from(tagSet).sort();
     }, [bookmarks]);
-    const tagsWithCounts = (0, import_react6.useMemo)(() => {
+    const tagsWithCounts = (0, import_react7.useMemo)(() => {
       const counts = /* @__PURE__ */ new Map();
       bookmarks.forEach((bookmark) => {
         bookmark.tags.forEach((tag) => {
@@ -26149,7 +26759,26 @@
       });
       return Array.from(counts.entries()).map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name));
     }, [bookmarks]);
-    const importFromChrome = (0, import_react6.useCallback)(async () => {
+    const bookmarkStats = (0, import_react7.useMemo)(() => {
+      const now = /* @__PURE__ */ new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const thisWeek = new Date(today);
+      thisWeek.setDate(today.getDate() - today.getDay());
+      const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      const todayCount = bookmarks.filter((b) => new Date(b.createdAt) >= today).length;
+      const thisWeekCount = bookmarks.filter((b) => new Date(b.createdAt) >= thisWeek).length;
+      const thisMonthCount = bookmarks.filter((b) => new Date(b.createdAt) >= thisMonth).length;
+      const totalCount = bookmarks.length;
+      const totalTagsCount = allTags.length;
+      return {
+        today: todayCount,
+        thisWeek: thisWeekCount,
+        thisMonth: thisMonthCount,
+        total: totalCount,
+        totalTags: totalTagsCount
+      };
+    }, [bookmarks, allTags]);
+    const importFromChrome = (0, import_react7.useCallback)(async () => {
       setImportStatus({ status: "scanning", message: "Finding Chrome bookmarks..." });
       try {
         const chromeBookmarks = await getChromeBookmarks();
@@ -26195,7 +26824,7 @@
         setImportStatus({ status: "error", message });
       }
     }, [bookmarks, loadBookmarks]);
-    const renameTag = (0, import_react6.useCallback)(async (oldName, newName) => {
+    const renameTag = (0, import_react7.useCallback)(async (oldName, newName) => {
       const bookmarksToUpdate = [];
       const now = Date.now();
       for (const bookmark of bookmarks) {
@@ -26207,7 +26836,7 @@
       await updateMultipleBookmarks(bookmarksToUpdate);
       await loadBookmarks();
     }, [bookmarks, loadBookmarks]);
-    const deleteTag = (0, import_react6.useCallback)(async (tagName) => {
+    const deleteTag = (0, import_react7.useCallback)(async (tagName) => {
       const bookmarksToUpdate = [];
       const now = Date.now();
       for (const bookmark of bookmarks) {
@@ -26236,6 +26865,7 @@
       importFromChrome,
       allTags,
       tagsWithCounts,
+      bookmarkStats,
       renameTag,
       deleteTag
     };
@@ -26280,16 +26910,17 @@
       importFromChrome,
       allTags,
       tagsWithCounts,
+      bookmarkStats,
       renameTag,
       deleteTag
     } = useBookmarks();
-    const [searchTerm, setSearchTerm] = (0, import_react7.useState)("");
-    const [sortOrder, setSortOrder] = (0, import_react7.useState)("date_desc");
-    const [isAdding, setIsAdding] = (0, import_react7.useState)(false);
-    const [showSettings, setShowSettings] = (0, import_react7.useState)(false);
-    const [editingBookmark, setEditingBookmark] = (0, import_react7.useState)(null);
-    const [currentTab, setCurrentTab] = (0, import_react7.useState)(null);
-    (0, import_react7.useEffect)(() => {
+    const [searchTerm, setSearchTerm] = (0, import_react8.useState)("");
+    const [sortOrder, setSortOrder] = (0, import_react8.useState)("date_desc");
+    const [isAdding, setIsAdding] = (0, import_react8.useState)(false);
+    const [showSettings, setShowSettings] = (0, import_react8.useState)(false);
+    const [editingBookmark, setEditingBookmark] = (0, import_react8.useState)(null);
+    const [currentTab, setCurrentTab] = (0, import_react8.useState)(null);
+    (0, import_react8.useEffect)(() => {
       if (isAdding) {
         if (typeof chrome !== "undefined" && chrome.tabs) {
           chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -26302,10 +26933,32 @@
         }
       }
     }, [isAdding]);
-    const sortedAndFilteredBookmarks = (0, import_react7.useMemo)(() => {
-      const filtered = bookmarks.filter(
-        (bookmark) => bookmark.title.toLowerCase().includes(searchTerm.toLowerCase()) || bookmark.url.toLowerCase().includes(searchTerm.toLowerCase()) || bookmark.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
+    (0, import_react8.useEffect)(() => {
+      if (typeof chrome !== "undefined" && chrome.tabs) {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          if (tabs[0] && tabs[0].url && tabs[0].title) {
+            setCurrentTab({ url: tabs[0].url, title: tabs[0].title });
+          }
+        });
+      } else {
+        setCurrentTab((prev) => prev ?? { url: "http://example.com", title: "Example Page" });
+      }
+    }, []);
+    const sortedAndFilteredBookmarks = (0, import_react8.useMemo)(() => {
+      const normalizeText = (text) => {
+        return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+      };
+      const filtered = bookmarks.filter((bookmark) => {
+        if (!searchTerm.trim()) return true;
+        const keywords = normalizeText(searchTerm).split(/\s+/);
+        const title = normalizeText(bookmark.title);
+        const url = normalizeText(bookmark.url);
+        const tags = bookmark.tags.map((tag) => normalizeText(tag));
+        const allTagsText = tags.join(" ");
+        return keywords.every(
+          (keyword) => title.includes(keyword) || url.includes(keyword) || allTagsText.includes(keyword)
+        );
+      });
       return filtered.sort((a, b) => {
         switch (sortOrder) {
           case "title_asc":
@@ -26337,16 +26990,31 @@
       setIsAdding(false);
       setEditingBookmark(null);
     };
+    const normalizeUrl = (url) => {
+      if (!url) return "";
+      try {
+        return url.trim().toLowerCase().replace(/\/$/, "");
+      } catch {
+        return url.trim().toLowerCase();
+      }
+    };
+    const existingBookmarkForCurrentTab = (0, import_react8.useMemo)(() => {
+      const current = normalizeUrl(currentTab?.url);
+      if (!current) return null;
+      return bookmarks.find((b) => normalizeUrl(b.url) === current) || null;
+    }, [bookmarks, currentTab]);
     const renderMainView = () => {
       if (isAdding || editingBookmark) {
+        const initialData = editingBookmark ? editingBookmark : currentTab;
         return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           BookmarkForm,
           {
             onSave: handleSaveBookmark,
             onUpdate: handleUpdateBookmark,
             onCancel: handleCancel,
-            initialData: editingBookmark || currentTab,
-            allTags
+            initialData,
+            allTags,
+            existingBookmarks: bookmarks
           }
         );
       }
@@ -26360,37 +27028,44 @@
             importStatus,
             onImport: importFromChrome,
             tagsWithCounts,
+            bookmarkStats,
             onRenameTag: renameTag,
-            onDeleteTag: deleteTag
+            onDeleteTag: deleteTag,
+            hasExistingBookmarks: bookmarks.length > 0
           }
         );
       }
-      return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(import_jsx_runtime14.Fragment, { children: [
+      return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "home-view", children: [
         /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "main-controls", children: [
           /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "search-bar-container", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SearchBar, { searchTerm, onSearch: setSearchTerm }) }),
           /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SortDropdown, { sortOrder, onSortChange: setSortOrder })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "virtualized-list-container", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           AdvancedVirtualizedList,
           {
             bookmarks: sortedAndFilteredBookmarks,
             onDelete: deleteBookmark2,
             onEdit: handleStartEditing,
-            containerHeight: 400,
+            containerHeight: 0,
             estimatedItemHeight: 120
           }
-        ),
+        ) }),
         /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           "button",
           {
             onClick: () => {
-              setIsAdding(true);
-              setEditingBookmark(null);
+              if (existingBookmarkForCurrentTab) {
+                setEditingBookmark(existingBookmarkForCurrentTab);
+                setIsAdding(false);
+              } else {
+                setIsAdding(true);
+                setEditingBookmark(null);
+              }
               setShowSettings(false);
             },
             className: "add-bookmark-btn",
-            title: "Add current tab",
-            children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(AddIcon, { className: "icon" })
+            title: existingBookmarkForCurrentTab ? `Edit bookmark: ${existingBookmarkForCurrentTab.title}` : "Add current tab",
+            children: existingBookmarkForCurrentTab ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(EditIcon, { className: "icon" }) : /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(AddIcon, { className: "icon" })
           }
         )
       ] });
@@ -26427,7 +27102,7 @@
   }
   var root = import_client.default.createRoot(rootElement);
   root.render(
-    /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_react8.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(App_default, {}) })
+    /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_react9.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(App_default, {}) })
   );
 })();
 /*! Bundled license information:
