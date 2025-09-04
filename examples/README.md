@@ -1,40 +1,40 @@
-# Exemplos de Integração - ChronoMark
+# Integration Examples - ChronoMark
 
-Este diretório contém exemplos práticos de como integrar funcionalidades avançadas na extensão ChronoMark.
+This directory contains practical examples of how to integrate advanced features into the ChronoMark extension.
 
 ## 🤖 BookmarkFormWithAI.tsx
 
-### Descrição
-Exemplo completo de como integrar o sistema de sugestões de tags com IA no formulário de bookmarks existente.
+### Description
+A complete example of how to integrate the AI-powered tag suggestion system into the existing bookmark form.
 
-### Funcionalidades
-- ✅ **Sugestões Automáticas**: Gera tags automaticamente baseado no título e URL
-- ✅ **Sistema de Confiança**: Mostra a confiança de cada sugestão (0-100%)
-- ✅ **Múltiplas Fontes**: Domínio, palavras-chave, estrutura de URL e análise de conteúdo
-- ✅ **Interface Intuitiva**: Botões para adicionar sugestões individuais ou todas de uma vez
-- ✅ **Compatibilidade**: Mantém todas as funcionalidades do formulário original
+### Features
+- ✅ **Automatic Suggestions**: Automatically generates tags based on the title and URL
+- ✅ **Confidence System**: Shows the confidence level of each suggestion (0-100%)
+- ✅ **Multiple Sources**: Domain, keywords, URL structure, and content analysis
+- ✅ **Intuitive Interface**: Buttons to add individual suggestions or all at once
+- ✅ **Compatibility**: Maintains all the functionalities of the original form
 
-### Como Usar
+### How to Use
 
-#### 1. Copiar Arquivos Necessários
+#### 1. Copy Necessary Files
 ```bash
-# Copiar o serviço de IA
+# Copy the AI service
 cp services/smartTaggingService.ts src/services/
 
-# Copiar o exemplo do formulário
+# Copy the form example
 cp examples/BookmarkFormWithAI.tsx src/components/
 ```
 
-#### 2. Substituir o Componente Original
+#### 2. Replace the Original Component
 ```typescript
-// Em vez de importar:
+// Instead of importing:
 import { BookmarkForm } from './components/BookmarkForm';
 
-// Importe:
+// Import:
 import { BookmarkFormWithAI } from './components/BookmarkFormWithAI';
 ```
 
-#### 3. Usar no Seu Código
+#### 3. Use in Your Code
 ```typescript
 <BookmarkFormWithAI
     onSave={handleSave}
@@ -45,82 +45,82 @@ import { BookmarkFormWithAI } from './components/BookmarkFormWithAI';
 />
 ```
 
-### Funcionalidades da IA
+### AI Features
 
-#### 🌐 Análise de Domínio
-- Detecta automaticamente o tipo de site (GitHub, YouTube, etc.)
-- Sugere tags baseadas no domínio conhecido
+#### 🌐 Domain Analysis
+- Automatically detects the site type (GitHub, YouTube, etc.)
+- Suggests tags based on the known domain
 
-#### 🔍 Palavras-chave
-- Extrai palavras-chave relevantes do título
-- Filtra palavras comuns e irrelevantes
+#### 🔍 Keywords
+- Extracts relevant keywords from the title
+- Filters out common and irrelevant words
 
-#### 📁 Estrutura de URL
-- Analisa a estrutura da URL para identificar categorias
-- Detecta padrões como `/docs/`, `/blog/`, `/api/`
+#### 📁 URL Structure
+- Analyzes the URL structure to identify categories
+- Detects patterns like `/docs/`, `/blog/`, `/api/`
 
-#### 📝 Análise de Conteúdo
-- Processa o título para identificar tecnologias e tópicos
-- Sugere tags baseadas no contexto do conteúdo
+#### 📝 Content Analysis
+- Processes the title to identify technologies and topics
+- Suggests tags based on the content's context
 
-### Interface do Usuário
+### User Interface
 
-#### Botão de Sugestão
+#### Suggestion Button
 ```
-🤖 Sugerir Tags com IA
+🤖 Suggest Tags with AI
 ```
-- Aparece quando título e URL estão preenchidos
-- Mostra "⏳ Gerando..." durante o processamento
+- Appears when the title and URL are filled in
+- Shows "⏳ Generating..." during processing
 
-#### Sugestões de IA
+#### AI Suggestions
 ```
-🤖 Sugestões de IA:                    [Adicionar Todas]
+🤖 AI Suggestions:                    [Add All]
 🌐 javascript     85%
 🔍 tutorial       72%
 📁 documentation  68%
 ```
-- Cada sugestão mostra ícone da fonte, tag e confiança
-- Clique individual para adicionar uma tag
-- Botão "Adicionar Todas" para aceitar todas as sugestões
+- Each suggestion shows the source icon, tag, and confidence level
+- Click individually to add a tag
+- The "Add All" button accepts all suggestions
 
-### Personalização
+### Customization
 
-#### Modificar Regras de IA
-Edite o arquivo `services/smartTaggingService.ts`:
+#### Modify AI Rules
+Edit the `services/smartTaggingService.ts` file:
 
 ```typescript
-// Adicionar novos domínios
+// Add new domains
 const DOMAIN_MAPPINGS = {
-    'meusite.com': ['minha-tag', 'categoria'],
+    'mysite.com': ['my-tag', 'category'],
     // ...
 };
 
-// Adicionar novas palavras-chave
+// Add new keywords
 const KEYWORD_MAPPINGS = {
-    'minha-palavra': ['tag-relacionada'],
+    'my-word': ['related-tag'],
     // ...
 };
 ```
 
-#### Personalizar Interface
-Modifique os estilos CSS no final do componente:
+#### Customize Interface
+Modify the CSS styles at the end of the component:
 
 ```typescript
 .ai-suggest-button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    // Seus estilos personalizados
+    // Your custom styles
 }
 ```
 
-### Integração com APIs Externas
+### Integration with External APIs
 
-Para usar APIs de IA reais em vez do sistema de regras:
+To use real AI APIs instead of the rule-based system:
 
 ```typescript
-// Substituir a função generateAISuggestions
+// Replace the generateAISuggestions function
 const generateAISuggestions = async () => {
     try {
-        // Chamar sua API de IA
+        // Call your AI API
         const response = await fetch('/api/suggest-tags', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -130,31 +130,31 @@ const generateAISuggestions = async () => {
         const suggestions = await response.json();
         setAiSuggestions(suggestions);
     } catch (error) {
-        console.error('Erro na API:', error);
-        // Fallback para sistema de regras
+        console.error('API Error:', error);
+        // Fallback to the rule-based system
         const fallbackSuggestions = SmartTaggingService.suggestTags(title, url);
         setAiSuggestions(fallbackSuggestions);
     }
 };
 ```
 
-### Considerações de Performance
+### Performance Considerations
 
-- ✅ **Processamento Local**: Sem latência de rede
-- ✅ **Cache Inteligente**: Evita reprocessamento desnecessário
-- ✅ **Lazy Loading**: Sugestões geradas apenas quando necessário
-- ✅ **Fallback Robusto**: Sistema de regras sempre disponível
+- ✅ **Local Processing**: No network latency
+- ✅ **Smart Caching**: Avoids unnecessary reprocessing
+- ✅ **Lazy Loading**: Suggestions are generated only when needed
+- ✅ **Robust Fallback**: The rule-based system is always available
 
-### Próximos Passos
+### Next Steps
 
-1. **Testar o Exemplo**: Copie e teste o componente
-2. **Personalizar Regras**: Adicione domínios e palavras-chave específicos
-3. **Integrar API Externa**: Se necessário, conecte com serviços de IA
-4. **Melhorar Interface**: Customize a aparência conforme seu design
+1. **Test the Example**: Copy and test the component
+2. **Customize Rules**: Add specific domains and keywords
+3. **Integrate External API**: If necessary, connect with AI services
+4. **Improve Interface**: Customize the appearance according to your design
 
-### Suporte
+### Support
 
-Para dúvidas sobre integração de IA:
-- 📖 Consulte: `AI_INTEGRATION_GUIDE.md`
-- 🛠️ Execute: `make ai-setup`
-- 📝 Veja este exemplo: `examples/BookmarkFormWithAI.tsx`
+For questions about AI integration:
+- 📖 See: `AI_INTEGRATION_GUIDE.md`
+- 🛠️ Run: `make ai-setup`
+- 📝 See this example: `examples/BookmarkFormWithAI.tsx`

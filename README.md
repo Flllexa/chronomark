@@ -2,101 +2,101 @@
 
 # 🔖 ChronoMark - Smart Bookmark Manager
 
-**Organize, sincronize e encontre seus bookmarks com inteligência artificial**
+**Organize, synchronize, and find your bookmarks with artificial intelligence**
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Available-brightgreen?style=for-the-badge&logo=googlechrome)](https://chrome.google.com/webstore)
 [![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge)](https://github.com/flllexa/chronomark)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-*Transforme o caos dos seus bookmarks em uma biblioteca organizada e inteligente*
+*Transform the chaos of your bookmarks into an organized and intelligent library*
 
 </div>
 
 ---
 
-## ✨ Por que ChronoMark?
+## ✨ Why ChronoMark?
 
-**Cansado de perder bookmarks importantes?** ChronoMark é a solução definitiva para gerenciar seus favoritos com **inteligência artificial**, **sincronização automática** e **organização por tags**.
+**Tired of losing important bookmarks?** ChronoMark is the definitive solution for managing your favorites with **artificial intelligence**, **automatic synchronization**, and **tag-based organization**.
 
-### 🎯 Principais Funcionalidades
+### 🎯 Key Features
 
-- **🏷️ Sistema de Tags Inteligente** - Organize bookmarks por categorias personalizadas
-- **☁️ Sincronização Google Drive** - Seus dados seguros e acessíveis em qualquer lugar
-- **🔍 Busca Avançada** - Encontre qualquer bookmark instantaneamente
-- **🤖 IA Integrada** - Sugestões automáticas de tags e organização
-- **📊 Estatísticas Detalhadas** - Acompanhe seus hábitos de navegação
-- **🔒 Privacidade Total** - Seus dados ficam apenas com você
+- **🏷️ Smart Tagging System** - Organize bookmarks by custom categories
+- **☁️ Google Drive Synchronization** - Your data, secure and accessible anywhere
+- **🔍 Advanced Search** - Find any bookmark instantly
+- **🤖 Integrated AI** - Automatic suggestions for tags and organization
+- **📊 Detailed Statistics** - Track your browsing habits
+- **🔒 Total Privacy** - Your data stays only with you
 
-### 🚀 Benefícios Únicos
+### 🚀 Unique Benefits
 
-| Recurso | ChronoMark | Bookmarks Padrão |
-|---------|------------|-------------------|
-| **Tags Personalizadas** | ✅ Ilimitadas | ❌ Apenas pastas |
-| **Sincronização** | ✅ Google Drive | ❌ Limitada |
-| **Busca Inteligente** | ✅ IA + Filtros | ❌ Busca básica |
-| **Estatísticas** | ✅ Detalhadas | ❌ Nenhuma |
-| **Interface Moderna** | ✅ Dark/Light | ❌ Básica |
+| Feature | ChronoMark | Standard Bookmarks |
+|---|---|---|
+| **Custom Tags** | ✅ Unlimited | ❌ Folders only |
+| **Synchronization** | ✅ Google Drive | ❌ Limited |
+| **Smart Search** | ✅ AI + Filters | ❌ Basic search |
+| **Statistics** | ✅ Detailed | ❌ None |
+| **Modern Interface** | ✅ Dark/Light | ❌ Basic |
 
 ---
 
-## 🎬 Como Funciona
+## 🎬 How It Works
 
-### 1. **Instale e Configure**
+### 1. **Install and Configure**
 ```bash
-# Clone o repositório
+# Clone the repository
 git clone https://github.com/flllexa/chronomark.git
 cd chronomark
 
-# Instale dependências
+# Install dependencies
 make install
 
-# Configure sua API key do Gemini
-echo "GEMINI_API_KEY=sua_api_key_aqui" > .env.local
+# Configure your Gemini API key
+echo "GEMINI_API_KEY=your_api_key_here" > .env.local
 ```
 
-### 2. **Build e Carregue no Chrome**
+### 2. **Build and Load in Chrome**
 ```bash
-# Build da extensão
+# Build the extension
 make build
 
-# Carregue no Chrome:
-# 1. Vá para chrome://extensions/
-# 2. Ative o "Modo do desenvolvedor"
-# 3. Clique em "Carregar sem compactação"
-# 4. Selecione a pasta 'dist'
+# Load in Chrome:
+# 1. Go to chrome://extensions/
+# 2. Enable "Developer mode"
+# 3. Click "Load unpacked"
+# 4. Select the 'dist' folder
 ```
 
-### 3. **Configure OAuth (Opcional)**
-Para sincronização com Google Drive:
+### 3. **Configure OAuth (Optional)**
+For Google Drive synchronization:
 ```bash
-make oauth-setup    # Guia de configuração
-make oauth-test     # Testar configuração
+make oauth-setup    # Configuration guide
+make oauth-test     # Test configuration
 ```
 
 ---
 
-## 🛠️ Comandos Disponíveis
+## 🛠️ Available Commands
 
-### **Desenvolvimento**
+### **Development**
 ```bash
-make help           # Mostrar todos os comandos
-make install        # Instalar dependências
-make build          # Build da extensão
-make dev            # Modo desenvolvimento
+make help           # Show all commands
+make install        # Install dependencies
+make build          # Build the extension
+make dev            # Development mode
 ```
 
 ### **Chrome Web Store**
 ```bash
-make package        # Criar arquivo ZIP para publicação
-make store-info     # Informações da loja
-make store-help     # Guia de publicação
+make package        # Create ZIP file for publishing
+make store-info     # Store information
+make store-help     # Publishing guide
 ```
 
-### **OAuth & Configuração**
+### **OAuth & Configuration**
 ```bash
-make oauth-setup    # Configurar OAuth
-make oauth-help     # Ajuda com OAuth
-make oauth-test     # Testar configuração
+make oauth-setup    # Configure OAuth
+make oauth-help     # Help with OAuth
+make oauth-test     # Test configuration
 ```
 
 ---
@@ -105,20 +105,20 @@ make oauth-test     # Testar configuração
 
 <div align="center">
 
-### Interface Principal
-*Organize seus bookmarks com tags inteligentes*
+### Main Interface
+*Organize your bookmarks with smart tags*
 
-### Sistema de Tags
-*Adicione e gerencie tags personalizadas*
+### Tagging System
+*Add and manage custom tags*
 
-### Sincronização Google Drive
-*Seus dados seguros na nuvem*
+### Google Drive Synchronization
+*Your data, safe in the cloud*
 
 </div>
 
 ---
 
-## 🔧 Tecnologias Utilizadas
+## 🔧 Technologies Used
 
 - **Frontend**: React + TypeScript + Vite
 - **Styling**: CSS Modules + Design System
@@ -129,35 +129,35 @@ make oauth-test     # Testar configuração
 
 ---
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-1. **Fork** o projeto
-2. **Clone** seu fork: `git clone https://github.com/seu-usuario/chronomark.git`
-3. **Crie** uma branch: `git checkout -b feature/nova-funcionalidade`
-4. **Commit** suas mudanças: `git commit -m 'Add: nova funcionalidade'`
-5. **Push** para a branch: `git push origin feature/nova-funcionalidade`
-6. **Abra** um Pull Request
-
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+1. **Fork** the project
+2. **Clone** your fork: `git clone https://github.com/your-username/chronomark.git`
+3. **Create** a branch: `git checkout -b feature/new-feature`
+4. **Commit** your changes: `git commit -m 'Add: new feature'`
+5. **Push** to the branch: `git push origin feature/new-feature`
+6. **Open** a Pull Request
 
 ---
 
-## 🆘 Suporte
+## 📄 License
 
-- **📧 Email**: [suporte@chronomark.com](mailto:suporte@chronomark.com)
+This project is under the MIT license. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## 🆘 Support
+
+- **📧 Email**: [support@chronomark.com](mailto:support@chronomark.com)
 - **🐛 Issues**: [GitHub Issues](https://github.com/flllexa/chronomark/issues)
-- **📖 Documentação**: [Wiki do Projeto](https://github.com/flllexa/chronomark/wiki)
+- **📖 Documentation**: [Project Wiki](https://github.com/flllexa/chronomark/wiki)
 
 ---
 
 <div align="center">
 
-**⭐ Se o ChronoMark te ajudou, deixe uma estrela no GitHub!**
+**⭐ If ChronoMark helped you, leave a star on GitHub!**
 
-*Feito com ❤️ para organizar a web*
+*Made with ❤️ to organize the web*
 
 </div>

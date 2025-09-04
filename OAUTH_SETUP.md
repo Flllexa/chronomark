@@ -29,7 +29,7 @@ Where `<EXTENSION_ID>` is your actual Chrome extension ID.
 2. Navigate to **APIs & Services** > **Credentials**
 3. Find your OAuth 2.0 Client ID (the one matching your manifest.json client_id)
 4. Click **Edit** on your OAuth client
-5. **IMPORTANTE**: Certifique-se que o tipo de aplicação é **Chrome Extension** (não Web application)
+5. **IMPORTANT**: Make sure the application type is **Chrome Extension** (not Web application)
 6. In the **Application ID** field, enter your Extension ID from Step 1
 7. **Note**: You DON'T need to add redirect URIs manually - Chrome handles this automatically
 

@@ -1,187 +1,187 @@
-# Guia de Publicação na Chrome Web Store
+# Chrome Web Store Publishing Guide
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-### 1. Conta de Desenvolvedor
-- [ ] Conta Google ativa
-- [ ] Taxa única de $5 USD paga no [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/)
-- [ ] Verificação de identidade concluída
+### 1. Developer Account
+- [ ] Active Google Account
+- [ ] One-time $5 USD fee paid on the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/)
+- [ ] Identity verification completed
 
-### 2. Extensão Pronta
-- [ ] OAuth configurado e funcionando
-- [ ] Testes completos realizados
-- [ ] Versão final buildada
-- [ ] Arquivo ZIP criado
+### 2. Extension Ready
+- [ ] OAuth configured and working
+- [ ] Complete tests performed
+- [ ] Final version built
+- [ ] ZIP file created
 
-## 🛠️ Preparação para Publicação
+## 🛠️ Preparation for Publishing
 
-### Comandos Makefile Disponíveis
+### Available Makefile Commands
 ```bash
-# Criar pacote para Chrome Web Store
+# Create package for Chrome Web Store
 make package
 
-# Validar extensão antes da publicação
+# Validate extension before publishing
 make validate-store
 
-# Preparar todos os assets necessários
+# Prepare all necessary assets
 make prepare-store-assets
 ```
 
-## 📦 Assets Necessários
+## 📦 Required Assets
 
-### 1. Ícones (✅ Já disponíveis)
+### 1. Icons (✅ Already available)
 - `icon16.png` - 16x16px
 - `icon48.png` - 48x48px  
 - `icon128.png` - 128x128px
 
-### 2. Screenshots (Obrigatório)
-- **Tamanho:** 1280x800px ou 640x400px
-- **Formato:** PNG ou JPEG
-- **Quantidade:** Mínimo 1, máximo 5
-- **Conteúdo:** Mostrar funcionalidades principais da extensão
+### 2. Screenshots (Required)
+- **Size:** 1280x800px or 640x400px
+- **Format:** PNG or JPEG
+- **Quantity:** Minimum 1, maximum 5
+- **Content:** Show the main features of the extension
 
-### 3. Tile Icon (Opcional)
-- **Tamanho:** 440x280px
-- **Formato:** PNG
-- **Uso:** Destaque na Chrome Web Store
+### 3. Tile Icon (Optional)
+- **Size:** 440x280px
+- **Format:** PNG
+- **Use:** Spotlight on the Chrome Web Store
 
-### 4. Promotional Images (Opcional)
+### 4. Promotional Images (Optional)
 - **Small tile:** 440x280px
 - **Large tile:** 920x680px
 - **Marquee:** 1400x560px
 
-## 📝 Informações da Listagem
+## 📝 Listing Information
 
-### Informações Básicas
-- **Nome:** ChronoMark - Tag & Sync Bookmarks
-- **Descrição Curta:** Organize e sincronize seus bookmarks com tags inteligentes e backup no Google Drive
-- **Categoria:** Productivity
-- **Idioma:** Portuguese (Brazil) / English
+### Basic Information
+- **Name:** ChronoMark - Tag & Sync Bookmarks
+- **Short Description:** Organize and sync your bookmarks with smart tags and Google Drive backup
+- **Category:** Productivity
+- **Language:** Portuguese (Brazil) / English
 
-### Descrição Detalhada
+### Detailed Description
 ```
-🔖 ChronoMark - Organize seus bookmarks como nunca antes!
+🔖 ChronoMark - Organize your bookmarks like never before!
 
-✨ RECURSOS PRINCIPAIS:
-• 🏷️ Sistema de tags inteligente para organização
-• ☁️ Sincronização automática com Google Drive
-• 🔍 Busca avançada por título, URL e tags
-• 📱 Interface moderna e responsiva
-• 🚀 Performance otimizada com virtualização
-• 🔒 Dados seguros e privados
+✨ KEY FEATURES:
+• 🏷️ Smart tagging system for organization
+• ☁️ Automatic synchronization with Google Drive
+• 🔍 Advanced search by title, URL, and tags
+• 📱 Modern and responsive interface
+• 🚀 Optimized performance with virtualization
+• 🔒 Secure and private data
 
-🎯 FUNCIONALIDADES:
-• Adicione tags personalizadas aos seus bookmarks
-• Sincronize automaticamente com Google Drive
-• Busque rapidamente por qualquer bookmark
-• Gerencie tags com facilidade
-• Backup automático dos seus dados
-• Interface limpa e intuitiva
+🎯 FEATURES:
+• Add custom tags to your bookmarks
+• Automatically sync with Google Drive
+• Quickly search for any bookmark
+• Manage tags with ease
+• Automatic backup of your data
+• Clean and intuitive interface
 
-🔧 COMO USAR:
-1. Instale a extensão
-2. Configure a sincronização com Google Drive
-3. Comece a organizar seus bookmarks com tags
-4. Aproveite a busca rápida e eficiente!
+🔧 HOW TO USE:
+1. Install the extension
+2. Set up synchronization with Google Drive
+3. Start organizing your bookmarks with tags
+4. Enjoy fast and efficient searching!
 
-🛡️ PRIVACIDADE:
-Seus dados ficam seguros no seu Google Drive pessoal. Não coletamos nem compartilhamos informações pessoais.
+🛡️ PRIVACY:
+Your data is kept secure in your personal Google Drive. We do not collect or share personal information.
 
-💡 SUPORTE:
-Problemas ou sugestões? Entre em contato através do GitHub.
+💡 SUPPORT:
+Problems or suggestions? Get in touch via GitHub.
 ```
 
-## 🔒 Privacidade e Permissões
+## 🔒 Privacy and Permissions
 
-### Permissões Utilizadas
-- `bookmarks` - Acesso aos bookmarks do Chrome
-- `storage` - Armazenamento local de configurações
-- `identity` - Autenticação com Google Drive
-- `https://www.googleapis.com/*` - API do Google Drive
+### Permissions Used
+- `bookmarks` - Access to Chrome bookmarks
+- `storage` - Local storage for settings
+- `identity` - Authentication with Google Drive
+- `https://www.googleapis.com/*` - Google Drive API
 
-### Justificativas
-- **bookmarks:** Necessário para ler e organizar os bookmarks do usuário
-- **storage:** Armazenar configurações e cache local
-- **identity:** Autenticação OAuth para sincronização
-- **googleapis.com:** Comunicação com Google Drive API
+### Justifications
+- **bookmarks:** Required to read and organize the user's bookmarks
+- **storage:** Store settings and local cache
+- **identity:** OAuth authentication for synchronization
+- **googleapis.com:** Communication with the Google Drive API
 
-## 📋 Checklist de Publicação
+## 📋 Publishing Checklist
 
-### Antes de Enviar
-- [ ] Extensão testada em diferentes cenários
-- [ ] OAuth funcionando corretamente
-- [ ] Screenshots criados
-- [ ] Descrição revisada
-- [ ] Política de privacidade criada
-- [ ] Arquivo ZIP gerado com `make package`
-- [ ] Versão no manifest.json atualizada
+### Before Submitting
+- [ ] Extension tested in different scenarios
+- [ ] OAuth working correctly
+- [ ] Screenshots created
+- [ ] Description reviewed
+- [ ] Privacy policy created
+- [ ] ZIP file generated with `make package`
+- [ ] Version in manifest.json updated
 
-### Durante o Envio
-- [ ] Upload do arquivo ZIP
-- [ ] Preenchimento de todas as informações
-- [ ] Upload dos screenshots
-- [ ] Configuração de privacidade
-- [ ] Revisão final
-- [ ] Submissão para análise
+### During Submission
+- [ ] Upload the ZIP file
+- [ ] Fill in all information
+- [ ] Upload screenshots
+- [ ] Privacy settings configuration
+- [ ] Final review
+- [ ] Submit for review
 
-### Após o Envio
-- [ ] Aguardar revisão (1-3 dias úteis)
-- [ ] Responder a possíveis solicitações de mudança
-- [ ] Publicação aprovada
-- [ ] Monitorar reviews e feedback
+### After Submission
+- [ ] Wait for review (1-3 business days)
+- [ ] Respond to any change requests
+- [ ] Publication approved
+- [ ] Monitor reviews and feedback
 
-## 🚀 Processo de Publicação
+## 🚀 Publishing Process
 
-### 1. Preparar Pacote
+### 1. Prepare Package
 ```bash
-# Gerar versão final
+# Generate final version
 make build
 
-# Criar pacote ZIP
+# Create ZIP package
 make package
 ```
 
-### 2. Acessar Developer Dashboard
-1. Vá para [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/)
-2. Faça login com sua conta Google
-3. Pague a taxa de $5 USD (se ainda não pago)
+### 2. Access Developer Dashboard
+1. Go to [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/)
+2. Log in with your Google account
+3. Pay the $5 USD fee (if not already paid)
 
-### 3. Criar Nova Listagem
-1. Clique em "Add new item"
-2. Faça upload do arquivo ZIP
-3. Preencha todas as informações obrigatórias
-4. Adicione screenshots
-5. Configure privacidade e permissões
+### 3. Create New Listing
+1. Click "Add new item"
+2. Upload the ZIP file
+3. Fill in all required information
+4. Add screenshots
+5. Configure privacy and permissions
 
-### 4. Submeter para Revisão
-1. Revise todas as informações
-2. Clique em "Submit for review"
-3. Aguarde aprovação (1-3 dias úteis)
+### 4. Submit for Review
+1. Review all information
+2. Click "Submit for review"
+3. Wait for approval (1-3 business days)
 
-## ⚠️ Possíveis Problemas
+## ⚠️ Potential Issues
 
-### Rejeições Comuns
-- **Permissões desnecessárias:** Justificar todas as permissões
-- **Política de privacidade:** Deve estar clara e acessível
-- **Funcionalidade limitada:** Demonstrar valor real
-- **Screenshots inadequados:** Mostrar funcionalidades reais
+### Common Rejections
+- **Unnecessary permissions:** Justify all permissions
+- **Privacy policy:** Must be clear and accessible
+- **Limited functionality:** Demonstrate real value
+- **Inadequate screenshots:** Show real features
 
-### Soluções
-- Revisar política de privacidade
-- Melhorar screenshots
-- Documentar melhor as funcionalidades
-- Responder rapidamente às solicitações
+### Solutions
+- Review privacy policy
+- Improve screenshots
+- Better document the features
+- Respond quickly to requests
 
-## 📞 Suporte
+## 📞 Support
 
 - **Chrome Web Store Help:** https://support.google.com/chrome_webstore/
 - **Developer Policies:** https://developer.chrome.com/docs/webstore/program-policies/
-- **GitHub Issues:** Para problemas técnicos da extensão
+- **GitHub Issues:** For technical issues with the extension
 
 ---
 
-**Próximos passos:**
-1. Execute `make prepare-store-assets` para preparar todos os assets
-2. Execute `make validate-store` para validação final
-3. Execute `make package` para criar o arquivo ZIP
-4. Siga o processo de publicação acima
+**Next steps:**
+1. Run `make prepare-store-assets` to prepare all assets
+2. Run `make validate-store` for final validation
+3. Run `make package` to create the ZIP file
+4. Follow the publishing process above

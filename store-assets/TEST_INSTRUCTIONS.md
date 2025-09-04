@@ -4,7 +4,7 @@
 
 ### 🔐 Test Account
 - Email: chronomark.test@gmail.com
-- Password: [REMOVIDO POR SEGURANÇA]
+- Password: [REMOVED FOR SECURITY]
 - Google Drive: OAuth permissions configured
 - Test Data: Pre-configured bookmarks with tags
 

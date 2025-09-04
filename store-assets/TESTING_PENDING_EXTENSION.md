@@ -88,7 +88,7 @@ When your extension is “pending review” in the Chrome Web Store, you still h
 make package
 
 # View test instructions
-dmake test-instructions
+make test-instructions
 
 # Review privacy justifications
 make privacy-justifications

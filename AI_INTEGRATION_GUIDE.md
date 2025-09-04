@@ -1,29 +1,29 @@
-# 🤖 Guia de Integração com IA Sem Chaves de API
+# 🤖 AI Integration Guide Without API Keys
 
-## 📋 **Métodos para Integrar IA Sem Expor Chaves**
+## 📋 **Methods to Integrate AI Without Exposing Keys**
 
-### 🔒 **Problema Atual**
-A extensão ChronoMark atualmente não usa IA (arquivo `geminiService.ts` foi removido), mas há várias formas de integrar inteligência artificial sem expor chaves de API diretamente no código da extensão.
+### 🔒 **Current Problem**
+The ChronoMark extension does not currently use AI (the `geminiService.ts` file was removed), but there are several ways to integrate artificial intelligence without exposing API keys directly in the extension's code.
 
 ---
 
-## 🌐 **Método 1: Proxy Backend (Recomendado)**
+## 🌐 **Method 1: Backend Proxy (Recommended)**
 
-### ✅ **Vantagens:**
-- Chaves de API ficam seguras no servidor
-- Controle total sobre uso e limites
-- Possibilidade de cache e otimização
-- Múltiplos provedores de IA
+### ✅ **Advantages:**
+- API keys remain secure on the server
+- Full control over usage and limits
+- Potential for caching and optimization
+- Multiple AI providers
 
-### 🏗️ **Implementação:**
+### 🏗️ **Implementation:**
 
-#### **1. Criar Servidor Proxy**
+#### **1. Create a Proxy Server**
 ```javascript
 // server.js (Node.js + Express)
 const express = require('express');
 const app = express();
 
-// Chave fica segura no servidor
+// Key remains secure on the server
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 app.post('/api/suggest-tags', async (req, res) => {
@@ -39,7 +39,7 @@ app.post('/api/suggest-tags', async (req, res) => {
       body: JSON.stringify({
         contents: [{
           parts: [{
-            text: `Sugira 3-5 tags para este bookmark: Título: ${title}, URL: ${url}`
+            text: `Suggest 3-5 tags for this bookmark: Title: ${title}, URL: ${url}`
           }]
         }]
       })
@@ -48,16 +48,16 @@ app.post('/api/suggest-tags', async (req, res) => {
     const data = await response.json();
     res.json({ tags: extractTags(data) });
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao gerar tags' });
+    res.status(500).json({ error: 'Error generating tags' });
   }
 });
 ```
 
-#### **2. Integrar na Extensão**
+#### **2. Integrate into the Extension**
 ```typescript
 // services/aiService.ts
 export class AIService {
-  private static readonly API_BASE = 'https://seu-servidor.com/api';
+  private static readonly API_BASE = 'https://your-server.com/api';
   
   static async suggestTags(title: string, url: string): Promise<string[]> {
     try {
@@ -70,7 +70,7 @@ export class AIService {
       const data = await response.json();
       return data.tags || [];
     } catch (error) {
-      console.error('Erro ao sugerir tags:', error);
+      console.error('Error suggesting tags:', error);
       return [];
     }
   }
@@ -79,11 +79,11 @@ export class AIService {
 
 ---
 
-## 🆓 **Método 2: APIs Gratuitas Sem Autenticação**
+## 🆓 **Method 2: Free APIs Without Authentication**
 
-### 🌟 **Opções Disponíveis:**
+### 🌟 **Available Options:**
 
-#### **1. Hugging Face Inference API (Gratuita)**
+#### **1. Hugging Face Inference API (Free Tier)**
 ```typescript
 // services/huggingFaceService.ts
 export class HuggingFaceService {
@@ -97,7 +97,7 @@ export class HuggingFaceService {
         body: JSON.stringify({
           inputs: text,
           parameters: {
-            candidate_labels: ['tecnologia', 'educação', 'entretenimento', 'negócios', 'saúde']
+            candidate_labels: ['technology', 'education', 'entertainment', 'business', 'health']
           }
         })
       });
@@ -111,22 +111,22 @@ export class HuggingFaceService {
 }
 ```
 
-#### **2. OpenAI-Compatible APIs Gratuitas**
+#### **2. OpenAI-Compatible Free APIs**
 ```typescript
 // services/freeAIService.ts
 export class FreeAIService {
-  // Groq (gratuito com limite)
+  // Groq (free with limits)
   private static readonly GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
   
   static async generateTags(title: string, url: string): Promise<string[]> {
-    const prompt = `Baseado no título "${title}" e URL "${url}", sugira 3-5 tags relevantes em português. Responda apenas com as tags separadas por vírgula.`;
+    const prompt = `Based on the title \"${title}\" and URL \"${url}\", suggest 3-5 relevant tags in English. Respond only with the tags separated by commas.`;
     
     try {
       const response = await fetch(this.GROQ_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Usar token público ou proxy
+          // Use a public token or a proxy
         },
         body: JSON.stringify({
           model: 'mixtral-8x7b-32768',
@@ -147,7 +147,7 @@ export class FreeAIService {
 
 ---
 
-## 🔧 **Método 3: IA Local no Navegador**
+## 🔧 **Method 3: Local AI in the Browser**
 
 ### 🧠 **Web AI APIs (Experimental)**
 ```typescript
@@ -157,19 +157,19 @@ export class LocalAIService {
   
   static async initializeModel() {
     try {
-      // Usar WebLLM ou similar
+      // Use WebLLM or similar
       const { WebLLM } = await import('@mlc-ai/web-llm');
       this.model = new WebLLM();
       await this.model.reload('Llama-2-7b-chat-hf-q4f16_1');
     } catch (error) {
-      console.error('Erro ao carregar modelo local:', error);
+      console.error('Error loading local model:', error);
     }
   }
   
   static async suggestTags(title: string, url: string): Promise<string[]> {
     if (!this.model) return [];
     
-    const prompt = `Sugira tags para: ${title} (${url})`;
+    const prompt = `Suggest tags for: ${title} (${url})`;
     
     try {
       const response = await this.model.chat(prompt);
@@ -180,7 +180,7 @@ export class LocalAIService {
   }
   
   private static extractTags(response: string): string[] {
-    // Extrair tags da resposta
+    // Extract tags from the response
     return response.split(',').map(tag => tag.trim()).slice(0, 5);
   }
 }
@@ -188,37 +188,37 @@ export class LocalAIService {
 
 ---
 
-## 🎯 **Método 4: IA Baseada em Regras (Sem API)**
+## 🎯 **Method 4: Rule-Based AI (No API)**
 
-### 🔍 **Sistema Inteligente Local**
+### 🔍 **Local Smart System**
 ```typescript
 // services/smartTaggingService.ts
 export class SmartTaggingService {
   private static readonly DOMAIN_TAGS = {
-    'github.com': ['desenvolvimento', 'código', 'tecnologia'],
-    'stackoverflow.com': ['programação', 'desenvolvimento', 'ajuda'],
-    'youtube.com': ['vídeo', 'entretenimento', 'educação'],
-    'medium.com': ['artigo', 'blog', 'leitura'],
-    'linkedin.com': ['profissional', 'carreira', 'networking']
+    'github.com': ['development', 'code', 'technology'],
+    'stackoverflow.com': ['programming', 'development', 'help'],
+    'youtube.com': ['video', 'entertainment', 'education'],
+    'medium.com': ['article', 'blog', 'reading'],
+    'linkedin.com': ['professional', 'career', 'networking']
   };
   
   private static readonly KEYWORD_TAGS = {
-    'tutorial': ['educação', 'aprendizado'],
-    'api': ['desenvolvimento', 'tecnologia'],
-    'react': ['frontend', 'javascript', 'desenvolvimento'],
-    'python': ['programação', 'desenvolvimento'],
-    'design': ['ui/ux', 'criativo']
+    'tutorial': ['education', 'learning'],
+    'api': ['development', 'technology'],
+    'react': ['frontend', 'javascript', 'development'],
+    'python': ['programming', 'development'],
+    'design': ['ui/ux', 'creative']
   };
   
   static suggestTags(title: string, url: string): string[] {
     const tags = new Set<string>();
     
-    // Tags baseadas no domínio
+    // Tags based on domain
     const domain = new URL(url).hostname;
     const domainTags = this.DOMAIN_TAGS[domain] || [];
     domainTags.forEach(tag => tags.add(tag));
     
-    // Tags baseadas em palavras-chave
+    // Tags based on keywords
     const text = `${title} ${url}`.toLowerCase();
     Object.entries(this.KEYWORD_TAGS).forEach(([keyword, keywordTags]) => {
       if (text.includes(keyword)) {
@@ -226,8 +226,8 @@ export class SmartTaggingService {
       }
     });
     
-    // Tags baseadas na estrutura da URL
-    if (url.includes('/docs/')) tags.add('documentação');
+    // Tags based on URL structure
+    if (url.includes('/docs/')) tags.add('documentation');
     if (url.includes('/blog/')) tags.add('blog');
     if (url.includes('/tutorial/')) tags.add('tutorial');
     
@@ -238,9 +238,9 @@ export class SmartTaggingService {
 
 ---
 
-## 🚀 **Implementação na Extensão ChronoMark**
+## 🚀 **Implementation in the ChronoMark Extension**
 
-### 📝 **1. Atualizar BookmarkForm.tsx**
+### 📝 **1. Update BookmarkForm.tsx**
 ```typescript
 // components/BookmarkForm.tsx
 import { SmartTaggingService } from '../services/smartTaggingService';
@@ -251,29 +251,29 @@ const BookmarkForm = () => {
   const handleSuggestTags = async () => {
     if (!title || !url) return;
     
-    // Método 1: IA Local (sem API)
+    // Method 1: Local AI (no API)
     const localTags = SmartTaggingService.suggestTags(title, url);
     setSuggestedTags(localTags);
     
-    // Método 2: API Externa (opcional)
+    // Method 2: External API (optional)
     try {
       const aiTags = await AIService.suggestTags(title, url);
       if (aiTags.length > 0) {
         setSuggestedTags(prev => [...new Set([...prev, ...aiTags])]);
       }
     } catch (error) {
-      // Falha silenciosa - usar apenas tags locais
+      // Fail silently - use only local tags
     }
   };
   
   return (
     <div>
-      {/* Formulário existente */}
-      <button onClick={handleSuggestTags}>🤖 Sugerir Tags</button>
+      {/* Existing form */}
+      <button onClick={handleSuggestTags}>🤖 Suggest Tags</button>
       
       {suggestedTags.length > 0 && (
-        <div className="suggested-tags">
-          <p>Tags sugeridas:</p>
+        <div class="suggested-tags">
+          <p>Suggested tags:</p>
           {suggestedTags.map(tag => (
             <button key={tag} onClick={() => addTag(tag)}>
               {tag}
@@ -286,66 +286,66 @@ const BookmarkForm = () => {
 };
 ```
 
-### 📝 **2. Adicionar ao Makefile**
+### 📝 **2. Add to Makefile**
 ```makefile
-# Configurar integração com IA
+# Configure AI integration
 ai-setup:
-	@echo "🤖 CONFIGURAÇÃO DE IA - CHRONOMARK"
+	@echo "🤖 AI CONFIGURATION - CHRONOMARK"
 	@echo "═══════════════════════════════════════"
 	@echo ""
-	@echo "📋 MÉTODOS DISPONÍVEIS:"
-	@echo "1. 🔒 Proxy Backend (Recomendado)"
-	@echo "2. 🆓 APIs Gratuitas (HuggingFace, Groq)"
-	@echo "3. 🧠 IA Local (WebLLM)"
-	@echo "4. 🎯 Regras Inteligentes (Sem API)"
+	@echo "📋 AVAILABLE METHODS:"
+	@echo "1. 🔒 Backend Proxy (Recommended)"
+	@echo "2. 🆓 Free APIs (HuggingFace, Groq)"
+	@echo "3. 🧠 Local AI (WebLLM)"
+	@echo "4. 🎯 Smart Rules (No API)"
 	@echo ""
-	@echo "📄 Guia completo: AI_INTEGRATION_GUIDE.md"
+	@echo "📄 Full guide: AI_INTEGRATION_GUIDE.md"
 ```
 
 ---
 
-## 🔒 **Considerações de Segurança**
+## 🔒 **Security Considerations**
 
-### ✅ **Boas Práticas:**
-1. **Nunca** incluir chaves de API no código da extensão
-2. **Sempre** usar HTTPS para comunicação
-3. **Validar** todas as entradas do usuário
-4. **Implementar** rate limiting no proxy
-5. **Usar** fallbacks locais quando APIs falham
+### ✅ **Best Practices:**
+1. **Never** include API keys in the extension's code
+2. **Always** use HTTPS for communication
+3. **Validate** all user inputs
+4. **Implement** rate limiting on the proxy
+5. **Use** local fallbacks when APIs fail
 
-### 🚨 **Evitar:**
-- Chaves hardcoded no código
-- APIs sem autenticação em produção
-- Dados sensíveis em logs
-- Requests sem timeout
-
----
-
-## 📊 **Comparação de Métodos**
-
-| Método | Custo | Segurança | Performance | Complexidade |
-|--------|-------|-----------|-------------|-------------|
-| Proxy Backend | Baixo | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
-| APIs Gratuitas | Grátis | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
-| IA Local | Grátis | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ |
-| Regras Locais | Grátis | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐ |
+### 🚨 **Avoid:**
+- Hardcoded keys in the code
+- APIs without authentication in production
+- Sensitive data in logs
+- Requests without a timeout
 
 ---
 
-## 🎯 **Recomendação Final**
+## 📊 **Method Comparison**
 
-**Para ChronoMark, recomendo começar com:**
-
-1. **🎯 Sistema de Regras Locais** (implementação imediata)
-2. **🆓 API Gratuita** como fallback (HuggingFace)
-3. **🔒 Proxy Backend** para funcionalidades avançadas (futuro)
-
-Esta abordagem oferece:
-- ✅ Funcionalidade imediata sem APIs
-- ✅ Melhoria gradual com IA externa
-- ✅ Segurança total das chaves
-- ✅ Experiência do usuário consistente
+| Method | Cost | Security | Performance | Complexity |
+|---|---|---|---|---|
+| Backend Proxy | Low | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
+| Free APIs | Free | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
+| Local AI | Free | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ |
+| Local Rules | Free | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐ |
 
 ---
 
-**💡 Próximos passos: Use `make ai-setup` para ver opções de configuração**
+## 🎯 **Final Recommendation**
+
+**For ChronoMark, I recommend starting with:**
+
+1.  **🎯 Local Rules System** (immediate implementation)
+2.  **🆓 Free API** as a fallback (HuggingFace)
+3.  **🔒 Backend Proxy** for advanced features (in the future)
+
+This approach offers:
+- ✅ Immediate functionality without APIs
+- ✅ Gradual improvement with external AI
+- ✅ Total security for keys
+- ✅ Consistent user experience
+
+---
+
+**💡 Next steps: Use `make ai-setup` to see configuration options**
