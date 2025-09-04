@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChronoMark - Tag & Sync Bookmarks",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Save, tag, and sync bookmarks with Google Drive.",
   "permissions": [
     "tabs",
@@ -32,7 +32,7 @@
     "128": "icon128.png"
   },
   "oauth2": {
-    "client_id": "214396245139-svi3a16n68dc0pm5gm8lmn1uslp0sr6b.apps.googleusercontent.com",
+    "client_id": "214396245139-gqr3jjsrand4a0920kogdr2poikuo9rr.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/drive",
       "https://www.googleapis.com/auth/userinfo.email",
