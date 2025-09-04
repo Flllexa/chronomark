@@ -920,26 +920,49 @@
         }
 
         .sync-btn {
-            padding: 0.5rem;
-            border-radius: 9999px;
-            background-color: var(--bg-slate-700);
-            transition: background-color 0.2s;
+            padding: 0.25rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
+            justify-content: center;
+            position: relative;
+            backdrop-filter: blur(8px);
         }
 
         .sync-btn:hover {
-            background-color: var(--cyan-500);
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25), 0 2px 4px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .sync-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(6, 182, 212, 0.2);
         }
 
         .sync-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-color: rgba(148, 163, 184, 0.1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .sync-btn .icon {
             width: 1.25rem;
             height: 1.25rem;
+            color: #e2e8f0;
+            filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+        }
+
+        .sync-btn:hover .icon {
+            color: #ffffff;
         }
 
         .sync-btn .icon.spinning {
@@ -948,12 +971,20 @@
 
         /* Synced state styling */
         .sync-btn.synced {
-            background-color: var(--green-400);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25), 0 1px 3px rgba(0, 0, 0, 0.12);
         }
 
         .sync-btn.synced:hover {
-            background-color: var(--green-400);
-            opacity: 0.8;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            border-color: rgba(5, 150, 105, 0.5);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3), 0 2px 4px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .sync-btn.synced .icon {
+            color: #ffffff;
         }
 
         .login-btn {
