@@ -4,7 +4,7 @@
 
 ### 🔐 Test Account
 - Email: chronomark.test@gmail.com
-- Password: ChromeTest2024!
+- Password: [REMOVIDO POR SEGURANÇA]
 - Google Drive: OAuth permissions configured
 - Test Data: Pre-configured bookmarks with tags
 

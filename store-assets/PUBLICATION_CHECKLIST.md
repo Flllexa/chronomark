@@ -123,7 +123,7 @@ Required to detect when the user visits a site already bookmarked, to suggest ta
 
 🔐 TEST ACCOUNT:
 • Email: chronomark.test@gmail.com
-• Password: ChromeTest2024!
+• Password: [REMOVIDO POR SEGURANÇA]
 • Google Drive: OAuth-scoped for testing
 
 🚀 INITIAL SETUP:
