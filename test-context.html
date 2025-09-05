@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Detection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #0f172a;
+            color: white;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #334155;
+        }
+        .popup { background: #1e293b; }
+        .tab { background: #0e7490; }
+        .unknown { background: #7c2d12; }
+    </style>
+</head>
+<body>
+    <h1>Context Detection Test</h1>
+    <div id="results"></div>
+    
+    <script type="module">
+        // Import our context detection utility
+        import { detectExtensionContext, isPopupContext, isTabContext, getContextClass } from './utils/contextDetection.js';
+        
+        const results = document.getElementById('results');
+        
+        function addResult(label, value, className = '') {
+            const div = document.createElement('div');
+            div.className = `test-result ${className}`;
+            div.innerHTML = `<strong>${label}:</strong> ${value}`;
+            results.appendChild(div);
+        }
+        
+        // Test context detection
+        const context = detectExtensionContext();
+        addResult('Detected Context', context, context);
+        
+        addResult('Is Popup Context', isPopupContext());
+        addResult('Is Tab Context', isTabContext());
+        addResult('Context Class', getContextClass());
+        
+        // Test window properties
+        addResult('Window Inner Width', window.innerWidth);
+        addResult('Window Inner Height', window.innerHeight);
+        addResult('Window Outer Width', window.outerWidth);
+        addResult('Window Outer Height', window.outerHeight);
+        
+        // Test URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        addResult('URL Context Parameter', urlParams.get('context') || 'none');
+        
+        // Test if we're in extension context
+        addResult('Is Extension URL', window.location.href.startsWith('chrome-extension://'));
+        
+        // Apply context class to body
+        document.body.classList.add(getContextClass());
+    </script>
+</body>
+</html>

@@ -10,8 +10,9 @@ import { SyncStatus } from './components/SyncStatus';
 import { Settings } from './components/Settings';
 import { useBookmarks } from './hooks/useBookmarks';
 import type { Bookmark, CurrentTab } from './types';
-import { AddIcon, SettingsIcon, EditIcon } from './components/icons';
+import { AddIcon, SettingsIcon, EditIcon, OpenInNewTabIcon } from './components/icons';
 import { SortDropdown, type SortOrder } from './components/SortDropdown';
+import { detectExtensionContext, isPopupContext, openInNewTab, getContextClass } from './utils/contextDetection';
 
 const App: React.FC = () => {
     const { 
@@ -39,6 +40,10 @@ const App: React.FC = () => {
     const [showSettings, setShowSettings] = useState(false);
     const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
     const [currentTab, setCurrentTab] = useState<CurrentTab | null>(null);
+
+    // Detect extension context
+    const extensionContext = detectExtensionContext();
+    const isInPopup = isPopupContext();
 
     // Fetch current tab when opening the Add flow
     useEffect(() => {
@@ -236,7 +241,7 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="app-container">
+        <div className={`app-container ${getContextClass()}`}>
             <header className="app-header">
                 <h1>ChronoMark</h1>
                 <div className="header-controls">
@@ -245,6 +250,15 @@ const App: React.FC = () => {
                         isAuthenticated={isAuthenticated}
                         onSync={syncWithGoogleDrive}
                     />
+                    {isInPopup && (
+                        <button
+                            onClick={openInNewTab}
+                            className="open-tab-btn"
+                            title="Open in new tab"
+                        >
+                            <OpenInNewTabIcon className="icon" />
+                        </button>
+                    )}
                     <button onClick={() => {
                         setShowSettings(!showSettings);
                         setIsAdding(false);
