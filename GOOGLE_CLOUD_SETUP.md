@@ -38,10 +38,12 @@ This guide walks you through setting up Google Cloud Console for ChronoMark's OA
 2. Choose **External** user type
 3. Click **Create**
 4. Fill in the required fields:
-   - **App name**: `ChronoMark`
+   - **App name**: `ChronoMark` ⚠️ **IMPORTANT**: Make sure this is NOT "MyApp" or any generic name
    - **User support email**: Your email
    - **Developer contact information**: Your email
 5. Click **Save and Continue**
+
+> **🔍 Note**: If you see "MyApp" or any incorrect name in the OAuth consent screen, follow the steps in `FIX_GOOGLE_APP_NAME.md` to correct it.
 6. On **Scopes** page, click **Add or Remove Scopes**
 7. Add these scopes:
    - `https://www.googleapis.com/auth/drive`
@@ -56,7 +58,7 @@ This guide walks you through setting up Google Cloud Console for ChronoMark's OA
 1. Go to **APIs & Services** → **Credentials**
 2. Click **+ Create Credentials** → **OAuth 2.0 Client ID**
 3. **IMPORTANTE**: Choose **Chrome extension** as application type (NOT Web application)
-4. Enter **Name**: `ChronoMark Extension`
+4. Enter **Name**: `ChronoMark Extension` ⚠️ **IMPORTANT**: Do NOT use "MyApp" or generic names
 5. **Important**: Leave **Application ID** field empty for now
 6. Click **Create**
 7. Copy the **Client ID** (you'll need this for manifest.json)
@@ -120,6 +122,11 @@ This guide walks you through setting up Google Cloud Console for ChronoMark's OA
 #### "access_denied" Error
 - **Cause**: User denied permission or OAuth consent screen not properly configured
 - **Fix**: Check OAuth consent screen configuration
+
+#### App Name Shows as "MyApp" or Generic Name
+- **Cause**: OAuth consent screen or credential names were not properly configured
+- **Fix**: Follow the detailed steps in `FIX_GOOGLE_APP_NAME.md` to update all names to "ChronoMark"
+- **Impact**: Users see incorrect app name during OAuth consent flow
 
 ### Verification Steps
 
