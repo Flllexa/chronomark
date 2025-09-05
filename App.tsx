@@ -40,6 +40,33 @@ const App: React.FC = () => {
     const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
     const [currentTab, setCurrentTab] = useState<CurrentTab | null>(null);
 
+    // Apply theme based on settings
+    useEffect(() => {
+        const applyTheme = () => {
+            const htmlElement = document.documentElement;
+            
+            if (settings.theme === 'auto') {
+                // Follow browser/system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                htmlElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                // Use explicit theme setting
+                htmlElement.setAttribute('data-theme', settings.theme);
+            }
+        };
+
+        applyTheme();
+
+        // Listen for system theme changes when in auto mode
+        if (settings.theme === 'auto') {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            const handleChange = () => applyTheme();
+            
+            mediaQuery.addEventListener('change', handleChange);
+            return () => mediaQuery.removeEventListener('change', handleChange);
+        }
+    }, [settings.theme]);
+
     // Fetch current tab when opening the Add flow
     useEffect(() => {
         if (isAdding) {

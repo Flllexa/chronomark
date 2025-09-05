@@ -25963,6 +25963,25 @@ Response:`;
             }
           )
         ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "setting-item", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Theme" }),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Choose your preferred color scheme." })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+            "select",
+            {
+              value: settings.theme,
+              onChange: (e) => onUpdateSettings({ theme: e.target.value }),
+              className: "theme-select",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "auto", children: "Auto (Follow Browser)" }),
+                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "light", children: "Light" }),
+                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "dark", children: "Dark" })
+              ]
+            }
+          )
+        ] }),
         /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "setting-item", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h3", { children: "Google Drive Location" }),
           /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { children: "Your bookmarks are saved in:" }),
@@ -26627,7 +26646,7 @@ Response:`;
     const [bookmarks, setBookmarks] = (0, import_react7.useState)([]);
     const [syncStatus, setSyncStatus] = (0, import_react7.useState)({ status: "idle", lastSync: null });
     const [isAuthenticated, setIsAuthenticated] = (0, import_react7.useState)(false);
-    const [settings, setSettings] = (0, import_react7.useState)({ autoSync: true });
+    const [settings, setSettings] = (0, import_react7.useState)({ autoSync: true, theme: "auto" });
     const [importStatus, setImportStatus] = (0, import_react7.useState)({ status: "idle" });
     const loadBookmarks = (0, import_react7.useCallback)(async () => {
       try {
@@ -26920,6 +26939,24 @@ Response:`;
     const [showSettings, setShowSettings] = (0, import_react8.useState)(false);
     const [editingBookmark, setEditingBookmark] = (0, import_react8.useState)(null);
     const [currentTab, setCurrentTab] = (0, import_react8.useState)(null);
+    (0, import_react8.useEffect)(() => {
+      const applyTheme = () => {
+        const htmlElement = document.documentElement;
+        if (settings.theme === "auto") {
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          htmlElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+        } else {
+          htmlElement.setAttribute("data-theme", settings.theme);
+        }
+      };
+      applyTheme();
+      if (settings.theme === "auto") {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const handleChange = () => applyTheme();
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+      }
+    }, [settings.theme]);
     (0, import_react8.useEffect)(() => {
       if (isAdding) {
         if (typeof chrome !== "undefined" && chrome.tabs) {

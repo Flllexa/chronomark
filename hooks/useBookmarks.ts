@@ -66,7 +66,7 @@ export const useBookmarks = () => {
     const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
     const [syncStatus, setSyncStatus] = useState<SyncStatus>({ status: 'idle', lastSync: null });
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [settings, setSettings] = useState<Settings>({ autoSync: true });
+    const [settings, setSettings] = useState<Settings>({ autoSync: true, theme: 'auto' });
     const [importStatus, setImportStatus] = useState<ImportStatus>({ status: 'idle' });
 
     const loadBookmarks = useCallback(async () => {

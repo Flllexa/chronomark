@@ -21,8 +21,11 @@ export interface SyncStatus {
     lastSync?: number | null;
 }
 
+export type ThemeMode = 'light' | 'dark' | 'auto';
+
 export interface Settings {
     autoSync: boolean;
+    theme: ThemeMode;
 }
 
 export type ImportStatusState = 'idle' | 'scanning' | 'importing' | 'success' | 'error';
