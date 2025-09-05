@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' *; object-src 'none';">
     <title>ChronoMark</title>
     <style>
         :root {
@@ -593,8 +594,9 @@
             padding: 0.5rem 0.75rem;
             border-radius: 0.5rem;
             box-shadow: var(--shadow-md);
-            transition: background-color 0.2s ease-in-out;
-            background-color: var(--bg-slate-800);
+            transition: all 0.2s ease-in-out;
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
             height: 100px;
             /* Further reduced height for better spacing */
             display: flex;
@@ -608,7 +610,10 @@
         }
 
         .bookmark-item:hover {
-            background-color: var(--bg-slate-700-50);
+            background-color: var(--tertiary-bg);
+            border-color: var(--cyan-400);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
         }
 
         .bookmark-item-header {
