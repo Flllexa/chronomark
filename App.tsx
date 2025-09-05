@@ -10,8 +10,9 @@ import { SyncStatus } from './components/SyncStatus';
 import { Settings } from './components/Settings';
 import { useBookmarks } from './hooks/useBookmarks';
 import type { Bookmark, CurrentTab } from './types';
-import { AddIcon, SettingsIcon, EditIcon } from './components/icons';
+import { AddIcon, SettingsIcon, EditIcon, OpenInNewTabIcon } from './components/icons';
 import { SortDropdown, type SortOrder } from './components/SortDropdown';
+import { detectExtensionContext, isPopupContext, openInNewTab, getContextClass } from './utils/contextDetection';
 
 const App: React.FC = () => {
     const { 
@@ -40,11 +41,15 @@ const App: React.FC = () => {
     const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
     const [currentTab, setCurrentTab] = useState<CurrentTab | null>(null);
 
+    // Detect extension context
+    const extensionContext = detectExtensionContext();
+    const isInPopup = isPopupContext();
+
     // Apply theme based on settings
     useEffect(() => {
         const applyTheme = () => {
             const htmlElement = document.documentElement;
-            
+
             if (settings.theme === 'auto') {
                 // Follow browser/system preference
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -61,7 +66,7 @@ const App: React.FC = () => {
         if (settings.theme === 'auto') {
             const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
             const handleChange = () => applyTheme();
-            
+
             mediaQuery.addEventListener('change', handleChange);
             return () => mediaQuery.removeEventListener('change', handleChange);
         }
@@ -263,7 +268,7 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="app-container">
+        <div className={`app-container ${getContextClass()}`}>
             <header className="app-header">
                 <h1>ChronoMark</h1>
                 <div className="header-controls">
@@ -272,6 +277,15 @@ const App: React.FC = () => {
                         isAuthenticated={isAuthenticated}
                         onSync={syncWithGoogleDrive}
                     />
+                    {isInPopup && (
+                        <button
+                            onClick={openInNewTab}
+                            className="open-tab-btn"
+                            title="Open in new tab"
+                        >
+                            <OpenInNewTabIcon className="icon" />
+                        </button>
+                    )}
                     <button onClick={() => {
                         setShowSettings(!showSettings);
                         setIsAdding(false);
