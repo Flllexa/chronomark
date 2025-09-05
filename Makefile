@@ -1,4 +1,4 @@
-.PHONY: install test build clean dist package help oauth-help oauth-test oauth-setup oauth-extension-id oauth-debug oauth-troubleshoot oauth-fix-redirect oauth-fix-client-id oauth-update-client-id validate-store prepare-store-assets store-help examples huggingface-setup huggingface-start huggingface-stop gemini-setup store-preview
+.PHONY: install test build clean dist package help oauth-help oauth-test oauth-setup oauth-extension-id oauth-debug oauth-troubleshoot oauth-fix-redirect oauth-fix-client-id oauth-update-client-id validate-store prepare-store-assets store-help examples huggingface-setup huggingface-start huggingface-stop gemini-setup store-preview test-pr
 
 # Default target
 all: install build
@@ -10,6 +10,34 @@ install:
 # Test the project (no tests currently defined in package.json)
 test:
 	@echo "No tests currently defined in package.json"
+
+# Test a Pull Request by creating a local branch
+test-pr:
+	@if [ -z "$(PR)" ]; then \
+		echo "❌ Error: PR number not provided"; \
+		echo "Usage: make test-pr PR=1"; \
+		exit 1; \
+	fi
+	@echo "🔄 Setting up test environment for PR #$(PR)..."
+	@echo "📡 Configuring git to fetch PRs..."
+	@git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*' 2>/dev/null || true
+	@echo "📥 Fetching PR #$(PR)..."
+	@git fetch origin
+	@echo "🌿 Creating test branch for PR #$(PR)..."
+	@git checkout -b test-pr-$(PR) origin/pr/$(PR)
+	@echo ""
+	@echo "✅ Test branch 'test-pr-$(PR)' created successfully!"
+	@echo "📋 Recent commits on this branch:"
+	@git log --oneline -3
+	@echo ""
+	@echo "🧪 NEXT STEPS:"
+	@echo "   • Test the application normally"
+	@echo "   • Verify new features work correctly"
+	@echo "   • Check for any breaking changes"
+	@echo ""
+	@echo "🔄 When finished testing:"
+	@echo "   • Return to master: git checkout master"
+	@echo "   • Delete test branch: git branch -D test-pr-$(PR)"
 
 # Build the project (outputs to dist folder)
 build:
@@ -744,6 +772,7 @@ help:
 	@echo "🔧 DESENVOLVIMENTO:"
 	@echo "  make install          - Instalar dependências"
 	@echo "  make test            - Executar testes"
+	@echo "  make test-pr PR=N    - Testar Pull Request #N localmente"
 	@echo "  make build           - Construir extensão"
 	@echo "  make clean           - Limpar arquivos de build"
 	@echo "  make dist            - Criar pacote de distribuição"
