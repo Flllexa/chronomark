@@ -120,13 +120,15 @@ oauth-setup:
 	@echo "2. Navigate to APIs & Services > Credentials"
 	@echo "3. Find OAuth 2.0 Client ID: <ID>.apps.googleusercontent.com"
 	@echo "4. IMPORTANT: Select 'Chrome Extension' as application type"
-	@echo "5. In the 'Application ID' field, paste the Extension ID"
+	@echo "5. IMPORTANT: Use 'ChronoMark Extension' as name (NOT 'MyApp')"
+	@echo "6. In the 'Application ID' field, paste the Extension ID"
 	@echo ""
 	@echo "Current client_id in manifest.json:"
 	@grep -A 1 '"client_id"' manifest.json || echo "Could not find client_id in manifest.json"
 	@echo ""
 	@echo "To get Extension ID: make oauth-extension-id"
 	@echo "For detailed guide, see: OAUTH_SETUP.md"
+	@echo "To fix app name issues, see: FIX_GOOGLE_APP_NAME.md"
 
 oauth-extension-id:
 	@echo "To get the Extension ID:"
@@ -238,6 +240,25 @@ oauth-fix-client-id:
 	@echo "   3. Enable: Google Sheets API (if needed)"
 	@echo ""
 	@echo "⚡ After any change, wait 5-10min and test with: make oauth-test"
+
+oauth-check-app-name:
+	@echo "🔍 CHECKING APP NAME CONFIGURATION"
+	@echo "═══════════════════════════════════════════════════════"
+	@echo ""
+	@echo "📋 STEPS TO VERIFY APP NAME IN GOOGLE CLOUD CONSOLE:"
+	@echo "1. Go to: https://console.cloud.google.com/apis/credentials/consent"
+	@echo "2. Check that 'App name' shows 'ChronoMark' (NOT 'MyApp')"
+	@echo "3. Go to: https://console.cloud.google.com/apis/credentials"
+	@echo "4. Check that OAuth Client names include 'ChronoMark'"
+	@echo ""
+	@echo "🚨 IF YOU SEE 'MyApp' OR GENERIC NAMES:"
+	@echo "   → Follow the guide: FIX_GOOGLE_APP_NAME.md"
+	@echo "   → This affects user-facing OAuth consent screen"
+	@echo ""
+	@echo "✅ LOCAL CONFIGURATION (should be correct):"
+	@echo "   Extension name in manifest.json:"
+	@grep -o '"name":[^,]*' manifest.json || echo "   ❌ Name not found!"
+	@echo ""
 
 oauth-update-client-id:
 	@if [ -z "$(CLIENT_ID)" ]; then \
