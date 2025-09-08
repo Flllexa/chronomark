@@ -650,6 +650,10 @@ create-centered-screenshots:
 		convert -size 1280x800 xc:black store-assets/screenshot2.png -gravity center -composite store-assets/screenshot2-centered.png; \
 		convert -size 1280x800 xc:black store-assets/screenshot3.png -gravity center -composite store-assets/screenshot3-centered.png; \
 		convert -size 1280x800 xc:black store-assets/screenshot4.png -gravity center -composite store-assets/screenshot4-centered.png; \
+		convert -size 1280x800 xc:black store-assets/screenshot5.png -gravity center -composite store-assets/screenshot5-centered.png; \
+		convert -size 1280x800 xc:black store-assets/screenshot6.png -gravity center -composite store-assets/screenshot6-centered.png; \
+		convert -size 1280x800 xc:black store-assets/screenshot7.png -gravity center -composite store-assets/screenshot7-centered.png; \
+		convert -size 1280x800 xc:black store-assets/screenshot8.png -gravity center -composite store-assets/screenshot8-centered.png; \
 		echo ""; \
 		echo "✅ Centered screenshots created successfully in 1280x800 format!"; \
 	else \
