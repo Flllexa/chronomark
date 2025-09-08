@@ -443,22 +443,22 @@
         }
 
         .virtualized-bookmark-list::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: var(--primary-bg);
             border-radius: 4px;
         }
 
         .virtualized-bookmark-list::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: var(--tertiary-bg);
             border-radius: 4px;
         }
 
         .virtualized-bookmark-list::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: var(--quaternary-bg);
         }
 
         .virtualized-bookmark-list {
             scrollbar-width: thin;
-            scrollbar-color: #334155 #0f172a;
+            scrollbar-color: var(--tertiary-bg) var(--primary-bg);
         }
 
         /* Custom scrollbar for advanced virtualized list */
@@ -467,22 +467,22 @@
         }
 
         .advanced-virtualized-list::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: var(--primary-bg);
             border-radius: 4px;
         }
 
         .advanced-virtualized-list::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: var(--tertiary-bg);
             border-radius: 4px;
         }
 
         .advanced-virtualized-list::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: var(--quaternary-bg);
         }
 
         .advanced-virtualized-list {
             scrollbar-width: thin;
-            scrollbar-color: #334155 #0f172a;
+            scrollbar-color: var(--tertiary-bg) var(--primary-bg);
         }
 
         /* Additional spacing and positioning improvements */
@@ -1566,6 +1566,9 @@
             position: relative;
             min-height: 0;
             /* Allow flex shrinking */
+            background-color: var(--primary-bg);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
         }
 
         /* Virtualized List Styles - Remove internal scrolling */
