@@ -27123,7 +27123,19 @@ Response:`;
             setShowSettings(!showSettings);
             setIsAdding(false);
             setEditingBookmark(null);
-          }, className: "settings-btn", title: "Settings", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SettingsIcon, { className: "icon" }) })
+          }, className: "settings-btn", title: "Settings", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SettingsIcon, { className: "icon" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("button", { onClick: () => {
+            try {
+              var url = typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL ? chrome.runtime.getURL("index.html?context=tab") : "index.html?context=tab";
+              if (typeof chrome !== "undefined" && chrome.tabs && chrome.tabs.create) {
+                chrome.tabs.create({ url });
+              } else {
+                window.open(url, "_blank");
+              }
+            } catch (e) {
+              window.open("index.html?context=tab", "_blank");
+            }
+          }, className: "open-tab-btn", title: "Open in new tab", dangerouslySetInnerHTML: { __html: "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"icon\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25\"></path></svg>" } })
         ] })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("main", { children: renderMainView() })
@@ -27133,6 +27145,16 @@ Response:`;
 
   // index.tsx
   var import_jsx_runtime15 = __toESM(require_jsx_runtime());
+  // Apply context class (popup vs tab) based on URL param without inline scripts
+  try {
+    var __params = new URLSearchParams(location.search);
+    if (__params.get("context") === "tab") {
+      document.documentElement.classList.add("context-tab");
+    } else {
+      document.documentElement.classList.add("context-popup");
+    }
+  } catch (e) {
+  }
   var rootElement = document.getElementById("root");
   if (!rootElement) {
     throw new Error("Could not find root element to mount to");
