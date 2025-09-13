@@ -491,6 +491,9 @@
 
         .tag-input-container:has(.tag-suggestions) {
             overflow: visible;
+            /* Ensure the dropdown renders above nearby sections */
+            position: relative;
+            z-index: 3000;
         }
 
 
@@ -1981,13 +1984,15 @@
         /* Ensure tag suggestions are always visible and properly positioned */
         .tag-input-container:has(.tag-suggestions) {
             position: relative;
-            z-index: 10;
+            /* Put the whole tag input stack above adjacent content */
+            z-index: 3000;
         }
 
         /* Prevent suggestions from being cut off by any container */
         .tag-suggestions {
             position: absolute;
-            z-index: 1000;
+            /* Keep dropdown well above any nearby content */
+            z-index: 5000;
             width: 100%;
             background-color: var(--bg-slate-600);
             border-radius: 0.375rem;
