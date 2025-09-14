@@ -81,6 +81,12 @@
 - Fix: Ensure pop-ups are not blocked  
 - Alternative: Use non-sync mode
 
+### 🤖 Gemini AI Authorization
+- Problem: AI suggestions not appearing  
+- Likely cause: First‑time authorization not granted in this profile  
+- Fix: In the Add/Edit form, click “Ativar sugestões por IA”. Complete the Google consent screen. After authorization, suggestions appear automatically.  
+- Notes: We request the scope `https://www.googleapis.com/auth/generative-language` and call the Gemini `generateContent` endpoint directly from the extension using Chrome Identity OAuth. No API keys are embedded.
+
 ### 📱 Performance
 - Problem: Slow with very large lists  
 - Fix: Use search to filter  
