@@ -57,14 +57,14 @@ class GeminiService {
     /**
      * Get OAuth token from Chrome identity API
      */
-    private async getAuthToken(): Promise<string> {
+    private async getAuthToken(interactive: boolean = false): Promise<string> {
         return new Promise((resolve, reject) => {
             if (!chrome.identity) {
                 reject(new Error('Chrome identity API not available'));
                 return;
             }
 
-            chrome.identity.getAuthToken({ interactive: false }, (token) => {
+            chrome.identity.getAuthToken({ interactive }, (token) => {
                 if (chrome.runtime.lastError) {
                     reject(new Error(`Auth error: ${chrome.runtime.lastError.message}`));
                     return;
@@ -81,13 +81,27 @@ class GeminiService {
     }
 
     /**
+     * Explicitly request interactive auth (must be triggered by a user gesture)
+     */
+    public async requestInteractiveAuth(): Promise<boolean> {
+        try {
+            await this.getAuthToken(true);
+            return true;
+        } catch (err) {
+            console.warn('Interactive auth failed:', err);
+            return false;
+        }
+    }
+
+    /**
      * Make authenticated request to Gemini API
      */
     private async makeGeminiRequest(
         prompt: string,
         config: GeminiConfig = {}
     ): Promise<GeminiResponse> {
-        const token = await this.getAuthToken();
+        // Try silent auth first; UI will offer interactive auth if needed
+        const token = await this.getAuthToken(false);
         const finalConfig = { ...this.defaultConfig, ...config };
 
         const requestBody = {
@@ -312,8 +326,8 @@ Response:`;
                 };
             }
 
-            // Try to get auth token
-            await this.getAuthToken();
+            // Try to get auth token silently
+            await this.getAuthToken(false);
 
             return { available: true };
 
