@@ -28,6 +28,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
     const [geminiStatus, setGeminiStatus] = useState<{available: boolean; reason?: string}>({available: false});
     const [isGeneratingTags, setIsGeneratingTags] = useState(false);
     const [aiSuggestions, setAiSuggestions] = useState<TagSuggestion[]>([]);
+    const [isEnablingAI, setIsEnablingAI] = useState(false);
     const [showAiSuggestions, setShowAiSuggestions] = useState(false);
     const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = useState(false);
     
@@ -362,7 +363,7 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                 </div>
                 
                 {/* AI Tag Suggestions Section */}
-                {geminiStatus.available && (
+                {geminiStatus.available ? (
                     <div className="ai-suggestions-section">
                         {isGeneratingTags && (
                             <div className="ai-generating-status">
@@ -392,6 +393,36 @@ export const BookmarkForm: React.FC<BookmarkFormProps> = ({ onSave, onCancel, on
                                     💡 Estas sugestões foram geradas automaticamente por inteligência artificial com base no título e URL do seu favorito. Clique nas tags para adicioná-las.
                                 </p>
                             </div>
+                        )}
+                    </div>
+                ) : (
+                    <div className="ai-suggestions-section">
+                        <div className="ai-generating-status">
+                            <span className="ai-generating-text">🤖 Sugestões por IA estão desativadas.</span>
+                        </div>
+                        <button
+                            type="button"
+                            disabled={isEnablingAI}
+                            className="btn btn-secondary"
+                            onClick={async () => {
+                                setIsEnablingAI(true);
+                                try {
+                                    const ok = await geminiService.requestInteractiveAuth();
+                                    if (ok) {
+                                        const status = await geminiService.checkAvailability();
+                                        setGeminiStatus(status);
+                                        // permite regenerar automaticamente após autorização
+                                        setHasGeneratedSuggestions(false);
+                                    }
+                                } finally {
+                                    setIsEnablingAI(false);
+                                }
+                            }}
+                        >
+                            {isEnablingAI ? 'Conectando…' : 'Ativar sugestões por IA'}
+                        </button>
+                        {geminiStatus.reason && (
+                            <p className="ai-suggestions-info">{geminiStatus.reason}</p>
                         )}
                     </div>
                 )}
